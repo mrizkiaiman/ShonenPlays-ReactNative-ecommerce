@@ -12,6 +12,7 @@ export default function Input({
   customContainerStyle,
   type,
   passwordConfig,
+  autoCapitalize,
 }) {
   const {width, height} = Size
   const styles = StyleSheet.create({
@@ -78,6 +79,7 @@ export default function Input({
           placeholder={placeholder}
           style={styles.input}
           placeholderTextColor={Colors.gray}
+          autoCapitalize={autoCapitalize}
         />
       </View>
     ))

@@ -1,10 +1,10 @@
-import {StyleSheet, Dimensions} from 'react-native'
-import {Buttons, Colors, Fonts} from '../../style'
+import {StyleSheet} from 'react-native'
+import {Buttons, Colors, Fonts, Size} from '../../style'
+const {width, height} = Size
 
-const {width, height} = Dimensions.get('window')
 export default StyleSheet.create({
   safeAreaContainer: {
-    backgroundColor: Colors.green,
+    backgroundColor: 'white',
     height: height,
     justifyContent: 'space-between',
   },
@@ -16,11 +16,11 @@ export default StyleSheet.create({
     fontFamily: 'Oxanium_600SemiBold',
     fontSize: 45,
     marginBottom: 20,
-    color: Colors.semiYellow,
+    color: Colors.gray,
   },
   headerText: {
     ...Fonts.regularBlack,
-    color: 'white',
+    color: Colors.gray,
     marginBottom: 8,
   },
   getStartedButton: {
@@ -38,7 +38,7 @@ export default StyleSheet.create({
 
 // export default StyleSheet.create({
 //   safeAreaContainer: {
-//     backgroundColor: '#fbe2a6',
+//     backgroundColor: Colors.green,
 //     height: height,
 //     justifyContent: 'space-between',
 //   },
@@ -50,18 +50,18 @@ export default StyleSheet.create({
 //     fontFamily: 'Oxanium_600SemiBold',
 //     fontSize: 45,
 //     marginBottom: 20,
-//     color: Colors.gray,
+//     color: Colors.semiYellow,
 //   },
 //   headerText: {
 //     ...Fonts.regularBlack,
-//     color: Colors.gray,
+//     color: 'white',
 //     marginBottom: 8,
 //   },
 //   getStartedButton: {
 //     ...Buttons.submitButton,
-//     width: width * 0.5,
+//     width: width * 0.45,
 //     alignSelf: 'flex-start',
-//     backgroundColor: Colors.deeperGreen,
+//     backgroundColor: Colors.orange,
 //     marginTop: 20,
 //   },
 //   getStartedButtonText: {

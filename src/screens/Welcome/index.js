@@ -17,9 +17,9 @@ export default Welcome = ({navigation}) => {
           ShonenPlays provides your hobbies needs
         </Text>
         <Text style={styles.headerText}>
-          and it will certainly delivered to
+          and it will certainly fulfilled your desires
         </Text>
-        <Text style={styles.headerText}>you, wherever you are</Text>
+        <Text style={styles.headerText}>no matter what your hobbies are</Text>
         <Button
           styling={{
             buttonStyle: styles.getStartedButton,

@@ -7,24 +7,44 @@ import GoogleIcon from '../../assets/Icons/googleIcon.svg'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 //Services
-import AsyncStorage from '@react-native-community/async-storage'
-import SignInAPI from '../../services/Authenthication/signIn'
+import SignUpAPI from '../../services/Authenthication/signUp'
 
-export default function SignIn({navigation}) {
+export default function SignUp({navigation}) {
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
   const signInOnSubmit = () => {
-    SignInAPI(email, password)
+    SignUpAPI(firstName, lastName, email, password)
       .then(async (response) => {
-        await AsyncStorage.setItem('token', response.token)
-        navigation.navigate('Home')
+        navigation.navigate('SignIn')
       })
       .catch(console.log)
   }
 
   const inputList = [
+    {
+      value: firstName,
+      onChangeText: setFirstName,
+      placeholder: 'First name',
+      type: 'box',
+      customContainerStyle: {
+        marginBottom: 20,
+      },
+      autoCapitalize: 'none',
+    },
+    {
+      value: lastName,
+      onChangeText: setLastName,
+      placeholder: 'Last name',
+      type: 'box',
+      customContainerStyle: {
+        marginBottom: 20,
+      },
+      autoCapitalize: 'none',
+    },
     {
       value: email,
       onChangeText: setEmail,
@@ -54,7 +74,7 @@ export default function SignIn({navigation}) {
         buttonStyle: styles.signInButton,
         textStyle: styles.signInButtonText,
       },
-      title: 'Sign in',
+      title: 'Sign up',
     },
     {
       onSubmit: () => navigation.navigate('Home'),
@@ -81,9 +101,9 @@ export default function SignIn({navigation}) {
               source={require('../../assets/Logo.png')}
             />
           </View>
-          {/* <Text style={styles.headerText}>Let's jump into our store!</Text> */}
+          {/* <Text style={styles.headerText}>Come and join us!</Text> */}
           <Text style={styles.headerText}>
-            Enter your email and password to sign in
+            Please fill all the required data to sign up
           </Text>
         </View>
         <View style={styles.inputsContainer}>
@@ -95,11 +115,11 @@ export default function SignIn({navigation}) {
           <Button key={index} {...button} />
         ))}
         <Text style={styles.navigateToSignUpText}>
-          Don't have an account?{' '}
+          Already have an account?{' '}
           <Text
-            onPress={() => navigation.navigate('SignUp')}
+            onPress={() => navigation.goBack()}
             style={styles.functionalText}>
-            Sign up
+            Sign in
           </Text>
         </Text>
       </View>
