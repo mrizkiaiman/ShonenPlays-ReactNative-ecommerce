@@ -1,13 +1,37 @@
 import React from 'react'
-import {View, Text} from 'react-native'
+import {SafeAreaView, View, Text, Dimensions} from 'react-native'
+import styles from './style'
 //Assets
-import WelcomeBanner from '../../assets/Illustrations/Welcome.svg'
+import WelcomeBanner from '../../assets/Illustrations/Reading.svg'
+//Components
+import Button from '../../components/Button'
 
-export default Welcome = () => {
+export default Welcome = ({navigation}) => {
+  const {width, height} = Dimensions.get('window')
+
   return (
-    <View>
-      <WelcomeBanner />
-      <Text>Welcome</Text>
-    </View>
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <View style={styles.headerTextContainer}>
+        <Text style={styles.headerTitleText}>Welcome!</Text>
+        <Text style={styles.headerText}>
+          ShonenPlays provides your hobbies needs
+        </Text>
+        <Text style={styles.headerText}>
+          and it will certainly delivered to
+        </Text>
+        <Text style={styles.headerText}>you, wherever you are</Text>
+        <Button
+          styling={{
+            buttonStyle: styles.getStartedButton,
+            textStyle: styles.getStartedButtonText,
+          }}
+          onSubmit={() => navigation.navigate('SignIn')}
+          title="Get Started"
+        />
+      </View>
+      <View style={{alignSelf: 'flex-end'}}>
+        <WelcomeBanner width={width * 0.85} height={height * 0.9} />
+      </View>
+    </SafeAreaView>
   )
 }

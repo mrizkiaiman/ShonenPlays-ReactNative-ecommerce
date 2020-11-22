@@ -3,8 +3,20 @@
   "displayName": "client",
   "expo": {
     "packagerOpts": {
-      "sourceExts": ["js", "jsx", "svgx"],
-      "transformer": "node_modules/react-native-svg-transformer/index.js"
+      "config": "metro.config.js",
+      "sourceExts": [
+        "expo.ts",
+        "expo.tsx",
+        "expo.js",
+        "expo.jsx",
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json",
+        "wasm",
+        "svg"
+      ]
     },
     "name": "client",
     "slug": "client",

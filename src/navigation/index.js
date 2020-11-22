@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
 //Components
 import Welcome from '../screens/Welcome'
+import SignIn from '../screens/Sign-In'
 
 export default function navigation() {
   const Stack = createStackNavigator()
@@ -12,8 +13,9 @@ export default function navigation() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName={'GetStarted'}>
+        initialRouteName={'Welcome'}>
         <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="SignIn" component={SignIn} />
       </Stack.Navigator>
     </NavigationContainer>
   )
