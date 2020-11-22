@@ -2,9 +2,9 @@ import React from 'react'
 import {SafeAreaView, View, Text, Dimensions} from 'react-native'
 import styles from './style'
 //Assets
-import WelcomeBanner from '../../assets/Illustrations/Reading.svg'
+import WelcomeBanner from '../../assets/Illustrations/Welcome-game.svg'
 //Components
-import Button from '../../components/Button'
+import Button from '../../src/components/Button'
 
 export default Welcome = ({navigation}) => {
   const {width, height} = Dimensions.get('window')
@@ -30,7 +30,7 @@ export default Welcome = ({navigation}) => {
         />
       </View>
       <View style={{alignSelf: 'flex-end'}}>
-        <WelcomeBanner width={width * 0.85} height={height * 0.9} />
+        <WelcomeBanner width={width * 0.75} height={height} />
       </View>
     </SafeAreaView>
   )

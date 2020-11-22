@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {Buttons, Colors, Fonts, Size} from '../../style'
+import {Buttons, Colors, Fonts, Size} from '../../src/style'
 const {width, height} = Size
 
 export default StyleSheet.create({
@@ -27,7 +27,7 @@ export default StyleSheet.create({
     ...Buttons.submitButton,
     width: width * 0.45,
     alignSelf: 'flex-start',
-    backgroundColor: Colors.orange,
+    backgroundColor: Colors.deeperGreen,
     marginTop: 20,
   },
   getStartedButtonText: {

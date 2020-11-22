@@ -2,6 +2,9 @@
   "name": "client",
   "displayName": "client",
   "expo": {
+    "splash": {
+      "image": "./src/assets/Logo.png"
+    },
     "packagerOpts": {
       "config": "metro.config.js",
       "sourceExts": [
