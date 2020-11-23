@@ -8,18 +8,18 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 //Services
 import AsyncStorage from '@react-native-community/async-storage'
-import SignInAPI from '../../services/Authenthication/signIn'
+import {SignIn} from '../../services/Authenthication'
 
-export default function SignIn({navigation}) {
+export default function SignInScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
   const signInOnSubmit = () => {
-    SignInAPI(email, password)
+    SignIn(email, password)
       .then(async (response) => {
         await AsyncStorage.setItem('token', response.token)
-        navigation.navigate('Home')
+        navigation.navigate('BottomTabs', {screen: 'Home'})
       })
       .catch(console.log)
   }
@@ -57,7 +57,7 @@ export default function SignIn({navigation}) {
       title: 'Sign in',
     },
     {
-      onSubmit: () => navigation.navigate('Home'),
+      onSubmit: () => navigation.navigate('BottomTabs', {screen: 'Home'}),
       styling: {
         buttonStyle: styles.connectWithGoogleButton,
         textStyle: styles.connectWithGoogleButtonText,
@@ -81,7 +81,6 @@ export default function SignIn({navigation}) {
               source={require('../../assets/Logo.png')}
             />
           </View>
-          {/* <Text style={styles.headerText}>Let's jump into our store!</Text> */}
           <Text style={styles.headerText}>
             Enter your email and password to sign in
           </Text>

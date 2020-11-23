@@ -1,7 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native'
-import {Buttons, Colors, Fonts} from '../../style'
+import {Buttons, Colors, Fonts, Size} from '../../style'
 
-const {width, height} = Dimensions.get('window')
+const {width, height} = Size
 export default StyleSheet.create({
   safeAreaContainer: {
     backgroundColor: 'white',

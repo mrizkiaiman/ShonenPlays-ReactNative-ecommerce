@@ -7,9 +7,9 @@ import GoogleIcon from '../../assets/Icons/googleIcon.svg'
 import Input from '../../components/Input'
 import Button from '../../components/Button'
 //Services
-import SignUpAPI from '../../services/Authenthication/signUp'
+import {SignUp} from '../../services/Authenthication/signUp'
 
-export default function SignUp({navigation}) {
+export default function SignUpScreen({navigation}) {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -17,7 +17,7 @@ export default function SignUp({navigation}) {
   const [showPassword, setShowPassword] = useState(false)
 
   const signInOnSubmit = () => {
-    SignUpAPI(firstName, lastName, email, password)
+    SignUp(firstName, lastName, email, password)
       .then(async (response) => {
         navigation.navigate('SignIn')
       })
