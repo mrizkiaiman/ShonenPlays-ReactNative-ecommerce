@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {SafeAreaView, View, Text, Image} from 'react-native'
 import styles from './style'
 //Assets
-import GoogleIcon from '../../assets/Icons/googleIcon.svg'
+import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
 import Input from '../../components/Input'
 import Button from '../../components/Button'

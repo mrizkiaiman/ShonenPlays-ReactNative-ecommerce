@@ -14,7 +14,7 @@ export default function Input({
   passwordConfig,
   autoCapitalize,
 }) {
-  const {width, height} = Size
+  const {width} = Size
   const styles = StyleSheet.create({
     mainContainer: {
       borderWidth: 1,
