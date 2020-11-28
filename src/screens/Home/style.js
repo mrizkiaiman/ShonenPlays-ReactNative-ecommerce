@@ -7,8 +7,13 @@ export default StyleSheet.create({
     height,
     backgroundColor: 'white',
   },
+  carouselContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+  },
   banner: {
-    height: height * 0.4,
+    height: 350,
     backgroundColor: Colors.deeperGreen,
   },
   bannerContentContainer: {

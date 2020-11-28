@@ -3,6 +3,7 @@ import {SafeAreaView, View, Text} from 'react-native'
 import styles from './style'
 //Components
 import SearchBar from '../../components/SearchBar'
+import Carousel from './components/Carousel'
 
 export default function Home() {
   return (
@@ -20,6 +21,9 @@ export default function Home() {
               },
             }}
           />
+        </View>
+        <View style={styles.carouselContainer}>
+          <Carousel />
         </View>
       </View>
     </View>
