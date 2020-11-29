@@ -27,10 +27,15 @@ export default function App() {
     Oxanium_800ExtraBold,
   })
 
+  // if (!fontsLoaded) return <AppLoading />
+  // else if (openApp) {
+  //   return <Navigation />
+  // } else {
+  //   return <AppIntroSlider openApp={() => setOpenApp(true)} />
+  // }
+
   if (!fontsLoaded) return <AppLoading />
-  else if (openApp) {
+  else {
     return <Navigation />
-  } else {
-    return <AppIntroSlider openApp={() => setOpenApp(true)} />
   }
 }

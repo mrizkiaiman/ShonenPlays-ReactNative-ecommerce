@@ -4,21 +4,21 @@ import {Buttons, Colors, Fonts, Size} from '../../style'
 const {width, height} = Size
 export default StyleSheet.create({
   mainContainer: {
-    height,
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
   },
   carouselContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 30,
   },
+  //Banner
   banner: {
     height: 350,
     backgroundColor: Colors.deeperGreen,
+    paddingHorizontal: 20,
   },
   bannerContentContainer: {
     marginTop: 70,
-    marginHorizontal: 20,
   },
   bannerShonenText: {
     ...Fonts.H2,
@@ -34,5 +34,42 @@ export default StyleSheet.create({
     ...Fonts.regularBlack,
     color: 'white',
     marginTop: 10,
+  },
+  //Categories
+  sectionContainer: {
+    marginTop: 175,
+    paddingHorizontal: 25,
+  },
+  sectionHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  sectionContentContainer: {
+    flexDirection: 'row',
+  },
+  titleSectionText: {
+    ...Fonts.regularBlack,
+    fontFamily: 'Oxanium_600SemiBold',
+  },
+  functionalText: {
+    ...Fonts.functional,
+  },
+  //Voucher
+  voucherImageContainer: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 1.44,
+  },
+  voucherImage: {
+    height: 150,
+    width: width * 0.88,
+    borderRadius: 10,
+    marginBottom: 5,
   },
 })

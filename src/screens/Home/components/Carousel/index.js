@@ -33,9 +33,9 @@ export default () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const images = [
     require('../../../../assets/Carousel/carousel-1.png'),
-    require('../../../../assets/Carousel/carousel-2.jpg'),
     require('../../../../assets/Carousel/carousel-3.jpg'),
     require('../../../../assets/Carousel/carousel-4.jpg'),
+    require('../../../../assets/Carousel/carousel-2.jpg'),
   ]
 
   const _renderItem = ({item, index}) => {
@@ -52,17 +52,16 @@ export default () => {
         onSnapToItem={(index) => setActiveSlide(index)}
         autoplay={true}
         layout={'default'}
-        loop={true}
       />
       <Pagination
         style={{height: 200}}
         dotsLength={images.length}
         activeDotIndex={activeSlide}
         dotStyle={{
-          width: 10,
-          height: 10,
+          width: 8,
+          height: 8,
           borderRadius: 5,
-          backgroundColor: '#0a3d62',
+          backgroundColor: Colors.deeperGreen,
         }}
       />
     </View>
