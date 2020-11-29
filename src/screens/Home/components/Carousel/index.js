@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     height: height * 0.239,
     width: width * 0.881,
     borderWidth: 0.2,
-    ...tailwind('rounded-lg border-gray'),
+    ...tailwind('rounded-lg border-dgray'),
   },
   spinner: {
     position: 'absolute',

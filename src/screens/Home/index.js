@@ -1,10 +1,16 @@
 import React from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
-import styles from './style'
+import PopularCategories from './hardcode/popular'
 import Categories from './hardcode/categories'
+//Styling
+import styles from './style'
+import {Size} from '../../style'
+import {tailwind} from '../../style/tailwind'
+const {width, height} = Size
 //Components
 import SearchBar from '../../components/SearchBar'
 import Carousel from './components/Carousel'
+import PopularCategory from './components/PopularCategory'
 import Category from './components/Category'
 
 export default function Home() {
@@ -38,8 +44,8 @@ export default function Home() {
               <Text style={styles.functionalText}>See all</Text>
             </View>
             <ScrollView horizontal style={styles.sectionContentContainer}>
-              {Categories.map((category, index) => (
-                <Category key={index} {...category} />
+              {PopularCategories.map((category, index) => (
+                <PopularCategory key={index} {...category} />
               ))}
             </ScrollView>
           </View>
@@ -65,16 +71,21 @@ export default function Home() {
           <View
             style={{
               ...styles.sectionContainer,
-              marginTop: 10,
-              marginBottom: 30,
+              ...tailwind('mt-2 mb-7'),
+              width,
             }}>
             <View style={styles.sectionHeaderContainer}>
               <Text style={styles.titleSectionText}>Categories</Text>
               <Text style={styles.functionalText}>See all</Text>
             </View>
-            <ScrollView
-              horizontal
-              style={styles.sectionContentContainer}></ScrollView>
+            <View
+              style={tailwind(
+                'flex-row flex-wrap items-center justify-between',
+              )}>
+              {Categories.slice(0, 8).map((category, index) => (
+                <Category key={index} {...category} />
+              ))}
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {Buttons, Size} from '../../style'
+import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 
 const {width, height} = Size

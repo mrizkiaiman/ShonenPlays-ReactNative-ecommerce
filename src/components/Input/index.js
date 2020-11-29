@@ -18,7 +18,7 @@ export default function Input({
   const {width} = Size
   const styles = StyleSheet.create({
     mainContainer: {
-      ...tailwind('border-1 border-gray rounded'),
+      ...tailwind('border-0.8 border-dgray rounded'),
       width: width * 0.9,
       ...customContainerStyle,
     },
@@ -49,7 +49,7 @@ export default function Input({
           style={styles.input}
           secureTextEntry={!passwordConfig.showPassword}
           autoCapitalize="none"
-          placeholderTextColor={tailwind('text-gray')}
+          placeholderTextColor={'#777777'}
         />
         {passwordConfig.showPassword ? (
           <TouchableOpacity
@@ -76,7 +76,7 @@ export default function Input({
           onChangeText={onChangeText}
           placeholder={placeholder}
           style={styles.input}
-          placeholderTextColor={tailwind('text-gray')}
+          placeholderTextColor={'#777777'}
           autoCapitalize={autoCapitalize}
         />
       </View>

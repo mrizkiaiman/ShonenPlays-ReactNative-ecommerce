@@ -1,14 +1,17 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 //Styling
+import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
-import {Colors, Size, Fonts, Buttons} from '../../../../style'
 const {width, height} = Size
+//Assets
+//Components
+//Functions
 
-export default ({name, image}) => {
+export default ({name, icon}) => {
   return (
     <View style={styles.mainContainer}>
-      <Image style={styles.image} source={image} />
+      <View style={styles.iconContainer}>{icon}</View>
       <Text style={styles.nameText}>{name}</Text>
     </View>
   )
@@ -16,17 +19,15 @@ export default ({name, image}) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
+    height: 140,
+    width: 80,
+  },
+  iconContainer: {
     ...tailwind(
-      'justify-center items-center bg-white rounded-lg my-1 mr-5 light-shadow',
+      'justify-center items-center bg-white light-shadow rounded-lg mb-2',
     ),
-    width: 130,
-    height: 200,
+    height: 75,
+    width: 75,
   },
-  image: {
-    width: 110,
-    height: 130,
-    marginVertical: 20,
-    resizeMode: 'contain',
-  },
-  nameText: tailwind('font-H2 text-sm pb-2'),
+  nameText: tailwind('font-normal font-semibold text-center text-xs'),
 })

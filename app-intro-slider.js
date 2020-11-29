@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
-import {Size, Colors} from './src/style'
+import {Size} from './src/style'
 import {tailwind} from './src/style/tailwind'
 const {width, height} = Size
 //Assets
@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
     ...tailwind('justify-center items-center'),
     height: height,
   },
-  titleText: tailwind('font-H2 my-5 text-gray text-3xl'),
+  titleText: tailwind('font-H2 my-5 text-dgray text-3xl'),
   explanationText: {
-    ...tailwind('font-normal text-gray mb-1 text-center'),
+    ...tailwind('font-normal text-dgray mb-1 text-center'),
     width: width * 0.8,
   },
   buttonCircle: {
