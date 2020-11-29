@@ -2,10 +2,8 @@ import React from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
 import styles from './style'
 import Categories from './hardcode/categories'
-import {Buttons, Colors, Fonts, Size} from '../../style'
 //Components
 import SearchBar from '../../components/SearchBar'
-import StatusBar from '../../components/StatusBar'
 import Carousel from './components/Carousel'
 import Category from './components/Category'
 
@@ -67,7 +65,7 @@ export default function Home() {
           <View
             style={{
               ...styles.sectionContainer,
-              marginTop: 40,
+              marginTop: 10,
               marginBottom: 30,
             }}>
             <View style={styles.sectionHeaderContainer}>

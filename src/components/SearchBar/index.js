@@ -3,18 +3,16 @@ import {View, StyleSheet, TextInput} from 'react-native'
 //Assets
 import SearchIcon from '../../assets/Icons/search.svg'
 //Styling
+import {tailwind} from '../../style/tailwind'
 import {Size} from '../../style'
 
 export default function SearchBar({customStyle}) {
   const {width} = Size
   const styles = StyleSheet.create({
     mainContainer: {
+      ...tailwind('w-full flex-row rounded p-4'),
       width: width * 0.9,
       backgroundColor: '#038287',
-      flexDirection: 'row',
-      borderColor: 'red',
-      borderRadius: 6,
-      padding: 15,
       opacity: 0.8,
       ...customStyle.container,
     },

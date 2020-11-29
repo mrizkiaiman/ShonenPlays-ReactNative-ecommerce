@@ -1,11 +1,9 @@
 import React from 'react'
 import {StyleSheet, Text, View, Image} from 'react-native'
 //Styling
+import {tailwind} from '../../../../style/tailwind'
 import {Colors, Size, Fonts, Buttons} from '../../../../style'
 const {width, height} = Size
-//Assets
-//Components
-//Functions
 
 export default ({name, image}) => {
   return (
@@ -18,21 +16,11 @@ export default ({name, image}) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 10,
+    ...tailwind(
+      'justify-center items-center bg-white rounded-lg my-1 mr-5 light-shadow',
+    ),
     width: 130,
     height: 200,
-    marginVertical: 4,
-    marginRight: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 1.44,
   },
   image: {
     width: 110,
@@ -40,9 +28,5 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     resizeMode: 'contain',
   },
-  nameText: {
-    ...Fonts.H2,
-    fontSize: 13,
-    paddingBottom: 10,
-  },
+  nameText: tailwind('font-H2 text-sm pb-2'),
 })

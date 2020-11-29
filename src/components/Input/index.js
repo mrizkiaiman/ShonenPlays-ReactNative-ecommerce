@@ -1,6 +1,7 @@
 import React from 'react'
 import {View, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
 import {Buttons, Colors, Fonts, Size} from '../../style'
+import {tailwind} from '../../style/tailwind'
 //Assets
 import ShowPasswordIcon from '../../assets/Icons/showPassword.svg'
 import HidePasswordIcon from '../../assets/Icons/hidePassword.svg'
@@ -17,16 +18,13 @@ export default function Input({
   const {width} = Size
   const styles = StyleSheet.create({
     mainContainer: {
-      borderWidth: 1,
-      borderColor: Colors.grayBorder,
+      ...tailwind('border-1 border-gray rounded'),
       width: width * 0.9,
-      borderRadius: 4,
       ...customContainerStyle,
     },
     input: {
-      padding: 18,
+      ...tailwind('font-normal p-4'),
       width: width * 0.75,
-      ...Fonts.regularBlack,
     },
     passwordToggle: {
       right: 0,
@@ -51,7 +49,7 @@ export default function Input({
           style={styles.input}
           secureTextEntry={!passwordConfig.showPassword}
           autoCapitalize="none"
-          placeholderTextColor={Colors.gray}
+          placeholderTextColor={tailwind('text-gray')}
         />
         {passwordConfig.showPassword ? (
           <TouchableOpacity
@@ -78,7 +76,7 @@ export default function Input({
           onChangeText={onChangeText}
           placeholder={placeholder}
           style={styles.input}
-          placeholderTextColor={Colors.gray}
+          placeholderTextColor={tailwind('text-gray')}
           autoCapitalize={autoCapitalize}
         />
       </View>

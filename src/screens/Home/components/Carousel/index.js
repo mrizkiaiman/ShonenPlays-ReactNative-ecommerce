@@ -2,21 +2,20 @@ import React, {useState} from 'react'
 import {StyleSheet, View, Image, ActivityIndicator} from 'react-native'
 import Carousel, {Pagination} from 'react-native-snap-carousel'
 //Styling
+import {tailwind} from '../../../../style/tailwind'
 import {Size, Colors} from '../../../../style'
 const {width, height} = Size
 
 const styles = StyleSheet.create({
   mainContainer: {
     width,
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...tailwind('items-center justify-center'),
   },
   image: {
     height: height * 0.239,
     width: width * 0.881,
-    borderRadius: 10,
     borderWidth: 0.2,
-    borderColor: Colors.gray,
+    ...tailwind('rounded-lg border-gray'),
   },
   spinner: {
     position: 'absolute',
@@ -24,8 +23,7 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
+    ...tailwind('items-center justify-center'),
   },
 })
 
@@ -57,12 +55,7 @@ export default () => {
         style={{height: 200}}
         dotsLength={images.length}
         activeDotIndex={activeSlide}
-        dotStyle={{
-          width: 8,
-          height: 8,
-          borderRadius: 5,
-          backgroundColor: Colors.deeperGreen,
-        }}
+        dotStyle={tailwind('w-2 h-2 rounded bg-dgreen')}
       />
     </View>
   )

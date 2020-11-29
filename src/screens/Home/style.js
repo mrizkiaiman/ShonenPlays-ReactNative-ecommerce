@@ -1,62 +1,30 @@
 import {StyleSheet} from 'react-native'
-import {Buttons, Colors, Fonts, Size} from '../../style'
+import {Buttons, Size} from '../../style'
+import {tailwind} from '../../style/tailwind'
 
 const {width, height} = Size
 export default StyleSheet.create({
-  mainContainer: {
-    // backgroundColor: 'white',
-  },
-  carouselContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30,
-  },
-  //Banner
+  carouselContainer: tailwind('justify-center items-center mt-8'),
   banner: {
     height: 350,
-    backgroundColor: Colors.deeperGreen,
-    paddingHorizontal: 20,
+    ...tailwind('bg-dgreen px-5'),
   },
   bannerContentContainer: {
     marginTop: 70,
   },
-  bannerShonenText: {
-    ...Fonts.H2,
-    fontSize: 40,
-    color: 'white',
-  },
-  bannerPlaysText: {
-    ...Fonts.H2,
-    fontSize: 40,
-    color: Colors.semiYellow,
-  },
-  welcomeUserText: {
-    ...Fonts.regularBlack,
-    color: 'white',
-    marginTop: 10,
-  },
-  //Categories
+  bannerShonenText: tailwind('font-H2 text-5xl text-white'),
+  bannerPlaysText: tailwind('font-H2 text-5xl text-semiYellow'),
+  welcomeUserText: tailwind('font-normal text-white mt-3'),
   sectionContainer: {
     marginTop: 175,
     paddingHorizontal: 25,
   },
-  sectionHeaderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  sectionContentContainer: {
-    flexDirection: 'row',
-  },
-  titleSectionText: {
-    ...Fonts.regularBlack,
-    fontFamily: 'Oxanium_600SemiBold',
-  },
-  functionalText: {
-    ...Fonts.functional,
-  },
-  //Voucher
+  sectionHeaderContainer: tailwind(
+    'flex-row items-center justify-between mb-5',
+  ),
+  sectionContentContainer: tailwind('flex-row'),
+  titleSectionText: tailwind('font-semibold text-base'),
+  functionalText: tailwind('font-functional'),
   voucherImageContainer: {
     shadowColor: '#000',
     shadowOffset: {
@@ -69,7 +37,6 @@ export default StyleSheet.create({
   voucherImage: {
     height: 150,
     width: width * 0.88,
-    borderRadius: 10,
-    marginBottom: 5,
+    ...tailwind('mb-1 rounded-xl'),
   },
 })

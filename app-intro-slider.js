@@ -1,6 +1,7 @@
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
-import {Fonts, Size, Colors} from './src/style'
+import {Size, Colors} from './src/style'
+import {tailwind} from './src/style/tailwind'
 const {width, height} = Size
 //Assets
 import GamingIllustration from './src/assets/Illustrations/Intro-screens/Intro-game.svg'
@@ -13,31 +14,17 @@ import AppIntroSlider from 'react-native-app-intro-slider'
 
 const styles = StyleSheet.create({
   mainContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...tailwind('justify-center items-center'),
     height: height,
   },
-  titleText: {
-    ...Fonts.H2,
-    fontSize: 30,
-    marginVertical: 20,
-    color: Colors.gray,
-  },
+  titleText: tailwind('font-H2 my-5 text-gray text-3xl'),
   explanationText: {
-    ...Fonts.regularBlack,
-    color: Colors.gray,
-    marginBottom: 4,
+    ...tailwind('font-normal text-gray mb-1 text-center'),
     width: width * 0.8,
-    textAlign: 'center',
   },
   buttonCircle: {
-    width: 40,
-    height: 40,
+    ...tailwind('w-10 h-10 justify-center items-center mr-5 rounded-3xl'),
     backgroundColor: 'rgba(0, 0, 0, .2)',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 20,
   },
 })
 
@@ -112,7 +99,7 @@ export default function IntroSlider({openApp}) {
 
   return (
     <AppIntroSlider
-      activeDotStyle={{backgroundColor: Colors.orange}}
+      activeDotStyle={tailwind('bg-orange')}
       renderItem={renderScreen}
       data={slides}
       onDone={() => openApp()}
