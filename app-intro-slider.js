@@ -46,13 +46,13 @@ export default function IntroSlider({openApp}) {
 
       image: <DeliveryIllustration width={300} height={300} />,
     },
-    {
-      key: 'two',
-      title: 'All your favorites',
-      firstLineOfText: 'Easily get what you needs,',
-      secondLineOfText: 'we already have covered almost everything',
-      image: <GamingIllustration width={300} height={300} />,
-    },
+    // {
+    //   key: 'two',
+    //   title: 'All your favorites',
+    //   firstLineOfText: 'Easily get what you needs,',
+    //   secondLineOfText: 'we already have covered almost everything',
+    //   image: <GamingIllustration width={300} height={300} />,
+    // },
     {
       key: 'three',
       title: 'Welcome!',

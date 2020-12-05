@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
 import PopularCategories from './hardcode/popular'
 import Categories from './hardcode/categories'
@@ -8,12 +8,25 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Components
+import {Modalize} from 'react-native-modalize'
 import SearchBar from '../../components/SearchBar'
 import Carousel from './components/Carousel'
 import PopularCategory from './components/PopularCategory'
 import Category from './components/Category'
 
 export default function Home() {
+  const modalRef = useRef(null)
+  const modalAction = (action) => {
+    const modal = modalRef.current
+    if (modal) {
+      if (action === 'open') {
+        modal.open()
+      } else if (action === 'close') {
+        modal.close()
+      }
+    }
+  }
+
   return (
     <>
       <ScrollView>
@@ -89,6 +102,7 @@ export default function Home() {
           </View>
         </View>
       </ScrollView>
+      <Modalize ref={modalRef} modalHeight={400}></Modalize>
     </>
   )
 }
