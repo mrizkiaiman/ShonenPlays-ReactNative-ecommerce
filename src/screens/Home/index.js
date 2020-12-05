@@ -1,31 +1,24 @@
-import React, {useRef} from 'react'
+import React, {useEffect, useState} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
-import PopularCategories from './hardcode/popular'
-import Categories from './hardcode/categories'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Components
-import {Modalize} from 'react-native-modalize'
 import SearchBar from '../../components/SearchBar'
 import Carousel from './components/Carousel'
 import PopularCategory from './components/PopularCategory'
 import Category from './components/Category'
+//Functions
+import {useFetchHandler} from '../../hooks'
+import {FetchCategories} from '../../services/Home'
 
-export default function Home() {
-  const modalRef = useRef(null)
-  const modalAction = (action) => {
-    const modal = modalRef.current
-    if (modal) {
-      if (action === 'open') {
-        modal.open()
-      } else if (action === 'close') {
-        modal.close()
-      }
-    }
-  }
+export default function Home({navigation}) {
+  const categoryList = useFetchHandler(FetchCategories)
+  const popularCategoryList = categoryList.response.filter(
+    (category) => category.isPopular === true,
+  )
 
   return (
     <>
@@ -57,7 +50,7 @@ export default function Home() {
               <Text style={styles.functionalText}>See all</Text>
             </View>
             <ScrollView horizontal style={styles.sectionContentContainer}>
-              {PopularCategories.map((category, index) => (
+              {popularCategoryList.map((category, index) => (
                 <PopularCategory key={index} {...category} />
               ))}
             </ScrollView>
@@ -89,20 +82,27 @@ export default function Home() {
             }}>
             <View style={styles.sectionHeaderContainer}>
               <Text style={styles.titleSectionText}>Categories</Text>
-              <Text style={styles.functionalText}>See all</Text>
+              <Text
+                onPress={() =>
+                  navigation.navigate('Categories', {
+                    categoryList: categoryList.response,
+                  })
+                }
+                style={styles.functionalText}>
+                See all
+              </Text>
             </View>
             <View
               style={tailwind(
                 'flex-row flex-wrap items-center justify-between',
               )}>
-              {Categories.slice(0, 8).map((category, index) => (
+              {categoryList.response.slice(0, 9).map((category, index) => (
                 <Category key={index} {...category} />
               ))}
             </View>
           </View>
         </View>
       </ScrollView>
-      <Modalize ref={modalRef} modalHeight={400}></Modalize>
     </>
   )
 }

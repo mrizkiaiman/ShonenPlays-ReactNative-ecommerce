@@ -5,10 +5,10 @@ import {tailwind} from '../../../../style/tailwind'
 import {Colors, Size, Fonts, Buttons} from '../../../../style'
 const {width, height} = Size
 
-export default ({name, image}) => {
+export default ({name, popularIcon}) => {
   return (
     <View style={styles.mainContainer}>
-      <Image style={styles.image} source={image} />
+      <Image style={styles.image} source={{uri: popularIcon}} />
       <Text style={styles.nameText}>{name}</Text>
     </View>
   )

@@ -315,10 +315,12 @@
 		"borderLeftColor": "rgba(255, 255, 255, var(--tw-border-opacity))"
 	},
 	"border-dgray": {
-		"borderColor": "#E2E2E2"
+		"borderColor": "#E2E2E2",
+		"borderWidth": 1
 	},
-	"border-dgray": {
-		"borderColor": "#777777"
+	"border-gray": {
+		"borderColor": "#777777",
+		"borderWidth": 1
 	},
 	"border-red": {
 		"--tw-border-opacity": 1,

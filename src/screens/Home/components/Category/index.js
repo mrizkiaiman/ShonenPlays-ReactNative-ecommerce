@@ -6,12 +6,15 @@ import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
 //Assets
 //Components
+import {SvgUri} from 'react-native-svg'
 //Functions
 
 export default ({name, icon}) => {
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.iconContainer}>{icon}</View>
+      <View style={styles.iconContainer}>
+        <SvgUri width={50} height={50} uri={icon} />
+      </View>
       <Text style={styles.nameText}>{name}</Text>
     </View>
   )
@@ -20,14 +23,14 @@ export default ({name, icon}) => {
 const styles = StyleSheet.create({
   mainContainer: {
     height: 140,
-    width: 80,
+    ...tailwind('justify-center items-center m-1'),
   },
   iconContainer: {
     ...tailwind(
       'justify-center items-center bg-white light-shadow rounded-lg mb-2',
     ),
-    height: 75,
-    width: 75,
+    height: 90,
+    width: 90,
   },
   nameText: tailwind('font-normal font-semibold text-center text-xs'),
 })

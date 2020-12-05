@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import BottomTabs from './components/BottomTabs'
 import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
+import Categories from '../screens/Categories'
 
 export default function navigation() {
   const Stack = createStackNavigator()
@@ -15,7 +16,17 @@ export default function navigation() {
           headerShown: false,
         }}
         initialRouteName={'SignIn'}>
-        <Stack.Screen name="BottomTabs" component={BottomTabs} />
+        <Stack.Screen
+          options={{title: 'Home'}}
+          name="BottomTabs"
+          component={BottomTabs}
+        />
+        <Stack.Screen
+          name="Categories"
+          component={Categories}
+          options={{headerShown: true}}
+        />
+        {/* Authenthication */}
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>

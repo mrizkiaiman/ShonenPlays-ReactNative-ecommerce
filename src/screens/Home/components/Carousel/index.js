@@ -12,10 +12,9 @@ const styles = StyleSheet.create({
     ...tailwind('items-center justify-center'),
   },
   image: {
-    height: height * 0.239,
-    width: width * 0.881,
-    borderWidth: 0.2,
-    ...tailwind('rounded-lg border-dgray'),
+    height: 200,
+    width: width * 0.9,
+    ...tailwind('rounded-lg'),
   },
   spinner: {
     position: 'absolute',
