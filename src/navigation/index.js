@@ -6,6 +6,7 @@ import BottomTabs from './components/BottomTabs'
 import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
 import Categories from '../screens/Categories'
+import ProductListByCategory from '../screens/ProductListByCategory'
 
 export default function navigation() {
   const Stack = createStackNavigator()
@@ -25,6 +26,15 @@ export default function navigation() {
           name="Categories"
           component={Categories}
           options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="ProductListByCategory"
+          component={ProductListByCategory}
+          options={{headerShown: true}}
+          options={({route}) => ({
+            headerShown: true,
+            title: route.params.category.name,
+          })}
         />
         {/* Authenthication */}
         <Stack.Screen name="SignIn" component={SignIn} />
