@@ -1,19 +1,22 @@
 import {useState, useEffect} from 'react'
+import axios from '../services/axios'
 
-export default (method) => {
+export default (options) => {
   const [response, setResponse] = useState([])
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await method()
-        setResponse(data)
-        setIsLoading(false)
-      } catch (error) {
-        setError(true)
-        setIsLoading(false)
-      }
+      axios(options)
+        .then(({data}) => {
+          setResponse(data)
+          setIsLoading(false)
+        })
+        .catch((err) => {
+          setError(true)
+          setIsLoading(false)
+        })
     }
 
     fetchData()

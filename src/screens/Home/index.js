@@ -12,10 +12,13 @@ import PopularCategory from './components/PopularCategory'
 import Category from './components/Category'
 //Functions
 import {useFetchHandler} from '../../hooks'
-import {FetchCategories} from '../../services/Home'
 
 export default function Home({navigation}) {
-  const categoryList = useFetchHandler(FetchCategories)
+  const categoryList = useFetchHandler({
+    method: 'get',
+    url: '/categories',
+  })
+
   const popularCategoryList = categoryList.response.filter(
     (category) => category.isPopular === true,
   )
