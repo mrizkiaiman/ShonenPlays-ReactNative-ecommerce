@@ -100,7 +100,7 @@ export default function Home({navigation}) {
                 'flex-row flex-wrap items-center justify-between',
               )}>
               {categoryList.response.slice(0, 9).map((category, index) => (
-                <Category key={index} {...category} />
+                <Category key={index} category={category} />
               ))}
             </View>
           </View>

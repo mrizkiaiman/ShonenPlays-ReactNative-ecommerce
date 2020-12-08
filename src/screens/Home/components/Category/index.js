@@ -1,22 +1,22 @@
 import React from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 //Styling
-import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
-const {width, height} = Size
-//Assets
 //Components
 import {SvgUri} from 'react-native-svg'
-//Functions
 
-export default ({name, icon}) => {
+export default ({category}) => {
+  const navigation = useNavigation()
   return (
-    <View style={styles.mainContainer}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductListByCategory', {category})}
+      style={styles.mainContainer}>
       <View style={styles.iconContainer}>
-        <SvgUri width={50} height={50} uri={icon} />
+        <SvgUri width={50} height={50} uri={category.icon} />
       </View>
-      <Text style={styles.nameText}>{name}</Text>
-    </View>
+      <Text style={styles.nameText}>{category.name}</Text>
+    </TouchableOpacity>
   )
 }
 
@@ -34,3 +34,8 @@ const styles = StyleSheet.create({
   },
   nameText: tailwind('font-normal font-semibold text-center text-xs'),
 })
+
+// _id,
+// name,
+// isPopular,
+// icon

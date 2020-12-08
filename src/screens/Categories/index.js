@@ -24,10 +24,7 @@ export default ({
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('ProductListByCategory', {
-                  category: {
-                    id: category._id,
-                    name: category.name,
-                  },
+                  category,
                 })
               }
               style={
