@@ -7,6 +7,7 @@ import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
 import Categories from '../screens/Categories'
 import ProductListByCategory from '../screens/ProductListByCategory'
+import ProductDetails from '../screens/ProductDetails'
 
 export default function navigation() {
   const Stack = createStackNavigator()
@@ -34,6 +35,15 @@ export default function navigation() {
           options={({route}) => ({
             headerShown: true,
             title: route.params.category.name,
+          })}
+        />
+        <Stack.Screen
+          name="ProductDetails"
+          component={ProductDetails}
+          options={{headerShown: true}}
+          options={({route}) => ({
+            headerShown: true,
+            title: route.params.product.name,
           })}
         />
         {/* Authenthication */}

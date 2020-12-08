@@ -314,11 +314,11 @@
 		"borderBottomColor": "rgba(255, 255, 255, var(--tw-border-opacity))",
 		"borderLeftColor": "rgba(255, 255, 255, var(--tw-border-opacity))"
 	},
-	"border-dgray": {
+	"border-gray": {
 		"borderColor": "#E2E2E2",
 		"borderWidth": 1
 	},
-	"border-gray": {
+	"border-dgray": {
 		"borderColor": "#777777",
 		"borderWidth": 1
 	},
@@ -4669,7 +4669,7 @@
 		"--tw-text-opacity": 1,
 		"color": "rgba(255, 255, 255, var(--tw-text-opacity))"
 	},
-	"text-dgray": {
+	"text-gray": {
 		"--tw-text-opacity": 1,
 		"color": "rgba(119, 119, 119, var(--tw-text-opacity))"
 	},
