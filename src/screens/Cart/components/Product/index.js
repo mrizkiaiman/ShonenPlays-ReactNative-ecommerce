@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 //Styling
 import {Size} from '../../../../style'
@@ -9,19 +9,21 @@ const {width, height} = Size
 //Components
 import QtyControl from '../../../../components/QtyControl'
 //Functions
+import IDRFormat from '../../../../utils/IDRFormat'
 
-export default () => {
-  const [value, setValue] = useState(1)
+export default ({productData}) => {
+  const {product, qty} = productData
+  const [value, setValue] = useState(qty)
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.productImage}></View>
+      <Image style={styles.productImage} source={{uri: product.img}} />
       <View style={styles.contentContainer}>
         <Text numberOfLines={1} style={styles.productNameText}>
-          Weekly Shonen JUMP #1
+          {product.name}
         </Text>
         <Text numberOfLines={1} style={styles.productPriceText}>
-          Rp15.000
+          Rp{IDRFormat(product.price)}
         </Text>
         <View style={{marginStart: -50, marginTop: 55}}>
           <QtyControl
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
   productImage: {
     height: 150,
     width: 115,
-    backgroundColor: 'green',
+    ...tailwind('rounded-xl'),
   },
   productNameText: {
     ...tailwind('font-normal font-semibold mb-3'),

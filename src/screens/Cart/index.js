@@ -1,15 +1,17 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Text, View, ScrollView} from 'react-native'
 import styles from './style'
-//Styling
-import {Size} from '../../style'
-import {tailwind} from '../../style/tailwind'
 //Components
 import TabScreenHeader from '../../parts/TabScreenHeader'
 import Product from './components/Product'
 import Button from '../../components/Button'
+//Functions
+import useFetchHandler from '../../hooks/useFetchHandler'
+import IDRFormat from '../../utils/IDRFormat'
 
 export default () => {
+  const cartList = useFetchHandler({method: 'get', url: '/carts'}, true)
+
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -20,13 +22,20 @@ export default () => {
           }}
         />
         <View style={styles.productsContainer}>
-          <Product />
+          {cartList &&
+            cartList.response &&
+            cartList.response.products &&
+            cartList.response.products.map((item, index) => (
+              <Product key={item._id} productData={item} />
+            ))}
         </View>
       </ScrollView>
       <View style={styles.footer}>
         <View>
           <Text style={styles.totalText}>Total</Text>
-          <Text style={styles.priceTotalText}>Rp15.000</Text>
+          <Text style={styles.priceTotalText}>
+            Rp{IDRFormat(Number(cartList.response.total))}
+          </Text>
         </View>
         <Button
           title="Checkout"
