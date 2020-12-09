@@ -17,7 +17,10 @@ export default ({route: {params}, navigation}) => {
   const {product} = params
   const relatedProducts = useFetchHandler({
     method: 'get',
-    url: `/products/${product.category}`,
+    url: '/products/category',
+    params: {
+      categoryId: product.category,
+    },
   })
   const [qty, setQty] = useState(1)
 

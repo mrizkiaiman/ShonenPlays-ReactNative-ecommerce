@@ -9,7 +9,31 @@ const {width, height} = Size
 //Components
 //Functions
 
-export default ({value, setValue}) => {
+export default ({
+  value,
+  setValue,
+  customControlContainerStyle,
+  customValueTextStyle,
+  customIconSize,
+}) => {
+  const styles = StyleSheet.create({
+    mainContainer: {
+      ...tailwind('flex-row items-center justify-center'),
+    },
+    controlContainer: {
+      width: 70,
+      height: 60,
+      ...tailwind(
+        'bg-white light-shadow rounded-xl justify-center items-center mx-10',
+      ),
+      ...customControlContainerStyle,
+    },
+    valueText: {
+      ...tailwind('font-semibold text-xl mt-1'),
+      ...customValueTextStyle,
+    },
+  })
+
   const changeValue = (action) => {
     if (action === '+') {
       setValue((value) => value + 1)
@@ -25,28 +49,22 @@ export default ({value, setValue}) => {
       <TouchableOpacity
         onPress={() => changeValue('-')}
         style={styles.controlContainer}>
-        <Feather name="minus" size={32} color="#006266" />
+        <Feather
+          name="minus"
+          size={customIconSize ? customIconSize : 32}
+          color="#006266"
+        />
       </TouchableOpacity>
       <Text style={styles.valueText}>{value}</Text>
       <TouchableOpacity
         onPress={() => changeValue('+')}
         style={styles.controlContainer}>
-        <Feather name="plus" size={32} color="#006266" />
+        <Feather
+          name="plus"
+          size={customIconSize ? customIconSize : 32}
+          color="#006266"
+        />
       </TouchableOpacity>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    ...tailwind('flex-row items-center justify-center'),
-  },
-  controlContainer: {
-    width: 70,
-    height: 60,
-    ...tailwind(
-      'bg-white light-shadow rounded-xl justify-center items-center mx-10',
-    ),
-  },
-  valueText: tailwind('font-semibold text-xl mt-1'),
-})

@@ -4667,7 +4667,7 @@
 	},
 	"text-white": {
 		"--tw-text-opacity": 1,
-		"color": "rgba(255, 255, 255, var(--tw-text-opacity))"
+		"color": "white"
 	},
 	"text-gray": {
 		"--tw-text-opacity": 1,

@@ -10,7 +10,10 @@ import {useFetchHandler} from '../../hooks'
 export default ({navigation, route: {params}}) => {
   const productList = useFetchHandler({
     method: 'get',
-    url: `/products/${params.category._id}`,
+    url: '/products/category',
+    params: {
+      categoryId: params.category._id,
+    },
   })
 
   return (
