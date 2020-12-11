@@ -6,9 +6,10 @@ import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
 import Input from '../../components/Input'
 import Button from '../../components/Button'
-//Services
+//Functions
 import AsyncStorage from '@react-native-community/async-storage'
 import {SignIn} from '../../services/Authenthication'
+import Toast from '../../utils/Toast'
 
 export default function SignInScreen({navigation}) {
   const [email, setEmail] = useState('')
@@ -19,6 +20,7 @@ export default function SignInScreen({navigation}) {
     SignIn(email, password)
       .then(async (response) => {
         await AsyncStorage.setItem('token', response.token)
+        Toast({title: 'Success', text: 'Logged in'})
         navigation.navigate('BottomTabs', {screen: 'Home'})
       })
       .catch(console.log)

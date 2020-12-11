@@ -1,12 +1,13 @@
 import axios from '../axios'
 
-export default async (productId, qty) => {
+export default async (email, password) => {
   try {
     const response = await axios({
-      method: 'patch',
-      url: '/carts/remove',
-      params: {
-        productId,
+      method: 'post',
+      url: '/login',
+      data: {
+        email,
+        password,
       },
     })
     return response.data

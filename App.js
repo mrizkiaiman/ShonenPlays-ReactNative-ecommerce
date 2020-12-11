@@ -3,6 +3,9 @@ import Navigation from './src/navigation'
 import {AppLoading} from 'expo'
 //Components
 import AppIntroSlider from './app-intro-slider'
+
+import Toast from 'react-native-toast-message'
+
 //Fonts
 import {
   useFonts,
@@ -29,7 +32,12 @@ export default function App() {
 
   if (!fontsLoaded) return <AppLoading />
   else if (openApp) {
-    return <Navigation />
+    return (
+      <>
+        <Navigation />
+        <Toast ref={(ref) => Toast.setRef(ref)} />
+      </>
+    )
   } else {
     return <AppIntroSlider openApp={() => setOpenApp(true)} />
   }

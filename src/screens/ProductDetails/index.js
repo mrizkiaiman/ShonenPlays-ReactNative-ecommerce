@@ -11,9 +11,12 @@ import FooterButton from '../../parts/FooterButton'
 import QtyControl from '../../components/QtyControl'
 //Functions
 import IDRFormat from '../../utils/IDRFormat'
+import Toast from '../../utils/Toast'
 import {useFetchHandler} from '../../hooks'
+import {AddToCart} from '../../services/Cart/index'
 
 export default ({route: {params}, navigation}) => {
+  const [qty, setQty] = useState(1)
   const {product} = params
   const relatedProducts = useFetchHandler({
     method: 'get',
@@ -22,7 +25,17 @@ export default ({route: {params}, navigation}) => {
       categoryId: product.category,
     },
   })
-  const [qty, setQty] = useState(1)
+
+  const addToCartOnSubmit = () => {
+    AddToCart(product._id, qty)
+      .then((response) => {
+        Toast({title: 'Success', text: 'Your item has been added to the cart!'})
+        navigation.goBack()
+      })
+      .catch((err) => {
+        Toast({title: 'Error', text: 'Something is wrong', type: 'error'})
+      })
+  }
 
   return (
     <>
@@ -53,7 +66,7 @@ export default ({route: {params}, navigation}) => {
       </ScrollView>
       <View>
         <FooterButton
-          onSubmit={() => console.log('Test')}
+          onSubmit={() => addToCartOnSubmit()}
           styling={{
             buttonStyle: styles.addToCartButton,
             textStyle: styles.addToCartButtonText,
