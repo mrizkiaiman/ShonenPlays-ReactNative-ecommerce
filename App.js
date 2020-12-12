@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Navigation from './src/navigation'
 import {AppLoading} from 'expo'
+import {Provider} from 'react-redux'
+import store from './src/store/index'
 //Components
 import AppIntroSlider from './app-intro-slider'
 
@@ -33,10 +35,10 @@ export default function App() {
   if (!fontsLoaded) return <AppLoading />
   else if (openApp) {
     return (
-      <>
+      <Provider store={store}>
         <Navigation />
         <Toast ref={(ref) => Toast.setRef(ref)} />
-      </>
+      </Provider>
     )
   } else {
     return <AppIntroSlider openApp={() => setOpenApp(true)} />

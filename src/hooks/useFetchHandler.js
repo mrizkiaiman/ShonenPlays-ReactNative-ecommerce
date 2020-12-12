@@ -1,11 +1,15 @@
 import {useState, useEffect} from 'react'
+import {useDispatch} from 'react-redux'
 import axios from '../services/axios'
 import AsyncStorage from '@react-native-community/async-storage'
+//Redux
+import {updateCartState} from '../store/actions/cart'
 
-export default (options, token) => {
+export default (options, token, config) => {
   const [response, setResponse] = useState([])
   const [error, setError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +24,9 @@ export default (options, token) => {
 
       axios(options)
         .then(({data}) => {
+          if (config === 'cartRedux') {
+            dispatch(updateCartState(data[0]))
+          }
           setResponse(data)
           setIsLoading(false)
         })

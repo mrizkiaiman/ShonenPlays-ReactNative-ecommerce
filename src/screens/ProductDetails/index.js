@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import {Text, View, ScrollView, Image} from 'react-native'
+import {useDispatch} from 'react-redux'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
-//Assets
 //Components
 import Product from '../../components/Product'
 import FooterButton from '../../parts/FooterButton'
@@ -13,11 +13,13 @@ import QtyControl from '../../components/QtyControl'
 import IDRFormat from '../../utils/IDRFormat'
 import Toast from '../../utils/Toast'
 import {useFetchHandler} from '../../hooks'
-import {AddToCart} from '../../services/Cart/index'
+import {AddToCart} from '../../services/Cart'
+import {updateCartState} from '../../store/actions/cart'
 
 export default ({route: {params}, navigation}) => {
   const [qty, setQty] = useState(1)
   const {product} = params
+  const dispatch = useDispatch()
   const relatedProducts = useFetchHandler({
     method: 'get',
     url: '/products/category',
@@ -30,6 +32,7 @@ export default ({route: {params}, navigation}) => {
     AddToCart(product._id, qty)
       .then((response) => {
         Toast({title: 'Success', text: 'Your item has been added to the cart!'})
+        dispatch(updateCartState(response.cart))
         navigation.goBack()
       })
       .catch((err) => {

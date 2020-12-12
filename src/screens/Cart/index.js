@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Text, View, ScrollView} from 'react-native'
+import {useSelector} from 'react-redux'
 import styles from './style'
 //Components
 import TabScreenHeader from '../../parts/TabScreenHeader'
@@ -10,7 +11,8 @@ import useFetchHandler from '../../hooks/useFetchHandler'
 import IDRFormat from '../../utils/IDRFormat'
 
 export default () => {
-  const cartList = useFetchHandler({method: 'get', url: '/carts'}, true)
+  useFetchHandler({method: 'get', url: '/carts'}, true, 'cartRedux')
+  const cartListFromRedux = useSelector((state) => state.cart.cart)
 
   return (
     <>
@@ -22,10 +24,9 @@ export default () => {
           }}
         />
         <View style={styles.productsContainer}>
-          {cartList &&
-            cartList.response &&
-            cartList.response.products &&
-            cartList.response.products.map((item, index) => (
+          {cartListFromRedux &&
+            cartListFromRedux.products &&
+            cartListFromRedux.products.map((item, index) => (
               <Product key={item._id} productData={item} />
             ))}
         </View>
@@ -34,7 +35,7 @@ export default () => {
         <View>
           <Text style={styles.totalText}>Total</Text>
           <Text style={styles.priceTotalText}>
-            Rp{IDRFormat(Number(cartList.response.total))}
+            Rp{IDRFormat(Number(cartListFromRedux.total))}
           </Text>
         </View>
         <Button

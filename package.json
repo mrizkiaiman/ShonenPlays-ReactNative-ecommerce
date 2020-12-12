@@ -42,6 +42,7 @@
     "react-native-unimodules": "~0.11.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.7",
+    "react-redux": "^7.2.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "rn-material-ui-textfield": "^1.0.1",
