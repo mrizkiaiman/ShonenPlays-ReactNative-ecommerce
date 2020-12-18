@@ -1,15 +1,14 @@
 import React, {useState} from 'react'
 import {SafeAreaView, View, Text, Image} from 'react-native'
 import styles from './style'
+import AsyncStorage from '@react-native-community/async-storage'
 //Assets
 import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import {Input, Button} from '../../components'
 //Functions
-import AsyncStorage from '@react-native-community/async-storage'
 import {SignIn} from '../../services/Authenthication'
-import Toast from '../../utils/Toast'
+import {Toast} from '../../utils'
 
 export default function SignInScreen({navigation}) {
   const [email, setEmail] = useState('')

@@ -6,7 +6,7 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Assets
 //Components
-import TabScreenHeader from '../../parts/TabScreenHeader'
+import {TabScreenHeader} from '../../parts'
 //Functions
 
 export default () => {

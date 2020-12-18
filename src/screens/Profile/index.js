@@ -6,11 +6,9 @@ import {firstRow, secondRow, thirdRow} from './helpers/menuList'
 import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
-//Assets
 //Components
 import TabScreenHeader from '../../parts/TabScreenHeader'
-import {MenuList} from './components'
-//Functions
+import {Menu} from './components'
 
 export default () => {
   const {firstName, lastName, email, img} = hardcode
@@ -33,17 +31,17 @@ export default () => {
       </View>
       <View style={styles.menuListContainer}>
         {firstRow.map((menu, index) => (
-          <MenuList key={index} menu={menu} />
+          <Menu key={index} menu={menu} />
         ))}
       </View>
       <View style={styles.menuListContainer}>
         {secondRow.map((menu, index) => (
-          <MenuList key={index} menu={menu} />
+          <Menu key={index} menu={menu} />
         ))}
       </View>
       <View style={styles.menuListContainer}>
         {thirdRow.map((menu, index) => (
-          <MenuList key={index} menu={menu} />
+          <Menu key={index} menu={menu} />
         ))}
       </View>
     </View>

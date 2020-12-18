@@ -4,8 +4,7 @@ import styles from './style'
 //Assets
 import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
-import Input from '../../components/Input'
-import Button from '../../components/Button'
+import {Input, Button} from '../../components'
 //Services
 import {SignUp} from '../../services/Authenthication/signUp'
 

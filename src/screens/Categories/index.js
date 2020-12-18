@@ -3,10 +3,8 @@ import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 //Styling
 import styles from './style'
 import {tailwind} from '../../style/tailwind'
-//Assets
 //Components
 import {SvgUri} from 'react-native-svg'
-//Functions
 
 export default ({
   route: {

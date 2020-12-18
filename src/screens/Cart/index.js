@@ -9,7 +9,7 @@ import {Button} from '../../components'
 import {EmptyState} from '../../parts'
 //Functions
 import useFetchHandler from '../../hooks/useFetchHandler'
-import IDRFormat from '../../utils/IDRFormat'
+import {IDRFormat} from '../../utils'
 import {tailwind} from '../../style/tailwind'
 
 export default () => {

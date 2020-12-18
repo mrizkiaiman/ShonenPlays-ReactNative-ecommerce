@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
 //Styling
 import styles from './style'
@@ -6,10 +6,8 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Components
-import SearchBar from '../../components/SearchBar'
-import Carousel from './components/Carousel'
-import PopularCategory from './components/PopularCategory'
-import Category from './components/Category'
+import {SearchBar} from '../../components'
+import {Carousel, Category, PopularCategory} from './components'
 //Functions
 import {useFetchHandler} from '../../hooks'
 
@@ -19,9 +17,11 @@ export default function Home({navigation}) {
     url: '/categories',
   })
 
-  const popularCategoryList = categoryList.response.filter(
-    (category) => category.isPopular === true,
-  )
+  const popularCategoryList = useMemo(() => {
+    return categoryList.response.filter(
+      (category) => category.isPopular === true,
+    )
+  }, [categoryList])
 
   return (
     <>

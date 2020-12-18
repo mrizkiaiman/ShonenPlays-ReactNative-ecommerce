@@ -3,7 +3,7 @@ import {ScrollView, View, TouchableOpacity} from 'react-native'
 //Styling
 import styles from './style'
 //Components
-import Product from '../../components/Product'
+import {Product} from '../../components'
 //Functions
 import {useFetchHandler} from '../../hooks'
 
