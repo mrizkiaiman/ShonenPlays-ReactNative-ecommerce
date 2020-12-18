@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, View} from 'react-native'
+import {Text, View, ScrollView} from 'react-native'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -11,13 +11,15 @@ import {TabScreenHeader} from '../../parts'
 
 export default () => {
   return (
-    <View style={styles.mainContainer}>
-      <TabScreenHeader
-        text={{
-          greenText: 'Mar',
-          orangeText: 'ket',
-        }}
-      />
-    </View>
+    <ScrollView>
+      <View style={styles.mainContainer}>
+        <TabScreenHeader
+          text={{
+            greenText: 'Mar',
+            orangeText: 'ket',
+          }}
+        />
+      </View>
+    </ScrollView>
   )
 }

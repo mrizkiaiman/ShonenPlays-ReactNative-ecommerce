@@ -1,5 +1,7 @@
 import React from 'react'
 import {Text, View, StyleSheet} from 'react-native'
+//Components
+import {ScrollViewBounced} from '../../parts'
 //Styling
 import {tailwind} from '../../style/tailwind'
 
@@ -7,6 +9,7 @@ export default ({text}) => {
   const {greenText, orangeText} = text
   return (
     <View style={styles.mainContainer}>
+      <ScrollViewBounced color="white" />
       <View style={styles.bannerContainer}>
         <Text style={styles.bannerText}>
           {greenText}

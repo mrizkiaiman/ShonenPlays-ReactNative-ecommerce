@@ -8,6 +8,7 @@ const {width, height} = Size
 //Components
 import {SearchBar} from '../../components'
 import {Carousel, Category, PopularCategory} from './components'
+import {ScrollViewBounced} from '../../parts'
 //Functions
 import {useFetchHandler} from '../../hooks'
 
@@ -26,6 +27,7 @@ export default function Home({navigation}) {
   return (
     <>
       <ScrollView>
+        <ScrollViewBounced color="#006266" />
         <View style={styles.mainContainer}>
           <View style={styles.banner}>
             <View style={styles.bannerContentContainer}>

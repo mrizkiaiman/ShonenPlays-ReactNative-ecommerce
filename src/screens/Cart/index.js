@@ -15,7 +15,6 @@ import {tailwind} from '../../style/tailwind'
 export default ({navigation}) => {
   useFetchHandler({method: 'get', url: '/carts'}, true, 'cartRedux')
   const cartListFromRedux = useSelector((state) => state.cart.cart)
-
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -26,7 +25,15 @@ export default ({navigation}) => {
           }}
         />
         <View style={styles.productsContainer}>
-          {cartListFromRedux &&
+          {cartListFromRedux.length === 0 ? (
+            <View style={tailwind('mt-10')}>
+              <EmptyState
+                onSubmit={() => navigation.navigate('Market')}
+                screen="Cart"
+                buttonText="Browse items"
+              />
+            </View>
+          ) : (
             cartListFromRedux.products &&
             (cartListFromRedux.products.length > 0 ? (
               cartListFromRedux.products.map((item, index) => (
@@ -40,7 +47,8 @@ export default ({navigation}) => {
                   buttonText="Browse items"
                 />
               </View>
-            ))}
+            ))
+          )}
         </View>
       </ScrollView>
       {cartListFromRedux &&

@@ -16,11 +16,11 @@ export default ({screen, onSubmit, buttonText}) => {
   return (
     <View style={styles.mainContainer}>
       {screen == 'Cart' ? (
-        <EmptyStateCart width={236} height={236} />
+        <EmptyStateCart width={200} height={200} />
       ) : screen == 'Orders' ? (
-        <EmptyStateOrders width={260} height={260} />
+        <EmptyStateOrders width={224} height={224} />
       ) : (
-        <EmptyStateAddress style={tailwind('mb-8')} width={220} height={220} />
+        <EmptyStateAddress style={tailwind('mb-8')} width={180} height={180} />
       )}
       {screen == 'Cart' ? (
         <View style={styles.textContainer}>
