@@ -6,23 +6,17 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Assets
 //Components
-import {TabScreenHeader, EmptyState} from '../../parts'
+import {EmptyState} from '../../parts'
 //Functions
 
 export default () => {
   return (
     <View style={styles.mainContainer}>
-      <TabScreenHeader
-        text={{
-          greenText: 'Ord',
-          orangeText: 'ers',
-        }}
-      />
-      <View style={tailwind('mt-10')}>
+      <View style={tailwind('mt-20')}>
         <EmptyState
           onSubmit={() => console.log('Test')}
-          screen="Orders"
-          buttonText="Browse items"
+          screen="Address"
+          buttonText="Add new address"
         />
       </View>
     </View>

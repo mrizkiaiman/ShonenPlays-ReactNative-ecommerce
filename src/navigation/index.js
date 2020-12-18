@@ -3,11 +3,14 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
 //Components
 import BottomTabs from './components/BottomTabs'
-import SignIn from '../screens/Sign-In'
-import SignUp from '../screens/Sign-Up'
 import Categories from '../screens/Categories'
 import ProductListByCategory from '../screens/ProductListByCategory'
 import ProductDetails from '../screens/ProductDetails'
+//Authenthication
+import SignIn from '../screens/Sign-In'
+import SignUp from '../screens/Sign-Up'
+//MoreMenu
+import ShippingAddress from '../screens/ShippingAddress'
 
 export default function navigation() {
   const Stack = createStackNavigator()
@@ -31,7 +34,6 @@ export default function navigation() {
         <Stack.Screen
           name="ProductListByCategory"
           component={ProductListByCategory}
-          options={{headerShown: true}}
           options={({route}) => ({
             headerShown: true,
             title: route.params.category.name,
@@ -40,10 +42,18 @@ export default function navigation() {
         <Stack.Screen
           name="ProductDetails"
           component={ProductDetails}
-          options={{headerShown: true}}
           options={({route}) => ({
             headerShown: true,
             title: route.params.product.name,
+          })}
+        />
+        {/* More Menu */}
+        <Stack.Screen
+          name="ShippingAddress"
+          component={ShippingAddress}
+          options={() => ({
+            headerShown: true,
+            title: 'Shipping Address',
           })}
         />
         {/* Authenthication */}
