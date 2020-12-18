@@ -10,7 +10,7 @@ export default StyleSheet.create({
     ...tailwind('bg-dgreen px-5'),
   },
   bannerContentContainer: {
-    marginTop: 70,
+    marginTop: 60,
   },
   bannerShonenText: tailwind('font-H2 text-5xl text-white'),
   bannerPlaysText: tailwind('font-H2 text-5xl text-semiYellow'),

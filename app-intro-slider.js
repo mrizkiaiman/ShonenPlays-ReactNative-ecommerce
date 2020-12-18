@@ -36,7 +36,7 @@ export default function IntroSlider({openApp}) {
       firstLineOfText: 'It takes only less than five minutes ',
       secondLineOfText:
         'to sign up with your email or one touch with your google account',
-      image: <EasyRegistrationIllustration width={300} height={300} />,
+      image: <EasyRegistrationIllustration width={250} height={250} />,
     },
     {
       key: 'one',
@@ -44,21 +44,21 @@ export default function IntroSlider({openApp}) {
       firstLineOfText: 'Free delivery for new customers via',
       secondLineOfText: 'BCA and other payment methods',
 
-      image: <DeliveryIllustration width={300} height={300} />,
+      image: <DeliveryIllustration width={250} height={250} />,
     },
     // {
     //   key: 'two',
     //   title: 'All your favorites',
     //   firstLineOfText: 'Easily get what you needs,',
     //   secondLineOfText: 'we already have covered almost everything',
-    //   image: <GamingIllustration width={300} height={300} />,
+    //   image: <GamingIllustration width={250} height={250} />,
     // },
     {
       key: 'three',
       title: 'Welcome!',
-      firstLineOfText: 'ShonenPlays provides your hobbies needs,',
+      firstLineOfText: 'ShonenPlays provides your hobbies,',
       secondLineOfText: 'and will make sure to fulfill your desires',
-      image: <WelcomeIllustration width={300} height={300} />,
+      image: <WelcomeIllustration width={250} height={250} />,
     },
   ]
 

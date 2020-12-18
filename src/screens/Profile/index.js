@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, View, Image} from 'react-native'
+import {Text, View, Image, ScrollView} from 'react-native'
 import hardcode from './helpers/hardcode'
 import {firstRow, secondRow, thirdRow} from './helpers/menuList'
 //Styling
@@ -13,7 +13,7 @@ import {Menu} from './components'
 export default () => {
   const {firstName, lastName, email, img} = hardcode
   return (
-    <View style={styles.mainContainer}>
+    <ScrollView style={styles.mainContainer}>
       <TabScreenHeader
         text={{
           greenText: 'Pro',
@@ -39,11 +39,11 @@ export default () => {
           <Menu key={index} menu={menu} />
         ))}
       </View>
-      <View style={styles.menuListContainer}>
+      <View style={{...styles.menuListContainer, marginBottom: 8}}>
         {thirdRow.map((menu, index) => (
           <Menu key={index} menu={menu} />
         ))}
       </View>
-    </View>
+    </ScrollView>
   )
 }

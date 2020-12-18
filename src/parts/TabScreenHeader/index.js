@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   mainContainer: {},
   bannerContainer: {
     ...tailwind('px-6 bg-white'),
-    paddingTop: 70,
-    paddingBottom: 30,
+    paddingTop: 50,
+    paddingBottom: 40,
   },
   bannerText: tailwind('font-H2 text-5xl text-dgreen'),
   bannerText_: tailwind('font-H2 text-5xl text-orange'),

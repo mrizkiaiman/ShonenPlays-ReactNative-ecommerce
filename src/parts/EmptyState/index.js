@@ -16,7 +16,7 @@ export default ({screen, onSubmit, buttonText}) => {
   return (
     <View style={styles.mainContainer}>
       {screen == 'Cart' ? (
-        <EmptyStateCart width={260} height={260} />
+        <EmptyStateCart width={236} height={236} />
       ) : screen == 'Orders' ? (
         <EmptyStateOrders width={260} height={260} />
       ) : (

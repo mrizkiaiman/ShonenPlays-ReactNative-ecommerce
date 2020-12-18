@@ -12,7 +12,7 @@ import useFetchHandler from '../../hooks/useFetchHandler'
 import {IDRFormat} from '../../utils'
 import {tailwind} from '../../style/tailwind'
 
-export default () => {
+export default ({navigation}) => {
   useFetchHandler({method: 'get', url: '/carts'}, true, 'cartRedux')
   const cartListFromRedux = useSelector((state) => state.cart.cart)
 
@@ -35,7 +35,7 @@ export default () => {
             ) : (
               <View style={tailwind('mt-10')}>
                 <EmptyState
-                  onSubmit={() => console.log('Test')}
+                  onSubmit={() => navigation.navigate('Market')}
                   screen="Cart"
                   buttonText="Browse items"
                 />

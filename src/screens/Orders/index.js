@@ -9,7 +9,7 @@ import {tailwind} from '../../style/tailwind'
 import {TabScreenHeader, EmptyState} from '../../parts'
 //Functions
 
-export default () => {
+export default ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <TabScreenHeader
@@ -20,7 +20,7 @@ export default () => {
       />
       <View style={tailwind('mt-10')}>
         <EmptyState
-          onSubmit={() => console.log('Test')}
+          onSubmit={() => navigation.navigate('Market')}
           screen="Orders"
           buttonText="Browse items"
         />
