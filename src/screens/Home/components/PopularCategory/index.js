@@ -1,16 +1,18 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image} from 'react-native'
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 //Styling
 import {tailwind} from '../../../../style/tailwind'
-import {Colors, Size, Fonts, Buttons} from '../../../../style'
-const {width, height} = Size
 
-export default ({name, popularIcon}) => {
+export default ({category}) => {
+  const navigation = useNavigation()
   return (
-    <View style={styles.mainContainer}>
-      <Image style={styles.image} source={{uri: popularIcon}} />
-      <Text style={styles.nameText}>{name}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductListByCategory', {category})}
+      style={styles.mainContainer}>
+      <Image style={styles.image} source={{uri: category.popularIcon}} />
+      <Text style={styles.nameText}>{category.name}</Text>
+    </TouchableOpacity>
   )
 }
 

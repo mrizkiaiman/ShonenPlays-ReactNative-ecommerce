@@ -54,7 +54,7 @@ export default function Home({navigation}) {
             </View>
             <ScrollView horizontal style={styles.sectionContentContainer}>
               {popularCategoryList.map((category, index) => (
-                <PopularCategory key={index} {...category} />
+                <PopularCategory key={index} category={category} />
               ))}
             </ScrollView>
           </View>

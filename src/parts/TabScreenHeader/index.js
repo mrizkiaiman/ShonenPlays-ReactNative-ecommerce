@@ -1,7 +1,6 @@
 import React from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 //Styling
-import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 
 export default ({text}) => {

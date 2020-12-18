@@ -1,13 +1,23 @@
 import React from 'react'
-import {SafeAreaView, View, Text} from 'react-native'
+import {Text, View} from 'react-native'
+//Styling
 import styles from './style'
+import {Size} from '../../style'
+import {tailwind} from '../../style/tailwind'
+//Assets
+//Components
+import TabScreenHeader from '../../parts/TabScreenHeader'
+//Functions
 
-export default function Home() {
+export default () => {
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Home</Text>
-      </View>
-    </SafeAreaView>
+    <View style={styles.mainContainer}>
+      <TabScreenHeader
+        text={{
+          greenText: 'Mar',
+          orangeText: 'ket',
+        }}
+      />
+    </View>
   )
 }
