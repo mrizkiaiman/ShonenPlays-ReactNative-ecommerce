@@ -3,10 +3,9 @@ import {Text, View, ScrollView} from 'react-native'
 import {useSelector} from 'react-redux'
 import styles from './style'
 //Components
-import TabScreenHeader from '../../parts/TabScreenHeader'
-import Product from './components/Product'
+import {Product} from './components'
 import {Button} from '../../components'
-import {EmptyState} from '../../parts'
+import {EmptyState, TabScreenHeader} from '../../parts'
 //Functions
 import useFetchHandler from '../../hooks/useFetchHandler'
 import {IDRFormat} from '../../utils'

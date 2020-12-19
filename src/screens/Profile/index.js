@@ -7,7 +7,7 @@ import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Components
-import TabScreenHeader from '../../parts/TabScreenHeader'
+import {TabScreenHeader} from '../../parts'
 import {Menu} from './components'
 
 export default () => {

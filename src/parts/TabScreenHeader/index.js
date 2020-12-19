@@ -1,7 +1,7 @@
 import React from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 //Components
-import {ScrollViewBounced} from '../../parts'
+import ScrollViewBounced from '../ScrollViewBounced'
 //Styling
 import {tailwind} from '../../style/tailwind'
 

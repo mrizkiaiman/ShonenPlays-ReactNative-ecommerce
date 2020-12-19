@@ -4,14 +4,6 @@ import {tailwind} from '../../style/tailwind'
 
 const {width, height} = Size
 export default StyleSheet.create({
-  scrollViewBounced: {
-    backgroundColor: '#006266',
-    height: height,
-    position: 'absolute',
-    top: -height,
-    left: 0,
-    right: 0,
-  },
   carouselContainer: tailwind('justify-center items-center mt-8'),
   banner: {
     height: 350,

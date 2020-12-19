@@ -1,8 +1,9 @@
 import React from 'react'
-import {View, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, TextInput, StyleSheet, TouchableOpacity, Text} from 'react-native'
 import {Buttons, Colors, Fonts, Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Assets
+import RightIcon from '../../assets/Icons/rightDirection.svg'
 import ShowPasswordIcon from '../../assets/Icons/showPassword.svg'
 import HidePasswordIcon from '../../assets/Icons/hidePassword.svg'
 
@@ -30,11 +31,16 @@ export default function Input({
       right: 0,
       marginRight: width * 0.04,
     },
+    formContainer: {
+      ...tailwind(
+        'flex-row justify-between items-center border-0.8 border-dgray rounded',
+      ),
+      paddingVertical: 2.7,
+    },
   })
 
-  return (
-    type === 'box' &&
-    (passwordConfig ? (
+  return type === 'box' ? (
+    passwordConfig ? (
       <View
         style={{
           ...styles.mainContainer,
@@ -80,6 +86,15 @@ export default function Input({
           autoCapitalize={autoCapitalize}
         />
       </View>
-    ))
+    )
+  ) : (
+    type === 'form' && (
+      <View style={{...styles.formContainer, ...customContainerStyle}}>
+        <Text style={{...styles.input, ...tailwind('text-dgray')}}>
+          {placeholder}
+        </Text>
+        <RightIcon style={{marginRight: 10}} />
+      </View>
+    )
   )
 }

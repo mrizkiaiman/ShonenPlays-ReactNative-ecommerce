@@ -1,10 +1,10 @@
 import React from 'react'
 import {View, StyleSheet, TextInput} from 'react-native'
 //Assets
-import SearchIcon from '../../assets/Icons/search.svg'
+import SearchIcon from '../../../../assets/Icons/search.svg'
 //Styling
-import {tailwind} from '../../style/tailwind'
-import {Size} from '../../style'
+import {tailwind} from '../../../../style/tailwind'
+import {Size} from '../../../../style'
 
 export default function SearchBar({customStyle}) {
   const {width} = Size

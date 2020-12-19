@@ -10,7 +10,10 @@ import ProductDetails from '../screens/ProductDetails'
 import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
 //MoreMenu
-import ShippingAddress from '../screens/ShippingAddress'
+import ShippingAddress from '../screens/Address'
+import AddShippingAddress from '../screens/Address-add'
+import EditShippingAddress from '../screens/Address-edit'
+import Maps from '../screens/Address-maps'
 
 export default function navigation() {
   const Stack = createStackNavigator()
@@ -54,6 +57,30 @@ export default function navigation() {
           options={() => ({
             headerShown: true,
             title: 'Shipping Address',
+          })}
+        />
+        <Stack.Screen
+          name="AddShippingAddress"
+          component={AddShippingAddress}
+          options={() => ({
+            headerShown: true,
+            title: 'New Address',
+          })}
+        />
+        <Stack.Screen
+          name="EditShippingAddress"
+          component={EditShippingAddress}
+          options={() => ({
+            headerShown: true,
+            title: 'Edit Address',
+          })}
+        />
+        <Stack.Screen
+          name="Maps"
+          component={Maps}
+          options={() => ({
+            headerShown: true,
+            title: 'Maps',
           })}
         />
         {/* Authenthication */}

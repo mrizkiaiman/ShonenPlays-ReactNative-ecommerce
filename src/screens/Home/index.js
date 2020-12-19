@@ -6,8 +6,7 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Components
-import {SearchBar} from '../../components'
-import {Carousel, Category, PopularCategory} from './components'
+import {Carousel, Category, PopularCategory, SearchBar} from './components'
 import {ScrollViewBounced} from '../../parts'
 //Functions
 import {useFetchHandler} from '../../hooks'
