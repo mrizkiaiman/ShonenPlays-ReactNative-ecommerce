@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {ScrollView, View, TouchableOpacity} from 'react-native'
 //Styling
 import styles from './style'
 //Components
-import {Product} from '../../components'
+import {Product, Search} from '../../components'
 //Functions
 import {useFetchHandler} from '../../hooks'
 
 export default ({navigation, route: {params}}) => {
+  const [keyword, setKeyword] = useState('')
   const productList = useFetchHandler({
     method: 'get',
     url: '/products/category',
@@ -18,6 +19,7 @@ export default ({navigation, route: {params}}) => {
 
   return (
     <ScrollView>
+      <Search keyword={keyword} setKeyword={setKeyword} />
       <View style={styles.mainContainer}>
         {productList.response.map((product, index) => (
           <TouchableOpacity
