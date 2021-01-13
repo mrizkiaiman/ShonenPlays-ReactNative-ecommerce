@@ -2,6 +2,7 @@ export default [
   {
     name: 'Home',
     address: 'Jalan Soekarno Hatta, komplek BSI, blok C2 No 24, RT 05, RW 05',
+    pic: 'Iki',
     phone: '081276111123',
     lat: '123',
     lng: '123',
@@ -13,6 +14,7 @@ export default [
     name: 'Apartment',
     address:
       'Apartment The Wave (Coral Tower 9-11A), Rasuna Epicentrum, Jl. Epicentrum Boulevard Tim. No. 3, RT5/RW11, Menteng Atas',
+    pic: 'M. Rizki Aiman',
     phone: '081276111123',
     lat: '123',
     lng: '123',

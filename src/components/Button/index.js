@@ -25,3 +25,8 @@ export default Button = ({onSubmit, styling, title, additionalComponents}) => {
 //   buttonStyle,
 //   textStyle
 // }
+
+// additionalComponents = {
+//   comps,
+//   position
+// }
