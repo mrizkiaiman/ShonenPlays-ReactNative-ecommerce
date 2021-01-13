@@ -7,7 +7,29 @@ const {width, height} = Size
 //Functions
 import IDRFormat from '../../utils/IDRFormat'
 
-export default ({product}) => {
+export default ({product, customStyle}) => {
+  const styles = StyleSheet.create({
+    mainContainer: {
+      ...tailwind(
+        'light-shadow bg-white rounded-xl mb-4 justify-center items-center',
+      ),
+      height: 270,
+      width: width > 410 ? 165 : 150,
+      ...customStyle,
+    },
+    contentContainer: tailwind('mx-2'),
+    productImage: {
+      width: 140,
+      height: 180,
+      borderRadius: 8,
+    },
+    productText: {
+      ...tailwind('font-normal text-xs mt-2'),
+      width: 140,
+    },
+    priceProductText: tailwind('font-normal font-semibold text-xs mt-2'),
+  })
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.contentContainer}>
@@ -20,24 +42,6 @@ export default ({product}) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    ...tailwind(
-      'light-shadow m-2 bg-white rounded-xl mb-4 justify-center items-center',
-    ),
-    height: 270,
-    width: width > 410 ? 165 : 150,
-  },
-  contentContainer: tailwind('mx-2'),
-  productImage: {
-    width: 140,
-    height: 180,
-    borderRadius: 8,
-  },
-  productText: tailwind('font-normal text-xs mt-2'),
-  priceProductText: tailwind('font-normal font-semibold text-xs mt-2'),
-})
 
 // status,
 // _id,

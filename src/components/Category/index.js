@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 //Styling
-import {tailwind} from '../../../../style/tailwind'
+import {tailwind} from '../../style/tailwind'
 //Components
 import {SvgUri} from 'react-native-svg'
 

@@ -25,7 +25,7 @@ export default ({navigation, route: {params}}) => {
           <TouchableOpacity
             key={index}
             onPress={() => navigation.navigate('ProductDetails', {product})}>
-            <Product product={product} />
+            <Product product={product} customStyle={{margin: 8}} />
           </TouchableOpacity>
         ))}
       </View>

@@ -15,10 +15,10 @@ export default (options, token, config) => {
     const fetchData = async () => {
       if (token) {
         // const token = await AsyncStorage.getItem('token')
-        const token =
+        const tokens =
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2EyYTk5YWRhYzgwMTVjYmIzMDZhYiIsImVtYWlsIjoibS5kc2EuYWltYW5AZ21haWwuY29tIiwiaWF0IjoxNjA3NDkyMDIzfQ.MSmLLhR6xH0CvN-gZ4w_QO5sWKLVpukrvfjsWqQ-eOI'
         options.headers = {
-          token,
+          tokens,
         }
       }
 
