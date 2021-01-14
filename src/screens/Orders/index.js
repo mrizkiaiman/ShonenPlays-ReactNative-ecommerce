@@ -13,7 +13,7 @@ import {Search} from '../../components'
 import orderList from './helpers/Hardcode'
 
 export default ({navigation}) => {
-  const [keyword, setKeyword] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState('')
   return (
     <>
       <ScrollView>
@@ -25,8 +25,8 @@ export default ({navigation}) => {
             }}
           />
           <Search
-            keyword={keyword}
-            setKeyword={setKeyword}
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
             onSubmit={() => console.log('Test')}
           />
           {orderList.length > 0 ? (

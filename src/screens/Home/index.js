@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react'
+import React, {useState, useMemo} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
 //Styling
 import styles from './style'
@@ -13,6 +13,7 @@ import {ScrollViewBounced} from '../../parts'
 import {useFetchHandler} from '../../hooks'
 
 export default function Home({navigation}) {
+  const [searchKeyword, setSearchKeyword] = useState('')
   const categoryList = useFetchHandler({
     method: 'get',
     url: '/categories',
@@ -38,6 +39,8 @@ export default function Home({navigation}) {
                 Welcome, M. Rizki Aiman
               </Text>
               <SearchBar
+                searchKeyword={searchKeyword}
+                setSearchKeyword={setSearchKeyword}
                 customStyle={{
                   container: {
                     marginTop: 24,

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import {StyleSheet, TextInput, View} from 'react-native'
+import {StyleSheet, TextInput, View, TouchableOpacity} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 //Styling
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
@@ -9,24 +10,26 @@ import SearchIcon from '../../assets/Icons/search-gray.svg'
 //Components
 //Functions
 
-export default ({keyword, setKeyword, onSubmit}) => {
+export default ({searchKeyword, setSearchKeyword, onSubmit, customStyles}) => {
+  const styles = StyleSheet.create({
+    mainContainer: {
+      ...tailwind('bg-white h-10 flex-row items-center self-center mt-3'),
+      width: width * 0.88,
+      borderRadius: 10,
+      ...customStyles,
+    },
+  })
+
+  const navigation = useNavigation()
   return (
     <View style={styles.mainContainer}>
       <SearchIcon style={{marginHorizontal: 15}} />
       <TextInput
-        value={keyword}
-        onChangeText={setKeyword}
-        placeholder="Type something"
+        value={searchKeyword}
+        onChangeText={setSearchKeyword}
+        placeholder="Search"
         autoCapitalize="none"
       />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    ...tailwind('bg-white h-10 flex-row items-center self-center mt-3'),
-    width: width * 0.88,
-    borderRadius: 10,
-  },
-})

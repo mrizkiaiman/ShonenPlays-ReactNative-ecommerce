@@ -22,9 +22,10 @@ export default StyleSheet.create({
   sectionHeaderContainer: tailwind(
     'flex-row items-center justify-between mb-5',
   ),
-  sectionContentContainer: tailwind('flex-row'),
   titleSectionText: tailwind('font-semibold text-base'),
   functionalText: tailwind('font-functional'),
+  sectionContentContainer: tailwind('flex-row'),
+
   voucherImageContainer: {
     shadowColor: '#000',
     shadowOffset: {

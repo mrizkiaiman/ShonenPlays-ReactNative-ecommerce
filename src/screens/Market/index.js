@@ -14,7 +14,7 @@ import {popularItems, promoItems} from './helpers/Hardcode'
 import {useFetchHandler} from '../../hooks'
 
 export default ({navigation}) => {
-  const [keyword, setKeyword] = useState('')
+  const [searchKeyword, setSearchKeyword] = useState('')
   const categoryList = useFetchHandler({
     method: 'get',
     url: '/categories',
@@ -30,8 +30,8 @@ export default ({navigation}) => {
           }}
         />
         <Search
-          keyword={keyword}
-          setKeyword={setKeyword}
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
           onSubmit={() => console.log('Test')}
         />
         <Image

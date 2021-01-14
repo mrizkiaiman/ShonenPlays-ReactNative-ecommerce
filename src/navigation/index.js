@@ -6,6 +6,7 @@ import BottomTabs from './components/BottomTabs'
 import Categories from '../screens/Categories'
 import ProductListByCategory from '../screens/ProductListByCategory'
 import ProductDetails from '../screens/ProductDetails'
+import Search from '../screens/Search'
 //Authenthication
 import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
@@ -28,6 +29,11 @@ export default function navigation() {
           options={{title: 'Home'}}
           name="BottomTabs"
           component={BottomTabs}
+        />
+        <Stack.Screen
+          options={{title: 'Search', headerShown: true}}
+          name="Search"
+          component={Search}
         />
         <Stack.Screen
           name="Categories"

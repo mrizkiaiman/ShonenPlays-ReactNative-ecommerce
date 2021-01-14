@@ -10,7 +10,7 @@ export default StyleSheet.create({
     height: 170,
     alignSelf: 'center',
     borderRadius: 10,
-    ...tailwind('mt-5 light-shadow'),
+    ...tailwind('mt-8 light-shadow'),
   },
   popularItemImage: {
     height: width > 410 ? 165 : 150,
