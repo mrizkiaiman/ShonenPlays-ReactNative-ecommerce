@@ -7,6 +7,7 @@ import Categories from '../screens/Categories'
 import ProductListByCategory from '../screens/ProductListByCategory'
 import ProductDetails from '../screens/ProductDetails'
 import Search from '../screens/Search'
+import Checkout from '../screens/Checkout'
 //Authenthication
 import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
@@ -54,6 +55,14 @@ export default function navigation() {
           options={({route}) => ({
             headerShown: true,
             title: route.params.product.name,
+          })}
+        />
+        <Stack.Screen
+          name="Checkout"
+          component={Checkout}
+          options={({route}) => ({
+            headerShown: true,
+            title: 'Checkout Confirmation',
           })}
         />
         {/* More Menu */}

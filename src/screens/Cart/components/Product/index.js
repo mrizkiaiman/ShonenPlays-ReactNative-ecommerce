@@ -23,7 +23,17 @@ import {RemoveFromCart} from '../../../../services/Cart'
 import {updateCartState} from '../../../../store/actions/cart'
 
 export default ({navigation, productData}) => {
-  const {product, qty} = productData
+  const {
+    img,
+    name,
+    qty,
+    productId,
+    description,
+    stock,
+    price,
+    weight,
+    category,
+  } = productData
   const [value, setValue] = useState(qty)
   const dispatch = useDispatch()
   const removeFromCartOnSubmit = () => {
@@ -39,7 +49,7 @@ export default ({navigation, productData}) => {
         {
           text: 'OK',
           onPress: () => {
-            RemoveFromCart(product._id)
+            RemoveFromCart(productId)
               .then((response) => {
                 Toast({
                   title: 'Success',
@@ -63,13 +73,13 @@ export default ({navigation, productData}) => {
 
   return (
     <View style={styles.mainContainer}>
-      <Image style={styles.productImage} source={{uri: product.img}} />
+      <Image style={styles.productImage} source={{uri: img}} />
       <View style={styles.contentContainer}>
         <Text numberOfLines={1} style={styles.productNameText}>
-          {product.name}
+          {name}
         </Text>
         <Text numberOfLines={1} style={styles.productPriceText}>
-          Rp{IDRFormat(product.price)}
+          Rp{IDRFormat(Number(price))}
         </Text>
         <View style={{marginStart: -50, marginTop: 55}}>
           <QtyControl

@@ -45,16 +45,6 @@ export default function TabNavigation() {
         component={Home}
       />
       <Tab.Screen
-        name="Market"
-        options={{
-          tabBarLabel: 'Market',
-          tabBarIcon: ({color, size, focused}) => {
-            return focused ? <ActiveMarketIcon /> : <MarketIcon />
-          },
-        }}
-        component={Market}
-      />
-      <Tab.Screen
         name="Cart"
         options={{
           tabBarLabel: 'Cart',
@@ -64,6 +54,17 @@ export default function TabNavigation() {
         }}
         component={Cart}
       />
+      <Tab.Screen
+        name="Market"
+        options={{
+          tabBarLabel: 'Market',
+          tabBarIcon: ({color, size, focused}) => {
+            return focused ? <ActiveMarketIcon /> : <MarketIcon />
+          },
+        }}
+        component={Market}
+      />
+
       <Tab.Screen
         name="Orders"
         options={{

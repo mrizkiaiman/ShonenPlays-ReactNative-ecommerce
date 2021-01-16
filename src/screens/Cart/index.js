@@ -7,12 +7,10 @@ import {Product} from './components'
 import {Button} from '../../components'
 import {EmptyState, TabScreenHeader} from '../../parts'
 //Functions
-import useFetchHandler from '../../hooks/useFetchHandler'
 import {IDRFormat} from '../../utils'
 import {tailwind} from '../../style/tailwind'
 
 export default ({navigation}) => {
-  useFetchHandler({method: 'get', url: '/carts'}, true, 'cartRedux')
   const cartListFromRedux = useSelector((state) => state.cart.cart)
   return (
     <>
@@ -24,7 +22,7 @@ export default ({navigation}) => {
           }}
         />
         <View style={styles.productsContainer}>
-          {cartListFromRedux.length === 0 ? (
+          {cartListFromRedux && cartListFromRedux.length === 0 ? (
             <View style={tailwind('mt-10')}>
               <EmptyState
                 onSubmit={() => navigation.navigate('Market')}
@@ -33,10 +31,11 @@ export default ({navigation}) => {
               />
             </View>
           ) : (
+            cartListFromRedux &&
             cartListFromRedux.products &&
             (cartListFromRedux.products.length > 0 ? (
               cartListFromRedux.products.map((item, index) => (
-                <Product key={item._id} productData={item} />
+                <Product key={item.productId} productData={item} />
               ))
             ) : (
               <View style={tailwind('mt-10')}>
@@ -66,6 +65,7 @@ export default ({navigation}) => {
                 buttonStyle: styles.checkoutButton,
                 textStyle: styles.checkoutButtonText,
               }}
+              onSubmit={() => navigation.navigate('Checkout')}
             />
           </View>
         )}

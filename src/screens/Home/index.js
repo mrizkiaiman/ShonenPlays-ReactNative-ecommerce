@@ -1,5 +1,6 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, useEffect} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
+
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -14,6 +15,7 @@ import {useFetchHandler} from '../../hooks'
 
 export default function Home({navigation}) {
   const [searchKeyword, setSearchKeyword] = useState('')
+  useFetchHandler({method: 'get', url: '/carts'}, true, 'cartRedux')
   const categoryList = useFetchHandler({
     method: 'get',
     url: '/categories',
