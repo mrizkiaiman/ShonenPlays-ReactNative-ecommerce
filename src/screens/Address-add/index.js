@@ -8,6 +8,7 @@ import {tailwind} from '../../style/tailwind'
 import PinLocationIcon from '../../assets/Icons/map.svg'
 //Components
 import {Input} from '../../components'
+import {FooterButton} from '../../parts'
 
 export default ({navigation}) => {
   const [name, setName] = useState('')
@@ -78,27 +79,29 @@ export default ({navigation}) => {
   ]
 
   return (
-    <ScrollView>
-      <View style={styles.mainContainer}>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitleText}>Shipping Address</Text>
-          {addressInfo.map((info, index) => (
-            <Input key={index} {...info} />
-          ))}
+    <>
+      <ScrollView>
+        <View style={styles.mainContainer}>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionTitleText}>Shipping Address</Text>
+            {addressInfo.map((info, index) => (
+              <Input key={index} {...info} />
+            ))}
+          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Maps')}
+            style={styles.pinLocationContainer}>
+            <PinLocationIcon style={{marginRight: 10}} />
+            <Text style={styles.pinLocationText}>Pin location</Text>
+          </TouchableOpacity>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionTitleText}>Contact Person</Text>
+            {userInfo.map((info, index) => (
+              <Input key={index} {...info} />
+            ))}
+          </View>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Maps')}
-          style={styles.pinLocationContainer}>
-          <PinLocationIcon style={{marginRight: 10}} />
-          <Text style={styles.pinLocationText}>Pin location</Text>
-        </TouchableOpacity>
-        <View style={styles.sectionContainer}>
-          <Text style={styles.sectionTitleText}>Contact Person</Text>
-          {userInfo.map((info, index) => (
-            <Input key={index} {...info} />
-          ))}
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   )
 }
