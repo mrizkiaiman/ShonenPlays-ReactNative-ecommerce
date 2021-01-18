@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native'
 //Components
 import BottomTabs from './components/BottomTabs'
 import Categories from '../screens/Categories'
-import ProductListByCategory from '../screens/ProductListByCategory'
+import ProductsByCategory from '../screens/ProductsByCategory'
 import ProductDetails from '../screens/ProductDetails'
 import Search from '../screens/Search'
 import Checkout from '../screens/Checkout'
@@ -43,8 +43,8 @@ export default function navigation() {
           options={{headerShown: true}}
         />
         <Stack.Screen
-          name="ProductListByCategory"
-          component={ProductListByCategory}
+          name="ProductsByCategory"
+          component={ProductsByCategory}
           options={({route}) => ({
             headerShown: true,
             title: route.params.category.name,

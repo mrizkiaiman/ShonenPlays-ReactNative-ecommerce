@@ -1,18 +1,28 @@
 import React from 'react'
-import {Text, View} from 'react-native'
+import {Text, View, ScrollView} from 'react-native'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Assets
 //Components
-import {Product} from './components'
+import {Product, ShippingAddress, OrderSummary} from './components'
 //Functions
+import IDRFormat from '../../utils/IDRFormat'
 
 export default ({navigation, route}) => {
   const {
     params: {order},
   } = route
+
+  const {
+    products,
+    shippingAddress,
+    shippingMethod,
+    total,
+    discount,
+    id_order,
+  } = order
 
   const headerInformationList = [
     {
@@ -25,7 +35,7 @@ export default ({navigation, route}) => {
     },
     {
       title: 'Order ID',
-      value: order.id_order,
+      value: id_order,
     },
   ]
 
@@ -39,28 +49,54 @@ export default ({navigation, route}) => {
   )
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={tailwind('mt-2')}>
-        {headerInformationList.map((info, index) => (
-          <HeaderInformation key={index} {...info} />
-        ))}
-      </View>
-      <View style={tailwind('mt-2 p-4 bg-white')}>
-        <Text style={tailwind('font-normal font-semibold mb-6')}>Products</Text>
-        {order.products.map((product, index) => (
-          <Product key={index} product={product} />
-        ))}
-      </View>
-      <View style={tailwind('mt-2 p-4 bg-white')}>
-        <Text style={tailwind('font-normal font-semibold mb-6')}>
-          Shipping Address
-        </Text>
-      </View>
-      <View style={tailwind('mt-2 p-4 bg-white')}>
-        <Text style={tailwind('font-normal font-semibold mb-6')}>
-          Shipping Details
-        </Text>
-      </View>
-    </View>
+    <>
+      <ScrollView>
+        <View style={styles.mainContainer}>
+          <View style={tailwind('mt-2')}>
+            {headerInformationList.map((info, index) => (
+              <HeaderInformation key={index} {...info} />
+            ))}
+          </View>
+          <View style={tailwind('mt-2 p-4 bg-white')}>
+            <Text style={tailwind('font-normal font-semibold mb-6')}>
+              Products
+            </Text>
+            {products.map((product, index) => (
+              <Product key={index} product={product} />
+            ))}
+          </View>
+          <View style={tailwind('mt-2 p-4 bg-white')}>
+            <Text style={tailwind('font-normal font-semibold mb-6')}>
+              Shipping Address
+            </Text>
+            <ShippingAddress shippingAddress={shippingAddress} />
+          </View>
+          <View style={tailwind('mt-2 p-4 bg-white')}>
+            <Text style={tailwind('font-normal font-semibold mb-6')}>
+              Shipping Method
+            </Text>
+            <Text style={tailwind('font-normal font-semibold mb-2')}>
+              {shippingMethod.name}
+            </Text>
+            <Text
+              style={tailwind('font-normal font-semibold text-dgray text-sm')}>
+              Rp{IDRFormat(shippingMethod.price)}
+            </Text>
+          </View>
+          <View style={tailwind('mt-2 p-4 bg-white mb-8')}>
+            <Text style={tailwind('font-normal font-semibold mb-6')}>
+              Order Summary
+            </Text>
+            <OrderSummary
+              costData={{
+                shipping: shippingMethod.price,
+                total,
+                discount,
+              }}
+            />
+          </View>
+        </View>
+      </ScrollView>
+    </>
   )
 }
