@@ -8,6 +8,7 @@ import ProductListByCategory from '../screens/ProductListByCategory'
 import ProductDetails from '../screens/ProductDetails'
 import Search from '../screens/Search'
 import Checkout from '../screens/Checkout'
+import OrderDetails from '../screens/OrderDetails'
 //Authenthication
 import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
@@ -63,6 +64,14 @@ export default function navigation() {
           options={({route}) => ({
             headerShown: true,
             title: 'Checkout Confirmation',
+          })}
+        />
+        <Stack.Screen
+          name="OrderDetails"
+          component={OrderDetails}
+          options={({route}) => ({
+            headerShown: true,
+            title: 'Order Details',
           })}
         />
         {/* More Menu */}

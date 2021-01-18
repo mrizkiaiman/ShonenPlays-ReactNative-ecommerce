@@ -55,6 +55,7 @@ export default [
     },
     total: 25000,
     discount: null,
+    id_order: 'IX-V123-160121',
   },
   {
     _id: '5fca2a99adac8015cbb306ac',
@@ -96,5 +97,6 @@ export default [
     },
     total: 25000,
     discount: null,
+    id_order: 'IX-V123-160121',
   },
 ]

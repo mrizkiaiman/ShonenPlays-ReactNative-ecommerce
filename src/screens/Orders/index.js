@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Text, View, ScrollView} from 'react-native'
+import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -32,7 +32,11 @@ export default ({navigation}) => {
           {orderList.length > 0 ? (
             <View style={tailwind('mt-4')}>
               {orderList.map((order, index) => (
-                <OrderCard order={order} key={index} />
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => navigation.navigate('OrderDetails', {order})}>
+                  <OrderCard order={order} />
+                </TouchableOpacity>
               ))}
             </View>
           ) : (
