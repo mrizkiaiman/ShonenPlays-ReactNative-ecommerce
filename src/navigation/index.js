@@ -10,6 +10,9 @@ import ProductDetails from '../screens/ProductDetails'
 import Search from '../screens/Search'
 import Checkout from '../screens/Checkout'
 import OrderDetails from '../screens/OrderDetails'
+import EditProfile from '../screens/EditProfile'
+import Wishlist from '../screens/Wishlist'
+import ChangePassword from '../screens/ChangePassword'
 //Authenthication
 import SignIn from '../screens/Sign-In'
 import SignUp from '../screens/Sign-Up'
@@ -114,6 +117,30 @@ export default function navigation() {
           options={() => ({
             headerShown: true,
             title: 'Maps',
+          })}
+        />
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          options={() => ({
+            headerShown: true,
+            title: 'Edit Profile',
+          })}
+        />
+        <Stack.Screen
+          name="Wishlist"
+          component={Wishlist}
+          options={() => ({
+            headerShown: true,
+            title: 'Wishlist',
+          })}
+        />
+        <Stack.Screen
+          name="ChangePassword"
+          component={ChangePassword}
+          options={() => ({
+            headerShown: true,
+            title: 'Change Password',
           })}
         />
         {/* Authenthication */}
