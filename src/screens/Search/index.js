@@ -11,7 +11,7 @@ import {PopularCategory} from './components'
 //Functions
 import {useFetchHandler} from '../../hooks'
 
-export default () => {
+export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const popularKeywords = ['AJ1 Chicago', 'Shonen JUMP!', 'One Piece']
 
@@ -35,6 +35,9 @@ export default () => {
           customStyles={{
             backgroundColor: '#F6F7F8',
           }}
+          onSubmit={() =>
+            navigation.navigate('Products', {keyword: searchKeyword})
+          }
         />
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeaderContainer}>

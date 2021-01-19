@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native'
 //Components
 import BottomTabs from './components/BottomTabs'
 import Categories from '../screens/Categories'
+import Products from '../screens/Products'
 import ProductsByCategory from '../screens/ProductsByCategory'
 import ProductDetails from '../screens/ProductDetails'
 import Search from '../screens/Search'
@@ -41,6 +42,14 @@ export default function navigation() {
           name="Categories"
           component={Categories}
           options={{headerShown: true}}
+        />
+        <Stack.Screen
+          name="Products"
+          component={Products}
+          options={({route}) => ({
+            headerShown: true,
+            title: `Results for ${route.params.keyword}`,
+          })}
         />
         <Stack.Screen
           name="ProductsByCategory"

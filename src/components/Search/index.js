@@ -29,6 +29,7 @@ export default ({searchKeyword, setSearchKeyword, onSubmit, customStyles}) => {
         onChangeText={setSearchKeyword}
         placeholder="Search"
         autoCapitalize="none"
+        onSubmitEditing={onSubmit ? () => onSubmit() : null}
       />
     </View>
   )
