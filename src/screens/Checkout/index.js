@@ -9,8 +9,8 @@ const {width, height} = Size
 //Assets
 import RightIcon from '../../assets/Icons/rightDirection-dgreen.svg'
 //Components
-import {Address, OrderSummary, Product} from './components'
-import {Button} from '../../components'
+import {OrderSummary, Product} from './components'
+import {Button, Address} from '../../components'
 import {FooterButton} from '../../parts'
 //Functions
 

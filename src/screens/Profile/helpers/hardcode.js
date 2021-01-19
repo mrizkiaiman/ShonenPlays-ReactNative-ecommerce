@@ -1,7 +1,7 @@
 export default {
   firstName: 'M. Rizki',
   lastName: 'Aiman',
-  email: 'm.rizki.aiman@gmail.com',
+  mail: 'm.rizki.aiman@gmail.com',
   img:
     'https://pbs.twimg.com/profile_images/1332549281740247042/Ww6aPg8I_400x400.jpg',
   userType: 1,

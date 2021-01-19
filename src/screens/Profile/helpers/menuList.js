@@ -35,11 +35,6 @@ export const secondRow = [
 ]
 
 export const thirdRow = [
-  // {
-  //   name: 'About',
-  //   icon: <AboutIcon />,
-  //   screen: 'About',
-  // },
   {
     name: 'Help',
     icon: <HelpIcon />,

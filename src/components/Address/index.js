@@ -1,23 +1,15 @@
 import React from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 //Styling
-import {Size} from '../../../../style'
-import {tailwind} from '../../../../style/tailwind'
+import {Size} from '../../style'
+import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
 //Components
 //Functions
 
-export default ({shippingAddress}) => {
-  const {
-    name,
-    address,
-    city,
-    province,
-    postalCode,
-    pic,
-    phone,
-  } = shippingAddress
+export default ({addressData}) => {
+  const {name, address, city, province, postalCode, pic, phone} = addressData
 
   return (
     <View style={styles.mainContainer}>

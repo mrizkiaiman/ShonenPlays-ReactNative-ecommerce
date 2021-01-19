@@ -1,18 +1,16 @@
 import React, {useState} from 'react'
-import {Text, View} from 'react-native'
-import Hardcode from './helpers/Hardcode'
+import {StyleSheet, Text, View} from 'react-native'
 //Styling
-import styles from './style'
-import {Size} from '../../style'
-import {tailwind} from '../../style/tailwind'
+import {Size} from '../../../../style'
+const {width, height} = Size
+import {tailwind} from '../../../../style/tailwind'
 //Assets
-import UploadIcon from '../../assets/Icons/upload.svg'
+import UploadIcon from '../../../../assets/Icons/upload.svg'
 //Components
-import {Input} from '../../components'
-import {DefaultAddress} from './components'
+import {Input, Address} from '../../../../components'
 //Functions
 
-export default () => {
+export default ({Hardcode}) => {
   const {firstName, lastName, mail, defaultAddress, mobilePhone} = Hardcode
   const [name, setName] = useState(`${firstName} ${lastName}`)
   const [email, setEmail] = useState(mail)
@@ -69,13 +67,31 @@ export default () => {
       </View>
       <View style={styles.informationContainer}>
         <View style={tailwind('flex-row justify-between')}>
-          <Text style={tailwind('font-normal font-semibold mb-6')}>
+          <Text style={tailwind('font-normal font-semibold mb-8')}>
             Default Address
           </Text>
           <Text style={tailwind('font-functional')}>Change Address</Text>
         </View>
-        <DefaultAddress shippingAddress={defaultAddress} />
+        <Address addressData={defaultAddress} />
       </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: '#F2F4F7',
+    height,
+  },
+  uploadPhotoContainer: tailwind('flex-row items-center p-4 mt-2 bg-white'),
+  profilePhoto: {
+    height: 60,
+    width: 60,
+    borderRadius: 100,
+    backgroundColor: '#F3F3F3',
+    ...tailwind('justify-center items-center'),
+  },
+  informationContainer: {
+    ...tailwind('p-4 bg-white mt-2'),
+  },
+})

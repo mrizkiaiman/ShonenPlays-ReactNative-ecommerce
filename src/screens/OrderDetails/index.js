@@ -6,7 +6,8 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Assets
 //Components
-import {Product, ShippingAddress, OrderSummary} from './components'
+import {Address} from '../../components'
+import {Product, OrderSummary} from './components'
 import {FooterButton} from '../../parts'
 //Functions
 import IDRFormat from '../../utils/IDRFormat'
@@ -70,7 +71,7 @@ export default ({navigation, route}) => {
             <Text style={tailwind('font-normal font-semibold mb-6')}>
               Shipping Address
             </Text>
-            <ShippingAddress shippingAddress={shippingAddress} />
+            <Address addressData={shippingAddress} />
           </View>
           <View style={tailwind('mt-2 p-4 bg-white')}>
             <Text style={tailwind('font-normal font-semibold mb-6')}>
