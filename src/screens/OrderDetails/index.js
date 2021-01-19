@@ -7,6 +7,7 @@ import {tailwind} from '../../style/tailwind'
 //Assets
 //Components
 import {Product, ShippingAddress, OrderSummary} from './components'
+import {FooterButton} from '../../parts'
 //Functions
 import IDRFormat from '../../utils/IDRFormat'
 
@@ -97,6 +98,14 @@ export default ({navigation, route}) => {
           </View>
         </View>
       </ScrollView>
+      <FooterButton
+        styling={{
+          buttonStyle: styles.reorderButton,
+          textStyle: styles.reorderButtonText,
+        }}
+        title="Re-Order"
+        onSubmit={() => console.log('Test')}
+      />
     </>
   )
 }

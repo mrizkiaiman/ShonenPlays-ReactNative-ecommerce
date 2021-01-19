@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native'
-import {Size} from '../../style'
+import {Size, Buttons} from '../../style'
 import {tailwind} from '../../style/tailwind'
 
 const {width, height} = Size
@@ -11,4 +11,9 @@ export default StyleSheet.create({
     'flex-row items-center bg-white px-5 mt-2 py-3 border-0.8 border-gray',
   ),
   pinLocationText: tailwind('font-normal'),
+  saveButton: {
+    ...Buttons.submitButton,
+    width: width * 0.9,
+  },
+  saveButtonText: tailwind('font-normal font-semibold text-white'),
 })

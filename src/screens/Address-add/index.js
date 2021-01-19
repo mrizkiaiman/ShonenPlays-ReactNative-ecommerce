@@ -102,6 +102,14 @@ export default ({navigation}) => {
           </View>
         </View>
       </ScrollView>
+      <FooterButton
+        styling={{
+          buttonStyle: styles.saveButton,
+          textStyle: styles.saveButtonText,
+        }}
+        title="Save"
+        onSubmit={() => console.log('Test')}
+      />
     </>
   )
 }

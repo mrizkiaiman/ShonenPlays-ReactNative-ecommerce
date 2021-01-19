@@ -1,5 +1,6 @@
 import React from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {useNavigation} from '@react-navigation/native'
 //Styling
 import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
@@ -11,6 +12,8 @@ import EditIcon from '../../../../assets/Icons/edit.svg'
 //Functions
 
 export default ({address}) => {
+  const navigation = useNavigation()
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.titleContainer}>
@@ -20,14 +23,18 @@ export default ({address}) => {
       <Text style={styles.cpText}>{address.pic}</Text>
       <Text style={styles.phoneText}>{address.phone}</Text>
       <View style={styles.functionalButtonContainer}>
-        <View style={tailwind('flex-row items-center mr-2')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('EditShippingAddress', {addressData: address})
+          }
+          style={tailwind('flex-row items-center mr-2')}>
           <EditIcon style={tailwind('mr-1')} />
           <Text style={styles.functionalText}>Edit</Text>
-        </View>
-        <View style={tailwind('flex-row items-center')}>
+        </TouchableOpacity>
+        <TouchableOpacity style={tailwind('flex-row items-center')}>
           <DeleteIcon style={tailwind('mr-1')} />
           <Text style={styles.functionalText}>Delete</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   )
