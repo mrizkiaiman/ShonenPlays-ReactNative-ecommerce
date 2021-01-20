@@ -19,8 +19,10 @@ import {
 import {Modalize} from 'react-native-modalize'
 import {TabScreenHeader, ModalHeader} from '../../parts'
 import {Menu, EditProfileModal, ChangePasswordModal} from './components'
+//Functions
+import {WhatsAppLink} from '../../utils'
 
-export default () => {
+export default ({navigation}) => {
   const {firstName, lastName, mail, img} = hardcode
   const editProfileModal = useRef(null)
   const changePasswordModal = useRef(null)
@@ -71,12 +73,12 @@ export default () => {
     {
       name: 'Help',
       icon: <HelpIcon />,
-      screen: 'Help',
+      customOnSubmit: () => WhatsAppLink(),
     },
     {
       name: 'Logout',
       icon: <LogoutIcon />,
-      customOnSubmit: () => console.log('Test'),
+      customOnSubmit: () => navigation.navigate('SignIn'),
     },
   ]
 
