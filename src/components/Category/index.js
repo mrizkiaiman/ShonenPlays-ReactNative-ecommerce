@@ -10,7 +10,7 @@ export default ({category}) => {
   const navigation = useNavigation()
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('ProductListByCategory', {category})}
+      onPress={() => navigation.navigate('ProductsByCategory', {category})}
       style={styles.mainContainer}>
       <View style={styles.iconContainer}>
         <SvgUri width={50} height={50} uri={category.icon} />

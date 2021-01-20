@@ -21,7 +21,7 @@ export default ({
             style={tailwind('justify-center items-center mb-4')}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('ProductListByCategory', {
+                navigation.navigate('ProductsByCategory', {
                   category,
                 })
               }

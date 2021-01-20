@@ -8,6 +8,7 @@ const {width, height} = Size
 import IDRFormat from '../../utils/IDRFormat'
 
 export default ({product, customStyle}) => {
+  const {name, price, img} = product
   const styles = StyleSheet.create({
     mainContainer: {
       ...tailwind(
@@ -33,11 +34,9 @@ export default ({product, customStyle}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.contentContainer}>
-        <Image style={styles.productImage} source={{uri: product.img}} />
-        <Text style={styles.productText}>{product.name}</Text>
-        <Text style={styles.priceProductText}>
-          Rp. {IDRFormat(product.price)}
-        </Text>
+        <Image style={styles.productImage} source={{uri: img}} />
+        <Text style={styles.productText}>{name}</Text>
+        <Text style={styles.priceProductText}>Rp. {IDRFormat(price)}</Text>
       </View>
     </View>
   )
