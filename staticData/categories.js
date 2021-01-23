@@ -1,4 +1,4 @@
-;[
+export default [
   {
     _id: '5fca39dc79d80014d29e0895',
     name: 'Manga',

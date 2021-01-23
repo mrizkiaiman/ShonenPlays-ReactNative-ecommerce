@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {ScrollView, View, TouchableOpacity} from 'react-native'
-import Products from './helpers/Hardcode'
+import ProductData from '../../../staticData/products'
 //Styling
 import styles from './style'
 //Components
@@ -10,6 +10,7 @@ import {useFetchHandler} from '../../hooks'
 
 export default ({navigation, route: {params}}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
+  const Products = ProductData.filter((product) => product.isPopular === true)
 
   return (
     <ScrollView>

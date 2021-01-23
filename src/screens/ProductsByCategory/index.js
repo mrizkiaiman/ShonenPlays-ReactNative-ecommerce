@@ -8,14 +8,8 @@ import {Product, Search} from '../../components'
 import {useFetchHandler} from '../../hooks'
 
 export default ({navigation, route: {params}}) => {
+  const {category} = params
   const [searchKeyword, setSearchKeyword] = useState('')
-  const productList = useFetchHandler({
-    method: 'get',
-    url: '/products/category',
-    params: {
-      categoryId: params.category._id,
-    },
-  })
 
   return (
     <ScrollView>
@@ -24,7 +18,7 @@ export default ({navigation, route: {params}}) => {
         setSearchKeyword={setSearchKeyword}
       />
       <View style={styles.mainContainer}>
-        {productList.response.map((product, index) => (
+        {category.products.map((product, index) => (
           <TouchableOpacity
             key={index}
             onPress={() => navigation.navigate('ProductDetails', {product})}>

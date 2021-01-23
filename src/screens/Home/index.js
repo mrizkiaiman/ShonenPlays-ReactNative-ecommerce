@@ -1,6 +1,7 @@
 import React, {useState, useMemo, useEffect} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
-
+//Data
+import Categories from '../../../staticData/categories'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -15,16 +16,9 @@ import {useFetchHandler} from '../../hooks'
 
 export default function Home({navigation}) {
   const [searchKeyword, setSearchKeyword] = useState('')
-  const categoryList = useFetchHandler({
-    method: 'get',
-    url: '/categories',
-  })
-
-  const popularCategoryList = useMemo(() => {
-    return categoryList.response.filter(
-      (category) => category.isPopular === true,
-    )
-  }, [categoryList])
+  const popularCategoryList = Categories.filter(
+    (category) => category.isPopular === true,
+  )
 
   return (
     <>
@@ -94,7 +88,7 @@ export default function Home({navigation}) {
               <Text
                 onPress={() =>
                   navigation.navigate('Categories', {
-                    categoryList: categoryList.response,
+                    Categories,
                   })
                 }
                 style={styles.functionalText}>
@@ -105,7 +99,7 @@ export default function Home({navigation}) {
               style={tailwind(
                 'flex-row flex-wrap items-center justify-between',
               )}>
-              {categoryList.response.slice(0, 9).map((category, index) => (
+              {Categories.slice(0, 9).map((category, index) => (
                 <Category key={index} category={category} />
               ))}
             </View>

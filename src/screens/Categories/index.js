@@ -8,14 +8,14 @@ import {SvgUri} from 'react-native-svg'
 
 export default ({
   route: {
-    params: {categoryList},
+    params: {Categories},
   },
   navigation,
 }) => {
   return (
     <ScrollView style={styles.mainContainer}>
       <View style={styles.categoryListContainer}>
-        {categoryList.map((category, index) => (
+        {Categories.map((category, index) => (
           <View
             key={index}
             style={tailwind('justify-center items-center mb-4')}>
