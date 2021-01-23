@@ -15,7 +15,6 @@ import {useFetchHandler} from '../../hooks'
 
 export default function Home({navigation}) {
   const [searchKeyword, setSearchKeyword] = useState('')
-  useFetchHandler({method: 'get', url: '/carts'}, true, 'cartRedux')
   const categoryList = useFetchHandler({
     method: 'get',
     url: '/categories',

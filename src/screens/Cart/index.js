@@ -11,7 +11,7 @@ import {IDRFormat} from '../../utils'
 import {tailwind} from '../../style/tailwind'
 
 export default ({navigation}) => {
-  const cartListFromRedux = useSelector((state) => state.cart.cart)
+  const checkoutFromRedux = useSelector((state) => state.checkout.checkout)
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -22,7 +22,7 @@ export default ({navigation}) => {
           }}
         />
         <View style={styles.productsContainer}>
-          {cartListFromRedux && cartListFromRedux.length === 0 ? (
+          {checkoutFromRedux && checkoutFromRedux.length === 0 ? (
             <View style={tailwind('mt-10')}>
               <EmptyState
                 onSubmit={() => navigation.navigate('Market')}
@@ -31,10 +31,10 @@ export default ({navigation}) => {
               />
             </View>
           ) : (
-            cartListFromRedux &&
-            cartListFromRedux.products &&
-            (cartListFromRedux.products.length > 0 ? (
-              cartListFromRedux.products.map((item, index) => (
+            checkoutFromRedux &&
+            checkoutFromRedux.products &&
+            (checkoutFromRedux.products.length > 0 ? (
+              checkoutFromRedux.products.map((item, index) => (
                 <Product key={item.productId} productData={item} />
               ))
             ) : (
@@ -49,14 +49,14 @@ export default ({navigation}) => {
           )}
         </View>
       </ScrollView>
-      {cartListFromRedux &&
-        cartListFromRedux.products &&
-        cartListFromRedux.products.length > 0 && (
+      {checkoutFromRedux &&
+        checkoutFromRedux.products &&
+        checkoutFromRedux.products.length > 0 && (
           <View style={styles.footer}>
             <View>
               <Text style={styles.totalText}>Total</Text>
               <Text style={styles.priceTotalText}>
-                Rp{IDRFormat(Number(cartListFromRedux.total))}
+                Rp{IDRFormat(Number(checkoutFromRedux.total))}
               </Text>
             </View>
             <Button
