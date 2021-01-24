@@ -1,7 +1,7 @@
 import React, {useState, useMemo, useEffect} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
 //Data
-import Categories from '../../../staticData/categories'
+import {Categories} from '../../../staticData'
 //Styling
 import styles from './style'
 import {Size} from '../../style'

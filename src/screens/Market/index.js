@@ -1,5 +1,7 @@
 import React, {useState, useMemo} from 'react'
-import {Text, View, ScrollView, Image} from 'react-native'
+import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native'
+//Data
+import {Categories, Products} from '../../../staticData'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -10,15 +12,12 @@ const {width, height} = Size
 import {TabScreenHeader} from '../../parts'
 import {Search, Product, Category} from '../../components'
 //Functions
-import {popularItems, promoItems} from './helpers/Hardcode'
 import {useFetchHandler} from '../../hooks'
 
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
-  const categoryList = useFetchHandler({
-    method: 'get',
-    url: '/categories',
-  })
+  const popularItems = Products.filter((product) => product.isPopular === true)
+  const promoItems = Products.filter((product) => product.isPromo === true)
 
   return (
     <ScrollView>
@@ -29,11 +28,13 @@ export default ({navigation}) => {
             orangeText: 'ket',
           }}
         />
-        <Search
-          searchKeyword={searchKeyword}
-          setSearchKeyword={setSearchKeyword}
-          onSubmit={() => console.log('Test')}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <Search
+            searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
+            onSubmit={() => console.log('Test')}
+          />
+        </TouchableOpacity>
         <Image
           source={{
             uri:
@@ -41,7 +42,6 @@ export default ({navigation}) => {
           }}
           style={styles.bannerImage}
         />
-
         <View
           style={{
             ...styles.sectionContainer,
@@ -53,11 +53,19 @@ export default ({navigation}) => {
           </View>
           <View style={tailwind('flex-wrap flex-row justify-between')}>
             {popularItems.slice(0, 4).map((product, index) => (
-              <Product
+              <TouchableOpacity
                 key={index}
-                product={product}
-                customStyle={{marginBottom: 25, width: width > 410 ? 170 : 155}}
-              />
+                onPress={() =>
+                  navigation.navigate('ProductDetails', {product})
+                }>
+                <Product
+                  product={product}
+                  customStyle={{
+                    marginBottom: 25,
+                    width: width > 410 ? 170 : 155,
+                  }}
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </View>
@@ -68,11 +76,13 @@ export default ({navigation}) => {
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
             {promoItems.map((product, index) => (
-              <Product
+              <TouchableOpacity
                 key={index}
-                product={product}
-                customStyle={{marginRight: 25}}
-              />
+                onPress={() =>
+                  navigation.navigate('ProductDetails', {product})
+                }>
+                <Product product={product} customStyle={{marginRight: 25}} />
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
@@ -87,7 +97,7 @@ export default ({navigation}) => {
             <Text
               onPress={() =>
                 navigation.navigate('Categories', {
-                  categoryList: categoryList.response,
+                  Categories,
                 })
               }
               style={styles.functionalText}>
@@ -96,7 +106,7 @@ export default ({navigation}) => {
           </View>
           <View
             style={tailwind('flex-row flex-wrap items-center justify-between')}>
-            {categoryList.response.slice(0, 6).map((category, index) => (
+            {Categories.slice(0, 6).map((category, index) => (
               <Category key={index} category={category} />
             ))}
           </View>

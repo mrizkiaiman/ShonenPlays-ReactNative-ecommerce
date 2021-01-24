@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import {useDispatch} from 'react-redux'
+import {useNavigation} from '@react-navigation/native'
 //Styling
 import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
@@ -21,7 +22,7 @@ import IDRFormat from '../../../../utils/IDRFormat'
 import Toast from '../../../../utils/Toast'
 import {removeProduct} from '../../../../store/actions/checkout'
 
-export default ({navigation, productData}) => {
+export default ({productData}) => {
   const {
     img,
     name,
@@ -35,6 +36,7 @@ export default ({navigation, productData}) => {
   } = productData
   const [value, setValue] = useState(qty)
   const dispatch = useDispatch()
+  const navigation = useNavigation()
   const removeFromCartOnSubmit = () => {
     Alert.alert(
       'Remove',
@@ -62,7 +64,12 @@ export default ({navigation, productData}) => {
 
   return (
     <View style={styles.mainContainer}>
-      <Image style={styles.productImage} source={{uri: img}} />
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('ProductDetails', {product: productData})
+        }>
+        <Image style={styles.productImage} source={{uri: img}} />
+      </TouchableOpacity>
       <View style={styles.contentContainer}>
         <Text numberOfLines={1} style={styles.productNameText}>
           {name}

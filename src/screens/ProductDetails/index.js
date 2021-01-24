@@ -1,7 +1,7 @@
 import React, {useState, useMemo} from 'react'
 import {Text, View, ScrollView, Image} from 'react-native'
 import {useDispatch} from 'react-redux'
-import Categories from '../../../staticData/categories'
+import {Categories} from '../../../staticData'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -20,7 +20,7 @@ export default ({route: {params}, navigation}) => {
   const {product} = params
   const dispatch = useDispatch()
   const [relatedProducts, setRelatedProduct] = useMemo(() => {
-    return Categories.filter((category) => (category._id = product.category))
+    return Categories.filter((category) => category._id === product.category)
   }, [])
 
   const filteredRelatedProducts = useMemo(() => {

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {ScrollView, View, TouchableOpacity} from 'react-native'
-import ProductData from '../../../staticData/products'
+import {Products} from '../../../staticData'
 //Styling
 import styles from './style'
 //Components
@@ -10,7 +10,9 @@ import {useFetchHandler} from '../../hooks'
 
 export default ({navigation, route: {params}}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
-  const Products = ProductData.filter((product) => product.isPopular === true)
+  const PopularProducts = Products.filter(
+    (product) => product.isPopular === true,
+  )
 
   return (
     <ScrollView>
@@ -19,7 +21,7 @@ export default ({navigation, route: {params}}) => {
         setSearchKeyword={setSearchKeyword}
       />
       <View style={styles.mainContainer}>
-        {Products.map((product, index) => (
+        {PopularProducts.map((product, index) => (
           <TouchableOpacity
             key={index}
             onPress={() => navigation.navigate('ProductDetails', {product})}>
