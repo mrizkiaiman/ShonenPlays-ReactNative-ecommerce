@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import {Text, View, ScrollView, Image} from 'react-native'
 import {useDispatch} from 'react-redux'
+import Categories from '../../../staticData/categories'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -12,30 +13,27 @@ import {FooterButton} from '../../parts'
 import {IDRFormat, Toast} from '../../utils'
 import {useFetchHandler} from '../../hooks'
 import {AddToCart} from '../../services/Cart'
-import {updateCartState} from '../../store/actions/cart'
+import {addProduct} from '../../store/actions/checkout'
 
 export default ({route: {params}, navigation}) => {
   const [qty, setQty] = useState(1)
   const {product} = params
   const dispatch = useDispatch()
-  const relatedProducts = useFetchHandler({
-    method: 'get',
-    url: '/products/category',
-    params: {
-      categoryId: product.category,
-    },
-  })
+  const [relatedProducts, setRelatedProduct] = useMemo(() => {
+    return Categories.filter((category) => (category._id = product.category))
+  }, [])
+
+  const filteredRelatedProducts = useMemo(() => {
+    return relatedProducts.products.filter(
+      (relatedProduct) => relatedProduct._id !== product._id,
+    )
+  }, [])
 
   const addToCartOnSubmit = () => {
-    AddToCart(product._id, qty)
-      .then((response) => {
-        Toast({title: 'Success', text: 'Your item has been added to the cart!'})
-        dispatch(updateCartState(response.cart))
-        navigation.goBack()
-      })
-      .catch((err) => {
-        Toast({title: 'Error', text: 'Something is wrong', type: 'error'})
-      })
+    product.qty = qty
+    dispatch(addProduct(product))
+    Toast({title: 'Success', text: 'Your item has been added to the cart!'})
+    navigation.goBack()
   }
 
   return (
@@ -59,8 +57,12 @@ export default ({route: {params}, navigation}) => {
         <View style={styles.relatedProductsContainer}>
           <Text style={styles.relatedProductText}>Related Products</Text>
           <ScrollView style={{marginStart: -10}} horizontal>
-            {relatedProducts.response.map((product, index) => (
-              <Product key={index} product={product} />
+            {filteredRelatedProducts.map((product, index) => (
+              <Product
+                key={index}
+                customStyle={tailwind('mr-3')}
+                product={product}
+              />
             ))}
           </ScrollView>
         </View>

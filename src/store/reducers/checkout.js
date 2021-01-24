@@ -1,5 +1,5 @@
 const defaultState = {
-  checkout: [],
+  data: {},
 }
 
 export default function (state = defaultState, action) {
@@ -7,7 +7,7 @@ export default function (state = defaultState, action) {
     case 'UPDATE_STATE':
       return {
         ...state,
-        checkout: action.payload,
+        data: action.payload,
       }
     default:
       return state

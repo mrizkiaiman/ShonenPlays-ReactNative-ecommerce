@@ -19,8 +19,7 @@ import QtyControl from '../../../../components/QtyControl'
 //Functions
 import IDRFormat from '../../../../utils/IDRFormat'
 import Toast from '../../../../utils/Toast'
-import {RemoveFromCart} from '../../../../services/Cart'
-import {updateCartState} from '../../../../store/actions/cart'
+import {removeProduct} from '../../../../store/actions/checkout'
 
 export default ({navigation, productData}) => {
   const {
@@ -49,21 +48,11 @@ export default ({navigation, productData}) => {
         {
           text: 'OK',
           onPress: () => {
-            RemoveFromCart(productId)
-              .then((response) => {
-                Toast({
-                  title: 'Success',
-                  text: 'Your item has been removed from the cart',
-                })
-                dispatch(updateCartState(response.cart))
-              })
-              .catch((err) => {
-                Toast({
-                  title: 'Error',
-                  text: 'Something is wrong',
-                  type: 'error',
-                })
-              })
+            dispatch(removeProduct(productData))
+            Toast({
+              title: 'Success',
+              text: 'Your item has been removed from the cart',
+            })
           },
         },
       ],
@@ -92,6 +81,7 @@ export default ({navigation, productData}) => {
             }}
             customValueTextStyle={tailwind('font-semibold text-lg mt-1')}
             customIconSize={20}
+            product={productData}
           />
         </View>
       </View>

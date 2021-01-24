@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {useDispatch} from 'react-redux'
 import {Feather} from '@expo/vector-icons'
 //Styling
 import {Size} from '../../style'
@@ -8,6 +9,7 @@ const {width, height} = Size
 //Assets
 //Components
 //Functions
+import {updateProductQty} from '../../store/actions/checkout'
 
 export default ({
   value,
@@ -15,6 +17,7 @@ export default ({
   customControlContainerStyle,
   customValueTextStyle,
   customIconSize,
+  product,
 }) => {
   const styles = StyleSheet.create({
     mainContainer: {
@@ -33,13 +36,15 @@ export default ({
       ...customValueTextStyle,
     },
   })
-
+  const dispatch = useDispatch()
   const changeValue = (action) => {
     if (action === '+') {
       setValue((value) => value + 1)
+      dispatch(updateProductQty(product, action))
     } else {
       if (value !== 1) {
         setValue((value) => value - 1)
+        dispatch(updateProductQty(product, action))
       }
     }
   }

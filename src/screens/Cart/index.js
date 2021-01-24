@@ -11,7 +11,8 @@ import {IDRFormat} from '../../utils'
 import {tailwind} from '../../style/tailwind'
 
 export default ({navigation}) => {
-  const checkoutFromRedux = useSelector((state) => state.checkout.checkout)
+  const checkoutFromRedux = useSelector((state) => state.checkout.data)
+
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -35,7 +36,7 @@ export default ({navigation}) => {
             checkoutFromRedux.products &&
             (checkoutFromRedux.products.length > 0 ? (
               checkoutFromRedux.products.map((item, index) => (
-                <Product key={item.productId} productData={item} />
+                <Product key={index} productData={item} />
               ))
             ) : (
               <View style={tailwind('mt-10')}>
