@@ -1,5 +1,5 @@
 const defaultState = {
-  users: [
+  data: [
     {
       first_name: 'M. Rizki',
       last_name: 'Aiman',
@@ -14,7 +14,7 @@ export default function (state = defaultState, action) {
     case 'UPDATE_STATE':
       return {
         ...state,
-        users: action.payload,
+        data: action.payload,
       }
     default:
       return state
