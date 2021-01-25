@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {ScrollView, View, TouchableOpacity} from 'react-native'
-import {Products} from '../../../staticData'
+import {Products} from '../../mockdata'
 //Styling
 import styles from './style'
 //Components

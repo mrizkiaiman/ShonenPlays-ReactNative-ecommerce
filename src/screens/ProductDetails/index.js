@@ -1,7 +1,7 @@
 import React, {useState, useMemo} from 'react'
 import {Text, View, ScrollView, Image} from 'react-native'
 import {useDispatch} from 'react-redux'
-import {Categories} from '../../../staticData'
+import {Categories} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'

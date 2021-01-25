@@ -1,7 +1,7 @@
 import React, {useState, useMemo} from 'react'
 import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native'
 //Data
-import {Categories, Products} from '../../../staticData'
+import {Categories, Products} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
