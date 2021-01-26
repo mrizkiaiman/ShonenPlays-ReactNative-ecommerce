@@ -16,4 +16,16 @@ export default StyleSheet.create({
     width: width * 0.9,
   },
   saveButtonText: tailwind('font-normal font-semibold text-white'),
+  provinceCityListContainer: {
+    borderBottomWidth: 1,
+    borderColor: '#E2E2E2',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  provinceCityListText: {
+    ...tailwind('font-normal'),
+    marginVertical: 14,
+    marginStart: 16,
+  },
 })

@@ -19,8 +19,11 @@ export default ({address}) => {
       <View style={styles.titleContainer}>
         <Text style={styles.nameText}>{address.name}</Text>
       </View>
-      <Text style={styles.addressText}>{address.address}</Text>
-      <Text style={styles.cpText}>{address.pic}</Text>
+      <Text style={styles.addressText}>
+        {address.address}, {address.city}, {address.province}{' '}
+        {address.postalCode}
+      </Text>
+      <Text style={styles.cpText}>{address.name}</Text>
       <Text style={styles.phoneText}>{address.phone}</Text>
       <View style={styles.functionalButtonContainer}>
         <TouchableOpacity

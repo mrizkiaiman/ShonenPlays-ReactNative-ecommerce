@@ -5,9 +5,13 @@ import {Size, Buttons} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import EmptyStateCart from '../../assets/Illustrations/EmptyState/cart.svg'
-import EmptyStateOrders from '../../assets/Illustrations/EmptyState/orders.svg'
-import EmptyStateAddress from '../../assets/Illustrations/EmptyState/shippingAddress.svg'
+import {
+  EmptyStateAddress,
+  EmptyStateCart,
+  EmptyStateOrders,
+  EmptyStateProducts,
+  EmptyStateWishlist,
+} from '../../assets/Illustrations/EmptyState'
 //Components
 import {Button} from '../../components'
 //Functions
@@ -19,6 +23,10 @@ export default ({screen, onSubmit, buttonText}) => {
         <EmptyStateCart width={200} height={200} />
       ) : screen == 'Orders' ? (
         <EmptyStateOrders width={224} height={224} />
+      ) : screen == 'Products' ? (
+        <EmptyStateProducts width={240} height={240} />
+      ) : screen == 'Wishlist' ? (
+        <EmptyStateWishlist width={240} height={240} />
       ) : (
         <EmptyStateAddress style={tailwind('mb-8')} width={180} height={180} />
       )}
@@ -34,6 +42,20 @@ export default ({screen, onSubmit, buttonText}) => {
           <Text style={styles.titleText}>No order yet</Text>
           <Text style={styles.subTitleText}>
             Looks like you haven’t made any order yet
+          </Text>
+        </View>
+      ) : screen == 'Products' ? (
+        <View style={styles.textContainer}>
+          <Text style={styles.titleText}>No product found</Text>
+          <Text style={styles.subTitleText}>
+            You can browse item easily in market section
+          </Text>
+        </View>
+      ) : screen == 'Wishlist' ? (
+        <View style={styles.textContainer}>
+          <Text style={styles.titleText}>No wishlist found</Text>
+          <Text style={styles.subTitleText}>
+            You can browse item easily and save what you want to buy later!
           </Text>
         </View>
       ) : (
@@ -66,5 +88,8 @@ const styles = StyleSheet.create({
   buttonText: tailwind('font-normal font-semibold text-lg text-white'),
   textContainer: tailwind('justify-center items-center my-2'),
   titleText: tailwind('font-normal font-semibold text-2xl'),
-  subTitleText: tailwind('font-normal text-sm text-dgray'),
+  subTitleText: {
+    ...tailwind('font-normal text-sm text-dgray text-center'),
+    width: width * 0.8,
+  },
 })

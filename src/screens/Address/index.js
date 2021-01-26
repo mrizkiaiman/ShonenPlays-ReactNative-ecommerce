@@ -1,5 +1,6 @@
 import React from 'react'
 import {Text, View, ScrollView} from 'react-native'
+import {useSelector} from 'react-redux'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -11,29 +12,31 @@ import {EmptyState} from '../../parts'
 import {Button} from '../../components'
 import {AddressCard} from './components'
 //Functions
-import addressList from './helpers/hardcode'
 
 export default ({navigation}) => {
+  const addressFromRedux = useSelector((state) => state.address.data)
   return (
     <ScrollView>
       <View style={styles.mainContainer}>
-        <Button
-          onSubmit={() => navigation.navigate('AddShippingAddress')}
-          styling={{
-            buttonStyle: styles.addNewAddressButton,
-            textStyle: styles.addNewAddressButtonText,
-          }}
-          title="Add new address"
-          additionalComponents={{
-            comps: <PlusIcon />,
-            position: 'left',
-          }}
-        />
-        {addressList.length > 0 ? (
-          <View style={tailwind('mt-4')}>
-            {addressList.map((address, index) => (
-              <AddressCard key={index} address={address} />
-            ))}
+        {addressFromRedux.length > 0 ? (
+          <View>
+            <Button
+              onSubmit={() => navigation.navigate('AddShippingAddress')}
+              styling={{
+                buttonStyle: styles.addNewAddressButton,
+                textStyle: styles.addNewAddressButtonText,
+              }}
+              title="Add new address"
+              additionalComponents={{
+                comps: <PlusIcon />,
+                position: 'left',
+              }}
+            />
+            <View style={tailwind('mt-4')}>
+              {addressFromRedux.map((address, index) => (
+                <AddressCard key={index} address={address} />
+              ))}
+            </View>
           </View>
         ) : (
           <View style={tailwind('mt-20')}>

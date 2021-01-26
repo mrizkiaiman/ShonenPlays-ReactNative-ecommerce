@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react'
 import {Text, View, ScrollView} from 'react-native'
 import {useSelector} from 'react-redux'
+//Styling
 import styles from './style'
+import {tailwind} from '../../style/tailwind'
 //Components
 import {Product} from './components'
 import {Button} from '../../components'
 import {EmptyState, TabScreenHeader} from '../../parts'
 //Functions
 import {IDRFormat} from '../../utils'
-import {tailwind} from '../../style/tailwind'
 
 export default ({navigation}) => {
   const checkoutFromRedux = useSelector((state) => state.checkout.data)
-
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -23,7 +23,7 @@ export default ({navigation}) => {
           }}
         />
         <View style={styles.productsContainer}>
-          {checkoutFromRedux && checkoutFromRedux.length === 0 ? (
+          {Object.keys(checkoutFromRedux).length === 0 ? (
             <View style={tailwind('mt-10')}>
               <EmptyState
                 onSubmit={() => navigation.navigate('Market')}

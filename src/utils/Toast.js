@@ -7,7 +7,7 @@ export default (options) => {
     text2: text,
     position: 'bottom',
     autoHide: true,
-    visibilityTime: 200,
+    visibilityTime: 400,
     autoHide: Boolean,
     type: type === undefined ? 'success' : type,
   })

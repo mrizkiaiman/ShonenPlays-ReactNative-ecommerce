@@ -15,6 +15,7 @@ export default function Input({
   type,
   passwordConfig,
   autoCapitalize,
+  onSubmit,
 }) {
   const {width} = Size
   const styles = StyleSheet.create({
@@ -90,8 +91,14 @@ export default function Input({
   ) : (
     type === 'form' && (
       <View style={{...styles.formContainer, ...customContainerStyle}}>
-        <Text style={{...styles.input, ...tailwind('text-dgray')}}>
-          {placeholder}
+        <Text
+          onPress={onSubmit ? () => onSubmit() : null}
+          style={
+            value
+              ? {...styles.input, ...tailwind('text-black')}
+              : {...styles.input, ...tailwind('text-dgray')}
+          }>
+          {value ? value : placeholder}
         </Text>
         <RightIcon style={{marginRight: 10}} />
       </View>

@@ -24,9 +24,9 @@ import {WhatsAppLink} from '../../utils'
 
 export default ({navigation}) => {
   const {firstName, lastName, mail, img} = hardcode
+  //Modalize
   const editProfileModal = useRef(null)
   const changePasswordModal = useRef(null)
-
   const modalAction = (action, type) => {
     let modal
     if (type === 'editProfile') {

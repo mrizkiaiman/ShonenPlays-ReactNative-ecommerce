@@ -1,5 +1,6 @@
 import React, {useState, useMemo} from 'react'
 import {Text, View, ScrollView} from 'react-native'
+import {Categories} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -14,17 +15,9 @@ import {useFetchHandler} from '../../hooks'
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const popularKeywords = ['AJ1 Chicago', 'Shonen JUMP!', 'One Piece']
-
-  const categoryList = useFetchHandler({
-    method: 'get',
-    url: '/categories',
-  })
-
   const popularCategoryList = useMemo(() => {
-    return categoryList.response.filter(
-      (category) => category.isPopular === true,
-    )
-  }, [categoryList])
+    return Categories.filter((category) => category.isPopular === true)
+  }, [])
 
   return (
     <ScrollView style={tailwind('bg-white')}>
