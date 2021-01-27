@@ -19,18 +19,24 @@ import {FooterButton, ModalHeader} from '../../parts'
 import {Toast} from '../../utils'
 import {addAddress, updateAddress} from '../../store/actions/address'
 
-export default ({navigation, route}) => {
-  const {
-    params: {addressData},
-  } = route
-
-  const [name, setName] = useState(addressData.name)
-  const [pic, setPic] = useState(addressData.pic)
-  const [phone, setPhone] = useState(addressData.phone)
-  const [address, setAddress] = useState(addressData.address)
-  const [province, setProvince] = useState(addressData.province)
-  const [city, setCity] = useState(addressData.city)
-  const [postalCode, setPostalCode] = useState(addressData.postalCode)
+export default ({navigation, route: {params}}) => {
+  const [latitude, setLatitude] = useState(
+    params && params.location
+      ? params.location.latitude
+      : params.addressData.latitude,
+  )
+  const [longitude, setLongitude] = useState(
+    params && params.location
+      ? params.location.longitude
+      : params.addressData.longitude,
+  )
+  const [name, setName] = useState(params.addressData.name)
+  const [pic, setPic] = useState(params.addressData.pic)
+  const [phone, setPhone] = useState(params.addressData.phone)
+  const [address, setAddress] = useState(params.addressData.address)
+  const [province, setProvince] = useState(params.addressData.province)
+  const [city, setCity] = useState(params.addressData.city)
+  const [postalCode, setPostalCode] = useState(params.addressData.postalCode)
   const provinces = Object.keys(Provinces)
   const [cities, setCities] = useState([])
   const dispatch = useDispatch()
@@ -53,7 +59,16 @@ export default ({navigation, route}) => {
     }
   }
   const saveAddress = () => {
-    if (!address || !province || !city || !postalCode || !name || !phone) {
+    if (
+      !address ||
+      !province ||
+      !city ||
+      !postalCode ||
+      !name ||
+      !phone ||
+      !longitude ||
+      !latitude
+    ) {
       Toast({
         title: 'Warning!',
         text: 'Please fill all required input',
@@ -62,13 +77,15 @@ export default ({navigation, route}) => {
     } else {
       dispatch(
         updateAddress({
-          _id: addressData._id,
+          _id: params.addressData._id,
           name,
           phone,
           address,
           province,
           city,
           postalCode,
+          longitude,
+          latitude,
         }),
       )
       Toast({
@@ -169,7 +186,7 @@ export default ({navigation, route}) => {
             ))}
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Maps')}
+            onPress={() => navigation.navigate('Maps', {from: 'edit'})}
             style={styles.pinLocationContainer}>
             <PinLocationIcon style={{marginRight: 10}} />
             <Text style={styles.pinLocationText}>Pin location</Text>

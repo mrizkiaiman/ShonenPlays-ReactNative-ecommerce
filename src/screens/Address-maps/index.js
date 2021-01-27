@@ -9,9 +9,22 @@ import {InputMap, ChooseLocationButton} from './components'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import * as Location from 'expo-location'
 //Functions
+import {Toast} from '../../utils'
 
-export default () => {
+export default ({navigation, route}) => {
+  const {
+    params: {from},
+  } = route
   const [location, setLocation] = useState({})
+
+  const navigateScreen = () => {
+    Toast({
+      title: 'Success',
+      text: 'Location is saved!',
+    })
+    if (from === 'edit') navigation.navigate('EditShippingAddress', {location})
+    else navigation.navigate('AddShippingAddress', {location})
+  }
 
   useEffect(() => {
     getCurrentLocation()

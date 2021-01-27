@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useEffect} from 'react'
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {Provinces} from '../../mockdata'
@@ -19,7 +19,17 @@ import {FooterButton, ModalHeader} from '../../parts'
 import {Toast} from '../../utils'
 import {addAddress} from '../../store/actions/address'
 
-export default ({navigation}) => {
+export default ({navigation, route: {params}}) => {
+  useEffect(() => {
+    if (params && params.location) {
+      setLatitude(params.location.coords.latitude)
+      setLongitude(params.location.coords.longitude)
+    }
+    console.log(latitude, longitude)
+  }, [params])
+
+  const [latitude, setLatitude] = useState('')
+  const [longitude, setLongitude] = useState('')
   const [name, setName] = useState('')
   const [pic, setPic] = useState()
   const [phone, setPhone] = useState('')
@@ -50,7 +60,16 @@ export default ({navigation}) => {
   }
 
   const saveAddress = () => {
-    if (!address || !province || !city || !postalCode || !name || !phone) {
+    if (
+      !address ||
+      !province ||
+      !city ||
+      !postalCode ||
+      !name ||
+      !phone ||
+      !longitude ||
+      !latitude
+    ) {
       Toast({
         title: 'Warning!',
         text: 'Please fill all required input',
@@ -65,6 +84,9 @@ export default ({navigation}) => {
           province,
           city,
           postalCode,
+          longitude,
+          latitude,
+          ...params.location,
         }),
       )
       Toast({
@@ -165,10 +187,13 @@ export default ({navigation}) => {
             ))}
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Maps')}
+            onPress={() => navigation.navigate('Maps', {from: 'add'})}
             style={styles.pinLocationContainer}>
-            <PinLocationIcon style={{marginRight: 10}} />
-            <Text style={styles.pinLocationText}>Pin location</Text>
+            <View style={tailwind('flex-row items-center')}>
+              <PinLocationIcon style={{marginRight: 10}} />
+              <Text style={styles.pinLocationText}>Pin location</Text>
+            </View>
+            {latitude && longitude ? <CheckedIcon /> : null}
           </TouchableOpacity>
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitleText}>Contact Person</Text>

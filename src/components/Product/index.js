@@ -25,15 +25,16 @@ export default ({product, customStyle}) => {
       ...tailwind(
         'light-shadow bg-white rounded-xl mb-4 justify-center items-center',
       ),
-      width: width > 410 ? 175 : 150,
+      width: width > 410 ? 175 : 155,
       ...customStyle,
     },
     contentContainer: tailwind('mx-2'),
     productImage: {
-      width: 150,
+      width: width > 410 ? 150 : 140,
       height: 180,
       borderRadius: 8,
-      marginTop: 10,
+      marginTop: 8,
+      alignSelf: 'center',
     },
     productText: {
       ...tailwind('font-normal text-xs mt-2'),
@@ -49,7 +50,7 @@ export default ({product, customStyle}) => {
     wishListButton: {
       ...Buttons.submitButton,
       height: 40,
-      width: width > 410 ? 40 : 30,
+      width: 40,
       backgroundColor: '#ff6b6b',
     },
     buttonText: tailwind('font-normal font-semibold text-white text-sm'),
