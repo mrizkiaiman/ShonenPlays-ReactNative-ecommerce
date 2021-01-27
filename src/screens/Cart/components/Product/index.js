@@ -53,7 +53,7 @@ export default ({productData}) => {
             dispatch(removeProduct(productData))
             Toast({
               title: 'Success',
-              text: 'Your item has been removed from the cart',
+              text: 'Item has been removed from the cart',
             })
           },
         },

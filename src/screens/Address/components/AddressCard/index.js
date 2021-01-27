@@ -1,6 +1,7 @@
 import React from 'react'
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
+import {useDispatch} from 'react-redux'
 //Styling
 import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
@@ -10,9 +11,12 @@ import DeleteIcon from '../../../../assets/Icons/delete-x.svg'
 import EditIcon from '../../../../assets/Icons/edit.svg'
 //Components
 //Functions
+import {removeAddress} from '../../../../store/actions/address'
+import {Toast} from '../../../../utils'
 
 export default ({address}) => {
   const navigation = useNavigation()
+  const dispatch = useDispatch()
 
   return (
     <View style={styles.mainContainer}>
@@ -34,7 +38,32 @@ export default ({address}) => {
           <EditIcon style={tailwind('mr-1')} />
           <Text style={styles.functionalText}>Edit</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={tailwind('flex-row items-center')}>
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert(
+              'Remove',
+              'Are you sure you want to remove this address?',
+              [
+                {
+                  text: 'Cancel',
+                  onPress: () => console.log('Cancel Pressed'),
+                  style: 'cancel',
+                },
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    dispatch(removeAddress(address))
+                    Toast({
+                      title: 'Success',
+                      text: 'Address has been removed',
+                    })
+                  },
+                },
+              ],
+              {cancelable: false},
+            )
+          }}
+          style={tailwind('flex-row items-center')}>
           <DeleteIcon style={tailwind('mr-1')} />
           <Text style={styles.functionalText}>Delete</Text>
         </TouchableOpacity>

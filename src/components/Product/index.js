@@ -76,7 +76,7 @@ export default ({product, customStyle}) => {
             dispatch(addProduct(product))
             Toast({
               title: 'Success',
-              text: 'Your item has been added to the cart!',
+              text: 'Item has been added to the cart!',
             })
           }}
         />
@@ -86,7 +86,7 @@ export default ({product, customStyle}) => {
             dispatch(addWishlist(product))
             Toast({
               title: 'Success',
-              text: 'Your item has been saved to the wishlist!',
+              text: 'Item has been saved to the wishlist!',
             })
           }}
           style={styles.wishListButton}>

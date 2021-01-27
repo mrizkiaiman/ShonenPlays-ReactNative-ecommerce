@@ -1,5 +1,13 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native'
+import {useDispatch} from 'react-redux'
 //Styling
 import {Size, Buttons} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
@@ -9,9 +17,13 @@ import TrashIcon from '../../../../assets/Icons/trash.svg'
 //Components
 //Functions
 import {IDRFormat} from '../../../../utils'
+import {addProduct} from '../../../../store/actions/checkout'
+import {removeWishlist} from '../../../../store/actions/wishlist'
+import {Toast} from '../../../../utils'
 
-export default ({productData}) => {
-  const {name, img, price} = productData
+export default ({product}) => {
+  const {name, img, price} = product
+  const dispatch = useDispatch()
   return (
     <View style={styles.mainContainer}>
       <Image style={styles.image} source={{uri: img}} />
@@ -22,10 +34,44 @@ export default ({productData}) => {
             Rp{IDRFormat(price)}
           </Text>
           <View style={tailwind('flex-row items-center mt-7')}>
-            <TouchableOpacity style={styles.deleteButton}>
+            <TouchableOpacity
+              onPress={() => {
+                Alert.alert(
+                  'Remove',
+                  'Are you sure you want to remove this item?',
+                  [
+                    {
+                      text: 'Cancel',
+                      onPress: () => console.log('Cancel Pressed'),
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'OK',
+                      onPress: () => {
+                        dispatch(removeWishlist(product))
+                        Toast({
+                          title: 'Success',
+                          text: 'Item has been removed from the wishlist!',
+                        })
+                      },
+                    },
+                  ],
+                  {cancelable: false},
+                )
+              }}
+              style={styles.deleteButton}>
               <TrashIcon />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.addToCartButton}>
+            <TouchableOpacity
+              onPress={() => {
+                product.qty = 1
+                dispatch(addProduct(product))
+                Toast({
+                  title: 'Success',
+                  text: 'Item has been added to the cart!',
+                })
+              }}
+              style={styles.addToCartButton}>
               <Text style={tailwind('font-normal font-semibold text-white')}>
                 Add to cart
               </Text>

@@ -21,6 +21,7 @@ import {addAddress} from '../../store/actions/address'
 
 export default ({navigation}) => {
   const [name, setName] = useState('')
+  const [pic, setPic] = useState()
   const [phone, setPhone] = useState('')
   const [address, setAddress] = useState('')
   const [province, setProvince] = useState('')
@@ -76,8 +77,8 @@ export default ({navigation}) => {
 
   const userInfo = [
     {
-      value: name,
-      onChangeText: setName,
+      value: pic,
+      onChangeText: setPic,
       placeholder: 'Name',
       type: 'box',
       customContainerStyle: {
@@ -96,6 +97,15 @@ export default ({navigation}) => {
   ]
 
   const addressInfo = [
+    {
+      value: name,
+      onChangeText: setName,
+      placeholder: 'Address name',
+      type: 'box',
+      customContainerStyle: {
+        marginBottom: 20,
+      },
+    },
     {
       value: address,
       onChangeText: setAddress,
@@ -192,6 +202,7 @@ export default ({navigation}) => {
             style={styles.provinceCityListContainer}
             onPress={() => {
               setProvince(value)
+              setCity('')
               setCities(Provinces[value])
               modalAction('close', 'province')
             }}

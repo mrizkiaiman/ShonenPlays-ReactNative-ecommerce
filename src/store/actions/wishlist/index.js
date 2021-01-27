@@ -10,7 +10,7 @@ export const addWishlist = (product) => {
 export const removeWishlist = (product) => {
   return (dispatch, getState) => {
     let newWishlist = getState().wishlist.data.slice()
-    newWishlist.products.forEach((currentWishlist, index) => {
+    newWishlist.forEach((currentWishlist, index) => {
       if (currentWishlist._id === product._id) {
         newWishlist.splice(index, 1)
       }

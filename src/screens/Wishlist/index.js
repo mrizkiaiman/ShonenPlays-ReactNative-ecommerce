@@ -32,7 +32,7 @@ export default () => {
               />
               <View style={tailwind('m-4')}>
                 {wishlistFromRedux.map((product, index) => (
-                  <WishlistProduct key={index} productData={product} />
+                  <WishlistProduct key={index} product={product} />
                 ))}
               </View>
             </View>

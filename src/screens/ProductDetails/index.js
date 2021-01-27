@@ -30,7 +30,7 @@ export default ({route: {params}, navigation}) => {
   const addToCartOnSubmit = () => {
     product.qty = qty
     dispatch(addProduct(product))
-    Toast({title: 'Success', text: 'Your item has been added to the cart!'})
+    Toast({title: 'Success', text: 'Item has been added to the cart!'})
     navigation.goBack()
   }
 
