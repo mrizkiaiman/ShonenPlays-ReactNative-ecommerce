@@ -1,7 +1,6 @@
 import React, {useState, useMemo} from 'react'
 import {Text, View, ScrollView} from 'react-native'
 import {useSelector} from 'react-redux'
-import {wishlist, recommendedItems} from './helpers/Hardcode'
 import {Products} from '../../mockdata'
 //Styling
 import styles from './style'

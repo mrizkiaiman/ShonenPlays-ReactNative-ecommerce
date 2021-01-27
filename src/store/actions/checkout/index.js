@@ -15,7 +15,7 @@ export const addProduct = (product) => {
     if (Object.keys(newCheckout).length === 0) {
       payload.products.push(product)
       payload.total = product.price * product.qty
-      dispatch({type: 'UPDATE_STATE', payload})
+      dispatch({type: 'UPDATE_STATE_CHECKOUT', payload})
     } else {
       for (let i = 0; i < newCheckout.products.length; i++) {
         if (newCheckout.products[i]._id === product._id) {
@@ -34,7 +34,7 @@ export const addProduct = (product) => {
       },
       0)
       newCheckout.total = sum
-      dispatch({type: 'UPDATE_STATE', payload: newCheckout})
+      dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: newCheckout})
     }
   }
 }
@@ -49,7 +49,7 @@ export const removeProduct = (product) => {
         newCheckout.total -= product.price * product.qty
       }
     })
-    dispatch({type: 'UPDATE_STATE', payload: newCheckout})
+    dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: newCheckout})
   }
 }
 

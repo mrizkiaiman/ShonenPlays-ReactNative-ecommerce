@@ -8,11 +8,9 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Components
 import {Product, QtyControl} from '../../components'
-import {FooterButton} from '../../parts'
+import {FooterButton, ScrollViewBounced} from '../../parts'
 //Functions
 import {IDRFormat, Toast} from '../../utils'
-import {useFetchHandler} from '../../hooks'
-import {AddToCart} from '../../services/Cart'
 import {addProduct} from '../../store/actions/checkout'
 
 export default ({route: {params}, navigation}) => {
@@ -39,6 +37,7 @@ export default ({route: {params}, navigation}) => {
   return (
     <>
       <ScrollView style={styles.mainContainer}>
+        <ScrollViewBounced color={'white'} />
         <View style={styles.mainContentContainer}>
           <Image source={{uri: product.img}} style={styles.productImage} />
           <Text style={styles.productNameText}>{product.name}</Text>

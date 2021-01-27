@@ -4,7 +4,7 @@ const defaultState = {
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case 'UPDATE_STATE':
+    case 'UPDATE_STATE_WISHLIST':
       return {
         ...state,
         data: action.payload,

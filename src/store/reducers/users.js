@@ -11,7 +11,7 @@ const defaultState = {
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case 'UPDATE_STATE':
+    case 'UPDATE_STATE_USER':
       return {
         ...state,
         data: action.payload,

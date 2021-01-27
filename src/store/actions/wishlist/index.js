@@ -1,8 +1,9 @@
 export const addWishlist = (product) => {
   return (dispatch, getState) => {
-    let newWishlist = getState().wishlist.data.slice()
+    let currentWishlist = getState().wishlist.data
+    let newWishlist = currentWishlist.slice()
     newWishlist.push(product)
-    dispatch({type: 'UPDATE_STATE', payload: newWishlist})
+    dispatch({type: 'UPDATE_STATE_WISHLIST', payload: newWishlist})
   }
 }
 
@@ -14,6 +15,6 @@ export const removeWishlist = (product) => {
         newWishlist.splice(index, 1)
       }
     })
-    dispatch({type: 'UPDATE_STATE', payload: newWishlist})
+    dispatch({type: 'UPDATE_STATE_WISHLIST', payload: newWishlist})
   }
 }

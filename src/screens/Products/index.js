@@ -26,13 +26,11 @@ export default ({navigation, route: {params}}) => {
           />
           <View style={styles.mainContainer}>
             {PopularProducts.map((product, index) => (
-              <TouchableOpacity
+              <Product
                 key={index}
-                onPress={() =>
-                  navigation.navigate('ProductDetails', {product})
-                }>
-                <Product product={product} customStyle={{margin: 8}} />
-              </TouchableOpacity>
+                product={product}
+                customStyle={{margin: 8}}
+              />
             ))}
           </View>
         </View>
