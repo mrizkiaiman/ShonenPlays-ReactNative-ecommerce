@@ -9,14 +9,13 @@ import GoogleIcon from '../../assets/Icons/google.svg'
 import {Input, Button} from '../../components'
 //Functions
 import {SignIn} from '../../services/Authenthication'
-import {Toast} from '../../utils'
+import {Toast, isEmail} from '../../utils'
 
 export default function SignInScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const usersFromRedux = useSelector((state) => state.users.data)
-  console.log(usersFromRedux)
   const signInOnSubmit = () => {
     const isVerified = usersFromRedux.some(
       (user) => user.email == email && user.password == password,
@@ -24,7 +23,9 @@ export default function SignInScreen({navigation}) {
     if (isVerified) {
       Toast({title: 'Success', text: 'Logged in'})
       navigation.navigate('BottomTabs', {screen: 'Home'})
-    } else
+    } else if (isEmail(email) == false)
+      Toast({title: 'Failed', text: 'Incorrect email format', type: 'error'})
+    else
       Toast({title: 'Failed', text: 'Wrong email or password', type: 'error'})
   }
 

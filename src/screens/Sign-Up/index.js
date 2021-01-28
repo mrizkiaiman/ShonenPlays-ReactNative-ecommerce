@@ -8,7 +8,7 @@ import GoogleIcon from '../../assets/Icons/google.svg'
 import {Input, Button} from '../../components'
 //Functions
 import {addUser} from '../../store/actions/users'
-import {Toast} from '../../utils'
+import {Toast, isEmail} from '../../utils'
 
 export default function SignUpScreen({navigation}) {
   const [firstName, setFirstName] = useState('')
@@ -25,7 +25,13 @@ export default function SignUpScreen({navigation}) {
         text: 'Please fill all the required input',
         type: 'error',
       })
-    } else {
+    } else if (isEmail(email) == false)
+      Toast({
+        title: 'Failed',
+        text: 'Incorrect email format',
+        type: 'error',
+      })
+    else {
       dispatch(
         addUser({
           firstName,
