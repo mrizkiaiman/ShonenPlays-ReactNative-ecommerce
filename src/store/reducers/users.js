@@ -1,10 +1,10 @@
 const defaultState = {
   data: [
     {
-      first_name: 'M. Rizki',
-      last_name: 'Aiman',
+      firstName: 'M. Rizki',
+      lastName: 'Aiman',
       email: 'm.rizki.aiman@gmail.com',
-      password: 'mrizkiaiman',
+      password: '123',
     },
   ],
 }

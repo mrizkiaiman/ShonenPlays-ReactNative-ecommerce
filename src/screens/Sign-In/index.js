@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {SafeAreaView, View, Text, Image} from 'react-native'
+import {useSelector} from 'react-redux'
 import styles from './style'
 import AsyncStorage from '@react-native-community/async-storage'
 //Assets
@@ -14,15 +15,17 @@ export default function SignInScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-
+  const usersFromRedux = useSelector((state) => state.users.data)
+  console.log(usersFromRedux)
   const signInOnSubmit = () => {
-    SignIn(email, password)
-      .then(async (response) => {
-        await AsyncStorage.setItem('token', response.token)
-        Toast({title: 'Success', text: 'Logged in'})
-        navigation.navigate('BottomTabs', {screen: 'Home'})
-      })
-      .catch(console.log)
+    const isVerified = usersFromRedux.some(
+      (user) => user.email == email && user.password == password,
+    )
+    if (isVerified) {
+      Toast({title: 'Success', text: 'Logged in'})
+      navigation.navigate('BottomTabs', {screen: 'Home'})
+    } else
+      Toast({title: 'Failed', text: 'Wrong email or password', type: 'error'})
   }
 
   const inputList = [

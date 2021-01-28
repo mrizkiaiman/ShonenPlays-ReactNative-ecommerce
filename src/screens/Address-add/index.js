@@ -25,7 +25,6 @@ export default ({navigation, route: {params}}) => {
       setLatitude(params.location.coords.latitude)
       setLongitude(params.location.coords.longitude)
     }
-    console.log(latitude, longitude)
   }, [params])
 
   const [latitude, setLatitude] = useState('')

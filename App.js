@@ -32,20 +32,25 @@ export default function App() {
     Oxanium_800ExtraBold,
   })
 
+  // if (!fontsLoaded) return <AppLoading />
+  // else if (openApp) {
+  //   return (
+  //     <Provider store={store}>
+  //       <Navigation />
+  //       <Toast ref={(ref) => Toast.setRef(ref)} />
+  //     </Provider>
+  //   )
+  // } else {
+  //   return <AppIntroSlider openApp={() => setOpenApp(true)} />
+  // }
+
   if (!fontsLoaded) return <AppLoading />
-  else if (openApp) {
+  else {
     return (
       <Provider store={store}>
         <Navigation />
         <Toast ref={(ref) => Toast.setRef(ref)} />
       </Provider>
     )
-  } else {
-    return <AppIntroSlider openApp={() => setOpenApp(true)} />
-  }
-
-  if (!fontsLoaded) return <AppLoading />
-  else {
-    return <Navigation />
   }
 }

@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import {SafeAreaView, View, Text, Image} from 'react-native'
+import {useDispatch} from 'react-redux'
 import styles from './style'
 //Assets
 import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
 import {Input, Button} from '../../components'
-//Services
-import {SignUp} from '../../services/Authenthication/signUp'
+//Functions
+import {addUser} from '../../store/actions/users'
+import {Toast} from '../../utils'
 
 export default function SignUpScreen({navigation}) {
   const [firstName, setFirstName] = useState('')
@@ -14,13 +16,27 @@ export default function SignUpScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const dispatch = useDispatch()
 
-  const signInOnSubmit = () => {
-    SignUp(firstName, lastName, email, password)
-      .then(async (response) => {
-        navigation.navigate('SignIn')
+  const signUpOnSubmit = () => {
+    if (!firstName || !lastName || !email || !password) {
+      Toast({
+        title: 'Failed',
+        text: 'Please fill all the required input',
+        type: 'error',
       })
-      .catch(console.log)
+    } else {
+      dispatch(
+        addUser({
+          firstName,
+          lastName,
+          email,
+          password,
+        }),
+      )
+      Toast({title: 'Success', text: 'Your account is already registered'})
+      navigation.navigate('BottomTabs', {screen: 'Home'})
+    }
   }
 
   const inputList = [
@@ -68,7 +84,7 @@ export default function SignUpScreen({navigation}) {
 
   const buttonList = [
     {
-      onSubmit: () => signInOnSubmit(),
+      onSubmit: () => signUpOnSubmit(),
       styling: {
         buttonStyle: styles.signInButton,
         textStyle: styles.signInButtonText,
