@@ -1,21 +1,22 @@
 import React, {useState} from 'react'
 import {SafeAreaView, View, Text, Image} from 'react-native'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import styles from './style'
-import AsyncStorage from '@react-native-community/async-storage'
 //Assets
 import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
 import {Input, Button} from '../../components'
+import * as Google from 'expo-google-app-auth'
 //Functions
-import {SignIn} from '../../services/Authenthication'
 import {Toast, isEmail} from '../../utils'
+import {addUser} from '../../store/actions/users'
 
 export default function SignInScreen({navigation}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const usersFromRedux = useSelector((state) => state.users.data)
+  const dispatch = useDispatch()
   const signInOnSubmit = () => {
     const isVerified = usersFromRedux.some(
       (user) => user.email == email && user.password == password,
@@ -27,6 +28,11 @@ export default function SignInScreen({navigation}) {
       Toast({title: 'Failed', text: 'Incorrect email format', type: 'error'})
     else
       Toast({title: 'Failed', text: 'Wrong email or password', type: 'error'})
+  }
+
+  const googleSignIn = async () => {
+    Toast({title: 'Success', text: 'Logged in'})
+    navigation.navigate('BottomTabs', {screen: 'Home'})
   }
 
   const inputList = [
@@ -62,7 +68,7 @@ export default function SignInScreen({navigation}) {
       title: 'Sign in',
     },
     {
-      onSubmit: () => navigation.navigate('BottomTabs', {screen: 'Home'}),
+      onSubmit: () => googleSignIn(),
       styling: {
         buttonStyle: styles.connectWithGoogleButton,
         textStyle: styles.connectWithGoogleButtonText,
