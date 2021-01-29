@@ -1,6 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {Provinces} from '../../mockdata'
 //Styling
 import styles from './style'
@@ -38,6 +38,8 @@ export default ({navigation, route: {params}}) => {
   const [postalCode, setPostalCode] = useState('')
   const provinces = Object.keys(Provinces)
   const [cities, setCities] = useState([])
+  const addressFromRedux = useSelector((state) => state.address.data)
+
   const dispatch = useDispatch()
   //Modalize
   const provinceModal = useRef(null)
@@ -86,6 +88,7 @@ export default ({navigation, route: {params}}) => {
           longitude,
           latitude,
           ...params.location,
+          isDefault: addressFromRedux.length > 0 ? false : true,
         }),
       )
       Toast({
