@@ -7,7 +7,7 @@ export const addProduct = (product) => {
       total: 0,
       shippingAddress: {},
       shippingMethod: {},
-      discount: {},
+      discount: 0,
       date: new Date(),
       status: 1,
       id_order: '',
@@ -17,15 +17,20 @@ export const addProduct = (product) => {
       payload.total = product.price * product.qty
       dispatch({type: 'UPDATE_STATE_CHECKOUT', payload})
     } else {
-      for (let i = 0; i < newCheckout.products.length; i++) {
-        if (newCheckout.products[i]._id === product._id) {
-          newCheckout.products[i].qty++
-          break
-        } else {
-          newCheckout.products.push(product)
-          break
+      if (newCheckout.products.length === 0) newCheckout.products.push(product)
+      else {
+        for (let i = 0; i < newCheckout.products.length; i++) {
+          console.log(newCheckout.products[i]._id, product._id)
+          if (newCheckout.products[i]._id === product._id) {
+            newCheckout.products[i].qty++
+            break
+          } else {
+            newCheckout.products.push(product)
+            break
+          }
         }
       }
+
       let sum = newCheckout.products.reduce(function (
         accumulator,
         currentValue,

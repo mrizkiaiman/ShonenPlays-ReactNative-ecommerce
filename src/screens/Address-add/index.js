@@ -21,9 +21,15 @@ import {addAddress} from '../../store/actions/address'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
+    console.log(params)
     if (params && params.location) {
-      setLatitude(params.location.coords.latitude)
-      setLongitude(params.location.coords.longitude)
+      if (params.location.coords) {
+        setLatitude(params.location.coords.latitude)
+        setLongitude(params.location.coords.longitude)
+      } else {
+        setLatitude(params.location.latitude)
+        setLongitude(params.location.longitude)
+      }
     }
   }, [params])
 
@@ -61,16 +67,7 @@ export default ({navigation, route: {params}}) => {
   }
 
   const saveAddress = () => {
-    if (
-      !address ||
-      !province ||
-      !city ||
-      !postalCode ||
-      !name ||
-      !phone ||
-      !longitude ||
-      !latitude
-    ) {
+    if (!address || !province || !city || !postalCode || !name || !phone) {
       Toast({
         title: 'Warning!',
         text: 'Please fill all required input',
@@ -87,7 +84,8 @@ export default ({navigation, route: {params}}) => {
           postalCode,
           longitude,
           latitude,
-          ...params.location,
+          pic,
+          // ...params.location,
           isDefault: addressFromRedux.length > 0 ? false : true,
         }),
       )

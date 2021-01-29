@@ -11,8 +11,15 @@ import IDRFormat from '../../../../utils/IDRFormat'
 
 export default ({productData}) => {
   const {
+    _id,
+    description,
+    img,
+    name,
+    price,
     qty,
-    product: {status, _id, name, description, img, stock, price, weight},
+    status,
+    stock,
+    weight,
   } = productData
 
   return (

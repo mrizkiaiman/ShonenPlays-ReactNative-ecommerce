@@ -1,5 +1,6 @@
 import React from 'react'
 import {Text, View, ScrollView} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
 import OrderData from './helpers/Hardcode'
 //Styling
 import styles from './style'
@@ -15,6 +16,12 @@ import {FooterButton} from '../../parts'
 //Functions
 
 export default () => {
+  const dispatch = useDispatch()
+  const checkoutFromRedux = useSelector((state) => state.checkout.data)
+  const defaultAddress = useSelector((state) => state.address.data).filter(
+    (address) => address.isDefault == true,
+  )
+
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -24,14 +31,14 @@ export default () => {
             <Text style={styles.titleSectionText}>Shipping Address</Text>
             <Text style={styles.functionalText}>Change Address</Text>
           </View>
-          <Address addressData={OrderData.shippingAddress} />
+          <Address addressData={defaultAddress[0]} />
         </View>
         {/* Products */}
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Products</Text>
           </View>
-          {OrderData.products.map((product, index) => (
+          {checkoutFromRedux.products.map((product, index) => (
             <Product key={index} productData={product} />
           ))}
         </View>
@@ -56,9 +63,11 @@ export default () => {
           </View>
           <OrderSummary
             costData={{
-              shipping: OrderData.shippingMethod.price,
-              total: OrderData.total,
-              discount: OrderData.discount,
+              shipping: checkoutFromRedux.shippingMethod.price
+                ? checkoutFromRedux.shippingMethod.price
+                : 0,
+              total: checkoutFromRedux.total,
+              discount: checkoutFromRedux.discount,
             }}
           />
         </View>
