@@ -11,8 +11,6 @@ const {width, height} = Size
 import {Carousel, PopularCategory, SearchBar} from './components'
 import {Category} from '../../components'
 import {ScrollViewBounced} from '../../parts'
-//Functions
-import {useFetchHandler} from '../../hooks'
 
 export default function Home({navigation}) {
   const [searchKeyword, setSearchKeyword] = useState('')
@@ -50,7 +48,7 @@ export default function Home({navigation}) {
           <View style={styles.sectionContainer}>
             <View style={styles.sectionHeaderContainer}>
               <Text style={styles.titleSectionText}>Popular</Text>
-              <Text style={styles.functionalText}>See all</Text>
+              {/* <Text style={styles.functionalText}>See all</Text> */}
             </View>
             <ScrollView horizontal style={styles.sectionContentContainer}>
               {popularCategoryList.map((category, index) => (
@@ -61,26 +59,7 @@ export default function Home({navigation}) {
           <View
             style={{
               ...styles.sectionContainer,
-              marginTop: 40,
-              marginBottom: 30,
-            }}>
-            <View style={styles.sectionHeaderContainer}>
-              <Text style={styles.titleSectionText}>Vouchers</Text>
-              <Text style={styles.functionalText}>See all</Text>
-            </View>
-            <ScrollView horizontal style={styles.sectionContentContainer}>
-              <View style={styles.voucherImageContainer}>
-                <Image
-                  source={require('../../assets/Vouchers/voucher-1.png')}
-                  style={styles.voucherImage}
-                />
-              </View>
-            </ScrollView>
-          </View>
-          <View
-            style={{
-              ...styles.sectionContainer,
-              ...tailwind('mt-2 mb-7'),
+              ...tailwind('mt-10 mb-7'),
               width,
             }}>
             <View style={styles.sectionHeaderContainer}>
@@ -108,4 +87,27 @@ export default function Home({navigation}) {
       </ScrollView>
     </>
   )
+}
+
+//Voucher Section
+{
+  /* <View
+  style={{
+    ...styles.sectionContainer,
+    marginTop: 40,
+    marginBottom: 30,
+  }}>
+  <View style={styles.sectionHeaderContainer}>
+    <Text style={styles.titleSectionText}>Vouchers</Text>
+    <Text style={styles.functionalText}>See all</Text>
+  </View>
+  <ScrollView horizontal style={styles.sectionContentContainer}>
+    <View style={styles.voucherImageContainer}>
+      <Image
+        source={require('../../assets/Vouchers/voucher-1.png')}
+        style={styles.voucherImage}
+      />
+    </View>
+  </ScrollView>
+</View> */
 }

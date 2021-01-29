@@ -35,7 +35,7 @@ export default ({navigation}) => {
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Popular search</Text>
-            <Text style={styles.functionalText}>Clear</Text>
+            {/* <Text style={styles.functionalText}>Clear</Text> */}
           </View>
           {popularKeywords.map((keyword, index) => (
             <Text
