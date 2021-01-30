@@ -16,7 +16,33 @@ import {
 import {Button} from '../../components'
 //Functions
 
-export default ({screen, onSubmit, buttonText}) => {
+export default ({screen, onSubmit, buttonText, size}) => {
+  const styles = StyleSheet.create({
+    mainContainer: tailwind('justify-center items-center my-3'),
+    button: {
+      ...Buttons.submitButton,
+      width: size === 'sm' ? 170 : 220,
+      marginTop: 15,
+      height: size === 'sm' ? 40 : 48,
+    },
+    buttonText:
+      size === 'sm'
+        ? tailwind('font-normal font-semibold text-white')
+        : tailwind('font-normal font-semibold text-lg text-white'),
+    textContainer:
+      size === 'sm'
+        ? tailwind('justify-center items-center my-1')
+        : tailwind('justify-center items-center my-2'),
+    titleText:
+      size === 'sm'
+        ? tailwind('font-normal font-semibold text-lg')
+        : tailwind('font-normal font-semibold text-2xl'),
+    subTitleText: {
+      ...tailwind('font-normal text-sm text-dgray text-center'),
+      width: width * 0.8,
+    },
+  })
+
   return (
     <View style={styles.mainContainer}>
       {screen == 'Cart' ? (
@@ -28,7 +54,11 @@ export default ({screen, onSubmit, buttonText}) => {
       ) : screen == 'Wishlist' ? (
         <EmptyStateWishlist width={240} height={240} />
       ) : (
-        <EmptyStateAddress style={tailwind('mb-8')} width={180} height={180} />
+        <EmptyStateAddress
+          style={tailwind('mb-8')}
+          width={size === 'sm' ? 110 : 180}
+          height={size === 'sm' ? 110 : 180}
+        />
       )}
       {screen == 'Cart' ? (
         <View style={styles.textContainer}>
@@ -77,19 +107,3 @@ export default ({screen, onSubmit, buttonText}) => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  mainContainer: tailwind('justify-center items-center'),
-  button: {
-    ...Buttons.submitButton,
-    width: 220,
-    marginTop: 15,
-  },
-  buttonText: tailwind('font-normal font-semibold text-lg text-white'),
-  textContainer: tailwind('justify-center items-center my-2'),
-  titleText: tailwind('font-normal font-semibold text-2xl'),
-  subTitleText: {
-    ...tailwind('font-normal text-sm text-dgray text-center'),
-    width: width * 0.8,
-  },
-})

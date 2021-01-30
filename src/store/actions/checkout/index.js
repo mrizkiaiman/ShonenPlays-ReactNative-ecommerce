@@ -20,7 +20,6 @@ export const addProduct = (product) => {
       if (newCheckout.products.length === 0) newCheckout.products.push(product)
       else {
         for (let i = 0; i < newCheckout.products.length; i++) {
-          console.log(newCheckout.products[i]._id, product._id)
           if (newCheckout.products[i]._id === product._id) {
             newCheckout.products[i].qty++
             break

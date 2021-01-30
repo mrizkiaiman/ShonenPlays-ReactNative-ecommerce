@@ -38,13 +38,13 @@ export default ({product, customStyle}) => {
     },
     productText: {
       ...tailwind('font-normal text-xs mt-2'),
-      width: 140,
+      width: width > 410 ? 140 : 135,
     },
     priceProductText: tailwind('font-normal font-semibold text-xs mt-2'),
     addToCartButton: {
       ...Buttons.submitButton,
       height: 40,
-      width: width > 410 ? 110 : 100,
+      width: width > 410 ? 110 : 95,
       marginRight: 5,
     },
     wishListButton: {

@@ -1,7 +1,7 @@
 import React, {useState, useMemo, useEffect} from 'react'
 import {ScrollView, View, Text, Image} from 'react-native'
 //Data
-import {Categories} from '../../mockdata'
+import {Categories, Products} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -9,14 +9,17 @@ import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Components
 import {Carousel, PopularCategory, SearchBar} from './components'
-import {Category} from '../../components'
+import {Category, Product} from '../../components'
 import {ScrollViewBounced} from '../../parts'
 
 export default function Home({navigation}) {
   const [searchKeyword, setSearchKeyword] = useState('')
-  const popularCategoryList = Categories.filter(
-    (category) => category.isPopular === true,
-  )
+  const popularCategoryList = useMemo(() => {
+    return Categories.filter((category) => category.isPopular === true)
+  }, [])
+  const bestSellerProducts = useMemo(() => {
+    return Products.filter((product) => product.isPopular === true)
+  }, [])
 
   return (
     <>
@@ -55,6 +58,37 @@ export default function Home({navigation}) {
                 <PopularCategory key={index} category={category} />
               ))}
             </ScrollView>
+          </View>
+          <View
+            style={{
+              ...styles.sectionContainer,
+              marginTop: 40,
+            }}>
+            <View style={styles.sectionHeaderContainer}>
+              <Text style={styles.titleSectionText}>Best Seller</Text>
+              <Text
+                onPress={() =>
+                  navigation.navigate('Products', {keyword: 'Best Seller'})
+                }
+                style={styles.functionalText}>
+                See all
+              </Text>
+            </View>
+            <View
+              style={{
+                ...styles.sectionContentContainer,
+                ...tailwind('flex-wrap justify-between items-center'),
+              }}>
+              {bestSellerProducts.slice(0, 4).map((product, index) => (
+                <Product
+                  customStyle={{
+                    width: width > 410 ? 175 : 155,
+                  }}
+                  key={product._id}
+                  product={product}
+                />
+              ))}
+            </View>
           </View>
           <View
             style={{
