@@ -21,7 +21,13 @@ import {Button, Address} from '../../components'
 import {FooterButton, EmptyState, ModalHeader} from '../../parts'
 //Functions
 import {IDRFormat, Toast} from '../../utils'
-import {updateAddress, updateShippingMethod} from '../../store/actions/checkout'
+import {
+  updateAddress,
+  updateShippingMethod,
+  emptyCheckout,
+  paidCheckout,
+} from '../../store/actions/checkout'
+import {updateOrder} from '../../store/actions/orders'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
@@ -47,6 +53,25 @@ export default ({navigation, route: {params}}) => {
     dispatch(updateShippingMethod(value))
     setSelectedShippingMethod(value)
     modalAction('close', 'shippingMethod')
+  }
+
+  const paymentOnSubmit = () => {
+    if (!selectedAddress || !selectedShippingMethod)
+      Toast({
+        title: 'Warning',
+        text: 'You need to fill address and shipping method first',
+        type: 'error',
+      })
+    else {
+      dispatch(paidCheckout())
+      dispatch(updateOrder())
+      dispatch(emptyCheckout())
+      navigation.navigate('Home')
+      Toast({
+        title: 'Success',
+        text: 'Payment success!',
+      })
+    }
   }
 
   //Modalize
@@ -107,9 +132,11 @@ export default ({navigation, route: {params}}) => {
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Products</Text>
           </View>
-          {checkoutFromRedux.products.map((product, index) => (
-            <Product key={index} productData={product} />
-          ))}
+          {checkoutFromRedux &&
+            checkoutFromRedux.products &&
+            checkoutFromRedux.products.map((product, index) => (
+              <Product key={index} productData={product} />
+            ))}
         </View>
         {/* Shipping Method */}
         <View style={styles.sectionContainer}>
@@ -150,11 +177,14 @@ export default ({navigation, route: {params}}) => {
           </View>
           <OrderSummary
             costData={{
-              shipping: checkoutFromRedux.shippingMethod.price
-                ? checkoutFromRedux.shippingMethod.price
-                : 0,
-              total: checkoutFromRedux.total,
-              discount: checkoutFromRedux.discount,
+              shipping:
+                checkoutFromRedux &&
+                checkoutFromRedux.shippingMethod &&
+                checkoutFromRedux.shippingMethod.price
+                  ? checkoutFromRedux.shippingMethod.price
+                  : 0,
+              total: checkoutFromRedux && checkoutFromRedux.total,
+              discount: checkoutFromRedux && checkoutFromRedux.discount,
             }}
           />
         </View>
@@ -167,7 +197,7 @@ export default ({navigation, route: {params}}) => {
           },
           textStyle: tailwind('font-normal font-semibold text-white'),
         }}
-        onSubmit={() => console.log('Test')}
+        onSubmit={() => paymentOnSubmit()}
         title="Pay"
       />
       <Modalize

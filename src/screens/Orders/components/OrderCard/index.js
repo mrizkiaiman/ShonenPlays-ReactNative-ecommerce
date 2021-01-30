@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text, View, Image} from 'react-native'
+import moment from 'moment'
 //Styling
 import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
@@ -15,24 +16,30 @@ export default ({order}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.headerContainer}>
-        <Text style={styles.dateText}>{order.date}</Text>
+        <Text style={styles.dateText}>{moment(order.date).format('LL')}</Text>
         <View style={tailwind('flex-row items-center')}>
-          <View style={styles.orderStatusContainer}>
-            <Text style={styles.orderStatusText}>Completed</Text>
+          <View
+            style={
+              order.status === 0
+                ? {...styles.orderStatusContainer, ...tailwind('bg-gray')}
+                : styles.orderStatusContainer
+            }>
+            {order.status === 0 ? (
+              <Text style={styles.orderStatusText}>Unpaid</Text>
+            ) : (
+              <Text style={styles.orderStatusText}>Completed</Text>
+            )}
           </View>
           <DotsIcon />
         </View>
       </View>
       <View style={tailwind('flex-row')}>
         <View>
-          <Image
-            source={{uri: order.products[0].product.img}}
-            style={styles.image}
-          />
+          <Image source={{uri: order.products[0].img}} style={styles.image} />
         </View>
         <View>
           <Text numberOfLines={1} style={styles.productNameText}>
-            {order.products[0].product.name}
+            {order.products[0].name}
           </Text>
           <Text style={styles.amountOfItemText}>
             {order.products[0].qty} item
@@ -52,10 +59,13 @@ export default ({order}) => {
         <Button
           onSubmit={() => console.log('Test')}
           styling={{
-            buttonStyle: styles.bottomRightButton,
+            buttonStyle:
+              order.status === 0
+                ? {...styles.bottomRightButton, ...tailwind('bg-dgreen')}
+                : styles.bottomRightButton,
             textStyle: styles.bottomRightButtonText,
           }}
-          title="Re-order"
+          title={order.status === 0 ? 'Pay now' : 'Re-order'}
         />
       </View>
     </View>

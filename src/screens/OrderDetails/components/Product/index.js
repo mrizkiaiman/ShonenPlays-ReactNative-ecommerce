@@ -10,10 +10,7 @@ const {width, height} = Size
 import IDRFormat from '../../../../utils/IDRFormat'
 
 export default ({product}) => {
-  const {
-    qty,
-    product: {img, description, name, price, status, stock, weight},
-  } = product
+  const {qty, img, description, name, price, status, stock, weight} = product
 
   return (
     <View style={styles.mainContainer}>

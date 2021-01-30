@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
+import {useSelector} from 'react-redux'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -10,9 +11,9 @@ import {TabScreenHeader, EmptyState} from '../../parts'
 import {OrderCard} from './components'
 import {Search} from '../../components'
 //Functions
-import orderList from './helpers/Hardcode'
 
 export default ({navigation}) => {
+  const ordersFromRedux = useSelector((state) => state.orders.data)
   const [searchKeyword, setSearchKeyword] = useState('')
   return (
     <>
@@ -29,9 +30,9 @@ export default ({navigation}) => {
             setSearchKeyword={setSearchKeyword}
             onSubmit={() => console.log('Test')}
           />
-          {orderList.length > 0 ? (
+          {ordersFromRedux.length > 0 ? (
             <View style={tailwind('mt-4')}>
-              {orderList.map((order, index) => (
+              {ordersFromRedux.map((order, index) => (
                 <TouchableOpacity
                   key={index}
                   onPress={() => navigation.navigate('OrderDetails', {order})}>

@@ -1,5 +1,7 @@
 import React from 'react'
 import {Text, View, ScrollView} from 'react-native'
+import {useDispatch} from 'react-redux'
+import moment from 'moment'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -10,7 +12,8 @@ import {Address} from '../../components'
 import {Product, OrderSummary} from './components'
 import {FooterButton} from '../../parts'
 //Functions
-import IDRFormat from '../../utils/IDRFormat'
+import {IDRFormat, Toast} from '../../utils'
+import {reOrder} from '../../store/actions/checkout'
 
 export default ({navigation, route}) => {
   const {
@@ -24,16 +27,36 @@ export default ({navigation, route}) => {
     total,
     discount,
     id_order,
+    date,
+    status,
   } = order
+
+  const dispatch = useDispatch()
+  const reOrderOnSubmit = () => {
+    if (status === 0)
+      Toast({
+        title: 'Warning',
+        text: 'Midtrans is not ready yet, stay tuned!',
+        type: 'error',
+      })
+    else {
+      dispatch(reOrder(order))
+      Toast({
+        title: 'Success',
+        text: 'Items are successfully added to cart',
+      })
+      navigation.navigate('Cart')
+    }
+  }
 
   const headerInformationList = [
     {
       title: 'Status',
-      value: 'Completed',
+      value: status === 0 ? 'Unpaid' : 'Completed',
     },
     {
       title: 'Purchasing Date',
-      value: '16 Jan 2021',
+      value: moment(date).format('LL'),
     },
     {
       title: 'Order ID',
@@ -104,8 +127,8 @@ export default ({navigation, route}) => {
           buttonStyle: styles.reorderButton,
           textStyle: styles.reorderButtonText,
         }}
-        title="Re-Order"
-        onSubmit={() => console.log('Test')}
+        title={status === 0 ? 'Pay now' : 'Re-Order'}
+        onSubmit={() => reOrderOnSubmit()}
       />
     </>
   )

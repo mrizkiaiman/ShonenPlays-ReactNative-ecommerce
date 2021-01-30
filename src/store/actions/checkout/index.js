@@ -5,14 +5,15 @@ export const addProduct = (product) => {
       (address) => address.isDefault == true,
     )
     let newCheckout = {...currentCheckout}
+    const newDate = new Date()
     let payload = {
       products: [],
       total: 0,
       shippingAddress: {},
       shippingMethod: {},
       discount: 0,
-      date: new Date(),
-      status: 1,
+      date: newDate.toISOString(),
+      status: 0,
       id_order: '',
     }
     if (defaultAddress) payload.shippingAddress = defaultAddress
@@ -97,5 +98,26 @@ export const updateShippingMethod = (shippingMethod) => {
     let newCheckout = {...currentCheckout}
     newCheckout.shippingMethod = shippingMethod
     dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: newCheckout})
+  }
+}
+
+export const reOrder = (checkout) => {
+  return (dispatch, getState) => {
+    dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: checkout})
+  }
+}
+
+export const paidCheckout = () => {
+  return (dispatch, getState) => {
+    let currentCheckout = getState().checkout.data
+    let newCheckout = {...currentCheckout}
+    newCheckout.status = 1
+    dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: newCheckout})
+  }
+}
+
+export const emptyCheckout = () => {
+  return (dispatch) => {
+    dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: {}})
   }
 }
