@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react'
+import React, {useRef, useEffect, useState, useMemo} from 'react'
 import {Text, View, ScrollView} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {Shipping} from '../../mockdata'
@@ -35,14 +35,23 @@ export default ({navigation, route: {params}}) => {
     dispatch(updateAddress(params && params.address ? params.address : null))
   }, [params])
 
+  useEffect(() => {
+    setSelectedAddress(defaultAddress[0])
+  }, [defaultAddress])
+
   const dispatch = useDispatch()
   const checkoutFromRedux = useSelector((state) => state.checkout.data)
   const addressFromRedux = useSelector((state) => state.address.data)
-  const defaultAddress = addressFromRedux.filter(
-    (address) => address.isDefault == true,
+  const defaultAddress = useMemo(() => {
+    return addressFromRedux.filter((address) => address.isDefault == true)
+  }, [])
+
+  const [selectedAddress, setSelectedAddress] = useState({})
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState(
+    checkoutFromRedux && checkoutFromRedux.shippingMethod
+      ? checkoutFromRedux.shippingMethod
+      : {},
   )
-  const [selectedAddress, setSelectedAddress] = useState(defaultAddress[0])
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState('')
   const setAddress = (value) => {
     dispatch(updateAddress(value))
     setSelectedAddress(value)
@@ -66,7 +75,7 @@ export default ({navigation, route: {params}}) => {
       dispatch(paidCheckout())
       dispatch(updateOrder())
       dispatch(emptyCheckout())
-      navigation.navigate('Home')
+      navigation.navigate('BottomTabs', {screen: 'Orders'})
       Toast({
         title: 'Success',
         text: 'Payment success!',
@@ -143,7 +152,7 @@ export default ({navigation, route: {params}}) => {
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Shipping Method</Text>
           </View>
-          {selectedShippingMethod ? (
+          {selectedShippingMethod && selectedShippingMethod.name ? (
             <Button
               styling={{
                 buttonStyle: {
