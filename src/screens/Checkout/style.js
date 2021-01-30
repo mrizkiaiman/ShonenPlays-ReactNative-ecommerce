@@ -22,10 +22,10 @@ export default StyleSheet.create({
   functionalText: tailwind('font-functional'),
   changeShippingMethodButton: {
     ...Buttons.whiteBorderedSubmitButton,
-    ...tailwind('flex-row justify-between p-3 border-dgreen'),
+    ...tailwind('flex-row justify-between p-3 border-orange'),
     height: 55,
   },
   changeShippingMethodButtonText: tailwind(
-    'font-normal font-semibold text-dgreen',
+    'font-normal font-semibold text-dgray',
   ),
 })

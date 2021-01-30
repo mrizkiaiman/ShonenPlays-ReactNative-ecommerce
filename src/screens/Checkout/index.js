@@ -19,6 +19,8 @@ import {
 } from './components'
 import {Button, Address} from '../../components'
 import {FooterButton, EmptyState, ModalHeader} from '../../parts'
+//Functions
+import {IDRFormat} from '../../utils'
 
 export default ({navigation}) => {
   const dispatch = useDispatch()
@@ -98,15 +100,32 @@ export default ({navigation}) => {
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Shipping Method</Text>
           </View>
-          <Button
-            styling={{
-              buttonStyle: styles.changeShippingMethodButton,
-              textStyle: styles.changeShippingMethodButtonText,
-            }}
-            title="Change shipping method"
-            additionalComponents={{comps: <RightIcon />, position: 'right'}}
-            onSubmit={() => modalAction('open', 'shippingMethod')}
-          />
+          {selectedShippingMethod ? (
+            <Button
+              styling={{
+                buttonStyle: {
+                  ...styles.changeShippingMethodButton,
+                  ...tailwind('border-dgreen'),
+                },
+                textStyle: tailwind('font-normal font-semibold'),
+              }}
+              title={`${selectedShippingMethod.name}  -  Rp${IDRFormat(
+                selectedShippingMethod.price,
+              )}`}
+              additionalComponents={{comps: <RightIcon />, position: 'right'}}
+              onSubmit={() => modalAction('open', 'shippingMethod')}
+            />
+          ) : (
+            <Button
+              styling={{
+                buttonStyle: styles.changeShippingMethodButton,
+                textStyle: styles.changeShippingMethodButtonText,
+              }}
+              title="Change shipping method"
+              additionalComponents={{comps: <RightIcon />, position: 'right'}}
+              onSubmit={() => modalAction('open', 'shippingMethod')}
+            />
+          )}
         </View>
         {/* Order Summary */}
         <View style={{...styles.sectionContainer, marginBottom: 30}}>
@@ -156,7 +175,7 @@ export default ({navigation}) => {
             title="Change Shipping Method"
           />
         }
-        modalHeight={height / 1.25}>
+        modalHeight={height / 1.5}>
         <ShippingMethodModal setShippingMethod={setShippingMethod} />
       </Modalize>
     </>

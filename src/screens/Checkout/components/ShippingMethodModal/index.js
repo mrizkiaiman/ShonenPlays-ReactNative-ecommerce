@@ -8,9 +8,29 @@ const {width, height} = Size
 //Assets
 //Components
 //Functions
+import {IDRFormat} from '../../../../utils'
 
 export default ({setShippingMethod}) => {
-  return <View style={styles.mainContainer}></View>
+  return (
+    <View style={styles.mainContainer}>
+      {Shipping.map((shipping, index) => (
+        <TouchableOpacity
+          onPress={() => setShippingMethod(shipping)}
+          style={styles.shippingMethodContainer}
+          key={index}>
+          <Text
+            style={tailwind(
+              'font-normal font-semibold text-dgray text-lg mb-2',
+            )}>
+            {shipping.name}
+          </Text>
+          <Text style={tailwind('font-normal font-semibold')}>
+            Rp{IDRFormat(shipping.price)}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -19,5 +39,5 @@ const styles = StyleSheet.create({
     height,
     paddingHorizontal: 16,
   },
-  addressContainer: tailwind('my-4 bg-white p-4 light-shadow rounded-xl'),
+  shippingMethodContainer: tailwind('my-3 bg-white p-4 light-shadow rounded'),
 })
