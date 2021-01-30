@@ -1,6 +1,9 @@
 export const addProduct = (product) => {
   return (dispatch, getState) => {
     let currentCheckout = getState().checkout.data
+    let defaultAddress = getState().address.data.filter(
+      (address) => address.isDefault == true,
+    )
     let newCheckout = {...currentCheckout}
     let payload = {
       products: [],
@@ -12,6 +15,7 @@ export const addProduct = (product) => {
       status: 1,
       id_order: '',
     }
+    if (defaultAddress) payload.shippingAddress = defaultAddress
     if (Object.keys(newCheckout).length === 0) {
       payload.products.push(product)
       payload.total = product.price * product.qty
@@ -75,5 +79,23 @@ export const updateProductQty = (product, action) => {
       }
     }
     dispatch({type: 'UPDATE_STATE', payload: newCheckout})
+  }
+}
+
+export const updateAddress = (address) => {
+  return (dispatch, getState) => {
+    let currentCheckout = getState().checkout.data
+    let newCheckout = {...currentCheckout}
+    newCheckout.shippingAddress = address
+    dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: newCheckout})
+  }
+}
+
+export const updateShippingMethod = (shippingMethod) => {
+  return (dispatch, getState) => {
+    let currentCheckout = getState().checkout.data
+    let newCheckout = {...currentCheckout}
+    newCheckout.shippingMethod = shippingMethod
+    dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: newCheckout})
   }
 }

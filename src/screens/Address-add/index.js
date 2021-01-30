@@ -21,7 +21,6 @@ import {addAddress} from '../../store/actions/address'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
-    console.log(params)
     if (params && params.location) {
       if (params.location.coords) {
         setLatitude(params.location.coords.latitude)
@@ -31,7 +30,7 @@ export default ({navigation, route: {params}}) => {
         setLongitude(params.location.longitude)
       }
     }
-  }, [params])
+  }, [params.location])
 
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
@@ -74,26 +73,27 @@ export default ({navigation, route: {params}}) => {
         type: 'error',
       })
     } else {
-      dispatch(
-        addAddress({
-          name,
-          phone,
-          address,
-          province,
-          city,
-          postalCode,
-          longitude,
-          latitude,
-          pic,
-          // ...params.location,
-          isDefault: addressFromRedux.length > 0 ? false : true,
-        }),
-      )
+      const addressObj = {
+        name,
+        phone,
+        address,
+        province,
+        city,
+        postalCode,
+        longitude,
+        latitude,
+        pic,
+        // ...params.location,
+        isDefault: addressFromRedux.length > 0 ? false : true,
+      }
+      dispatch(addAddress(addressObj))
       Toast({
         title: 'Success',
         text: 'Your address has been saved!',
       })
-      navigation.goBack()
+      if (params.from === 'checkout')
+        navigation.navigate('Checkout', {address: addressObj})
+      else navigation.goBack()
     }
   }
 

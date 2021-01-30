@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useEffect, useState} from 'react'
 import {Text, View, ScrollView} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {Shipping} from '../../mockdata'
@@ -20,23 +20,31 @@ import {
 import {Button, Address} from '../../components'
 import {FooterButton, EmptyState, ModalHeader} from '../../parts'
 //Functions
-import {IDRFormat} from '../../utils'
+import {IDRFormat, Toast} from '../../utils'
+import {updateAddress, updateShippingMethod} from '../../store/actions/checkout'
 
-export default ({navigation}) => {
+export default ({navigation, route: {params}}) => {
+  useEffect(() => {
+    setSelectedAddress(params && params.address ? params.address : null)
+    dispatch(updateAddress(params && params.address ? params.address : null))
+  }, [params])
+
   const dispatch = useDispatch()
   const checkoutFromRedux = useSelector((state) => state.checkout.data)
-  const defaultAddress = useSelector((state) => state.address.data).filter(
+  const addressFromRedux = useSelector((state) => state.address.data)
+  const defaultAddress = addressFromRedux.filter(
     (address) => address.isDefault == true,
   )
   const [selectedAddress, setSelectedAddress] = useState(defaultAddress[0])
   const [selectedShippingMethod, setSelectedShippingMethod] = useState('')
-
   const setAddress = (value) => {
+    dispatch(updateAddress(value))
     setSelectedAddress(value)
     modalAction('close', 'shippingAddress')
   }
 
   const setShippingMethod = (value) => {
+    dispatch(updateShippingMethod(value))
     setSelectedShippingMethod(value)
     modalAction('close', 'shippingMethod')
   }
@@ -49,7 +57,13 @@ export default ({navigation}) => {
     if (type === 'shippingAddress') {
       modal = changeShippingAddressModal.current
     } else {
-      modal = changeShippingMethodModal.current
+      if (!selectedAddress)
+        Toast({
+          title: 'Warning',
+          text: 'You need to fill address first',
+          type: 'error',
+        })
+      else modal = changeShippingMethodModal.current
     }
     if (modal) {
       if (action === 'open') {
@@ -79,7 +93,9 @@ export default ({navigation}) => {
             <Address addressData={selectedAddress} />
           ) : (
             <EmptyState
-              onSubmit={() => navigation.navigate('AddShippingAddress')}
+              onSubmit={() =>
+                navigation.navigate('AddShippingAddress', {from: 'checkout'})
+              }
               screen="Address"
               buttonText="Add new address"
               size="sm"
