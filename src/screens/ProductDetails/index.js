@@ -17,8 +17,13 @@ export default ({route: {params}, navigation}) => {
   const [qty, setQty] = useState(1)
   const {product} = params
   const dispatch = useDispatch()
+  const [productCategory, setProductCategory] = useState(
+    product.category && product.category._id
+      ? product.category._id
+      : product.category,
+  )
   const [relatedProducts, setRelatedProduct] = useMemo(() => {
-    return Categories.filter((category) => category._id === product.category)
+    return Categories.filter((category) => category._id === productCategory)
   }, [])
 
   const filteredRelatedProducts = useMemo(() => {

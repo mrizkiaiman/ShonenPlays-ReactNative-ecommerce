@@ -361,6 +361,18 @@ export default [
         weight: 500,
         category: '5fca39dc79d80014d29e0899',
       },
+      {
+        status: 1,
+        _id: '5fcb1984ac00b6045c9bf106',
+        name: 'Football - Barcelona Away Jersey',
+        description: 'Football - Barcelona Away Jersey',
+        img:
+          'https://storage.googleapis.com/shonenplays-mobile/products/Sport%20-%20Barca%20Jersey%20Away%20Black.png',
+        stock: 100,
+        price: 1000000,
+        weight: 500,
+        category: '5fca39dc79d80014d29e0899',
+      },
     ],
   },
 ]
