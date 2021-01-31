@@ -77,7 +77,7 @@ export default ({productData}) => {
         <Text numberOfLines={1} style={styles.productPriceText}>
           Rp{IDRFormat(Number(price))}
         </Text>
-        <View style={{marginStart: -50, marginTop: 55}}>
+        <View style={{marginStart: width > 410 ? -55 : -25, marginTop: 55}}>
           <QtyControl
             value={value}
             setValue={setValue}
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   productNameText: {
     ...tailwind('font-normal font-semibold mb-3'),
-    width: 170,
+    width: width > 410 ? 170 : 140,
   },
   productPriceText: tailwind('font-normal font-semibold text-dgray'),
 })

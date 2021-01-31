@@ -23,10 +23,11 @@ export default ({product, customStyle}) => {
   const styles = StyleSheet.create({
     mainContainer: {
       ...tailwind(
-        'light-shadow bg-white rounded-xl mb-4 justify-center items-center',
+        'light-shadow bg-white rounded-xl mb-4 items-center justify-between',
       ),
       width: width > 410 ? 175 : 155,
       ...customStyle,
+      height: 320,
     },
     contentContainer: tailwind('mx-2'),
     productImage: {
@@ -40,7 +41,7 @@ export default ({product, customStyle}) => {
       ...tailwind('font-normal text-xs mt-2'),
       width: width > 410 ? 140 : 135,
     },
-    priceProductText: tailwind('font-normal font-semibold text-xs mt-2'),
+    priceProductText: tailwind('font-normal font-semibold text-xs mx-2'),
     addToCartButton: {
       ...Buttons.submitButton,
       height: 40,
@@ -63,36 +64,38 @@ export default ({product, customStyle}) => {
         style={styles.contentContainer}>
         <Image style={styles.productImage} source={{uri: img}} />
         <Text style={styles.productText}>{name}</Text>
-        <Text style={styles.priceProductText}>Rp. {IDRFormat(price)}</Text>
       </TouchableOpacity>
-      <View style={tailwind('flex-row items-center m-2 mb-3')}>
-        <Button
-          styling={{
-            textStyle: styles.buttonText,
-            buttonStyle: styles.addToCartButton,
-          }}
-          title="Add to cart"
-          onSubmit={() => {
-            product.qty = 1
-            dispatch(addProduct(product))
-            Toast({
-              title: 'Success',
-              text: 'Item has been added to the cart!',
-            })
-          }}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            product.qty = 1
-            dispatch(addWishlist(product))
-            Toast({
-              title: 'Success',
-              text: 'Item has been saved to the wishlist!',
-            })
-          }}
-          style={styles.wishListButton}>
-          <WishlistIcon />
-        </TouchableOpacity>
+      <View>
+        <Text style={styles.priceProductText}>Rp. {IDRFormat(price)}</Text>
+        <View style={tailwind('flex-row items-center m-2 mb-3')}>
+          <Button
+            styling={{
+              textStyle: styles.buttonText,
+              buttonStyle: styles.addToCartButton,
+            }}
+            title="Add to cart"
+            onSubmit={() => {
+              product.qty = 1
+              dispatch(addProduct(product))
+              Toast({
+                title: 'Success',
+                text: 'Item has been added to the cart!',
+              })
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              product.qty = 1
+              dispatch(addWishlist(product))
+              Toast({
+                title: 'Success',
+                text: 'Item has been saved to the wishlist!',
+              })
+            }}
+            style={styles.wishListButton}>
+            <WishlistIcon />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   )

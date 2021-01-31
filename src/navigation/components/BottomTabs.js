@@ -31,6 +31,7 @@ export default function TabNavigation() {
         inactiveBackgroundColor: 'white',
         tabStyle: {
           marginTop: 10,
+          marginBottom: 5,
         },
       }}
       initialRouteName="Home">

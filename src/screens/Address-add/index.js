@@ -1,5 +1,12 @@
 import React, {useState, useRef, useEffect} from 'react'
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
+import {
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
 import {Provinces} from '../../mockdata'
 //Styling
@@ -30,7 +37,7 @@ export default ({navigation, route: {params}}) => {
         setLongitude(params.location.longitude)
       }
     }
-  }, [params.location])
+  }, [params])
 
   const [latitude, setLatitude] = useState('')
   const [longitude, setLongitude] = useState('')
@@ -179,30 +186,35 @@ export default ({navigation, route: {params}}) => {
   return (
     <>
       <ScrollView>
-        <View style={styles.mainContainer}>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitleText}>Shipping Address</Text>
-            {addressInfo.map((info, index) => (
-              <Input key={index} {...info} />
-            ))}
-          </View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Maps', {from: 'add'})}
-            style={styles.pinLocationContainer}>
-            <View style={tailwind('flex-row items-center')}>
-              <PinLocationIcon style={{marginRight: 10}} />
-              <Text style={styles.pinLocationText}>Pin location</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={{flex: 1}}>
+          <View style={styles.mainContainer}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitleText}>Shipping Address</Text>
+              {addressInfo.map((info, index) => (
+                <Input key={index} {...info} />
+              ))}
             </View>
-            {latitude && longitude ? <CheckedIcon /> : null}
-          </TouchableOpacity>
-          <View style={styles.sectionContainer}>
-            <Text style={styles.sectionTitleText}>Contact Person</Text>
-            {userInfo.map((info, index) => (
-              <Input key={index} {...info} />
-            ))}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Maps', {from: 'add'})}
+              style={styles.pinLocationContainer}>
+              <View style={tailwind('flex-row items-center')}>
+                <PinLocationIcon style={{marginRight: 10}} />
+                <Text style={styles.pinLocationText}>Pin location</Text>
+              </View>
+              {latitude && longitude ? <CheckedIcon /> : null}
+            </TouchableOpacity>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitleText}>Contact Person</Text>
+              {userInfo.map((info, index) => (
+                <Input key={index} {...info} />
+              ))}
+            </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
+
       <FooterButton
         styling={{
           buttonStyle: styles.saveButton,

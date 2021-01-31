@@ -64,6 +64,8 @@ export default ({navigation, route}) => {
             ...location,
             latitude: region.latitude,
             longitude: region.longitude,
+            latitudeDelta: region.latitudeDelta,
+            longitudeDelta: region.longitudeDelta,
           })
         }}>
         <Marker

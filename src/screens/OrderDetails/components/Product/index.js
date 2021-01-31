@@ -1,5 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text, View, Image} from 'react-native'
+import moment from 'moment'
 //Styling
 import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
