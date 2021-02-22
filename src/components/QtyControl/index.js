@@ -40,11 +40,11 @@ export default ({
   const changeValue = (action) => {
     if (action === '+') {
       setValue((value) => value + 1)
-      dispatch(updateProductQty(product, action))
+      if (product) dispatch(updateProductQty(product, action))
     } else {
       if (value !== 1) {
         setValue((value) => value - 1)
-        dispatch(updateProductQty(product, action))
+        if (product) dispatch(updateProductQty(product, action))
       }
     }
   }

@@ -79,7 +79,7 @@ export const updateProductQty = (product, action) => {
         }
       }
     }
-    dispatch({type: 'UPDATE_STATE', payload: newCheckout})
+    dispatch({type: 'UPDATE_STATE_CHECKOUT', payload: newCheckout})
   }
 }
 

@@ -16,7 +16,7 @@ import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
 //Assets
 //Components
-import QtyControl from '../../../../components/QtyControl'
+import {QtyControl} from '../../../../components'
 //Functions
 import IDRFormat from '../../../../utils/IDRFormat'
 import Toast from '../../../../utils/Toast'
