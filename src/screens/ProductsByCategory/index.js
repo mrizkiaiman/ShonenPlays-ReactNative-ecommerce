@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {ScrollView, View, TouchableOpacity} from 'react-native'
+import {ScrollView, View, FlatList} from 'react-native'
 //Styling
 import styles from './style'
 import {tailwind} from '../../style/tailwind'
@@ -14,23 +14,25 @@ export default ({navigation, route: {params}}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
 
   return (
-    <ScrollView>
+    <>
       {category.products.length > 0 ? (
-        <View>
-          <Search
-            searchKeyword={searchKeyword}
-            setSearchKeyword={setSearchKeyword}
-          />
-          <View style={styles.mainContainer}>
-            {category.products.map((product, index) => (
-              <Product
-                key={index}
-                product={product}
-                customStyle={{margin: 8}}
-              />
-            ))}
-          </View>
-        </View>
+        <FlatList
+          ListHeaderComponent={
+            <Search
+              searchKeyword={searchKeyword}
+              setSearchKeyword={setSearchKeyword}
+            />
+          }
+          numColumns={2}
+          data={category.products}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item}) => (
+            <View>
+              <Product product={item} />
+            </View>
+          )}
+          columnWrapperStyle={tailwind('justify-between m-4 mx-6')}
+        />
       ) : (
         <View style={tailwind('mt-10')}>
           <EmptyState
@@ -40,6 +42,6 @@ export default ({navigation, route: {params}}) => {
           />
         </View>
       )}
-    </ScrollView>
+    </>
   )
 }
