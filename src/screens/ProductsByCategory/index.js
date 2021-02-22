@@ -26,11 +26,7 @@ export default ({navigation, route: {params}}) => {
           numColumns={2}
           data={category.products}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => (
-            <View>
-              <Product product={item} />
-            </View>
-          )}
+          renderItem={({item}) => <Product product={item} />}
           columnWrapperStyle={tailwind('justify-between m-4 mx-6')}
         />
       ) : (

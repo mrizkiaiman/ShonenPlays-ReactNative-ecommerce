@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import {SafeAreaView, View, Text, Image} from 'react-native'
 import {useDispatch, useSelector} from 'react-redux'
+import * as Google from 'expo-google-app-auth'
 import styles from './style'
 //Assets
 import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
+import {Formik} from 'formik'
 import {Input, Button} from '../../components'
-import * as Google from 'expo-google-app-auth'
 //Functions
 import {Toast, isEmail} from '../../utils'
 import {addUser} from '../../store/actions/users'
@@ -96,14 +97,33 @@ export default function SignInScreen({navigation}) {
             Enter your email and password to sign in
           </Text>
         </View>
-        <View style={styles.inputsContainer}>
-          {inputList.map((input, index) => (
-            <Input key={index} {...input} />
-          ))}
-        </View>
-        {buttonList.map((button, index) => (
-          <Button key={index} {...button} />
-        ))}
+        <Formik
+          initialValues={{email: '', password: ''}}
+          onSubmit={(value) => console.log(value)}>
+          {({handleChange, handleSubmit}) => (
+            <>
+              <View style={styles.inputsContainer}>
+                <Input
+                  placeholder="Email"
+                  onChangeText={handleChange('email')}
+                  type="box"
+                  customContainerStyle={{marginBottom: 20}}
+                  autoCapitalize="none"
+                />
+                <Input
+                  placeholder="Password"
+                  type="box"
+                  autoCapitalize="none"
+                  onChangeText={handleChange('password')}
+                  passwordConfig={{showPassword, setShowPassword}}
+                />
+              </View>
+              {buttonList.map((button, index) => (
+                <Button key={index} {...button} />
+              ))}
+            </>
+          )}
+        </Formik>
         <Text style={styles.navigateToSignUpText}>
           Don't have an account?{' '}
           <Text
