@@ -6,17 +6,23 @@ import styles from './style'
 //Assets
 import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
-import {Formik} from 'formik'
+import {Formik, useFormikContext} from 'formik'
+import * as Yup from 'yup'
 import {Input, Button} from '../../components'
 //Functions
 import {Toast, isEmail} from '../../utils'
 import {addUser} from '../../store/actions/users'
+import {tailwind} from '../../style/tailwind'
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required().email().label('Email'),
+  password: Yup.string().required().min(4).max(30).label('Password'),
+})
 
 export default function SignInScreen({navigation}) {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const usersFromRedux = useSelector((state) => state.users.data)
+
   const dispatch = useDispatch()
   const signInOnSubmit = () => {
     const isVerified = usersFromRedux.some(
@@ -35,29 +41,6 @@ export default function SignInScreen({navigation}) {
     Toast({title: 'Success', text: 'Logged in'})
     navigation.navigate('BottomTabs', {screen: 'Home'})
   }
-
-  const inputList = [
-    {
-      value: email,
-      onChangeText: setEmail,
-      placeholder: 'Email',
-      type: 'box',
-      customContainerStyle: {
-        marginBottom: 20,
-      },
-      autoCapitalize: 'none',
-    },
-    {
-      value: password,
-      onChangeText: setPassword,
-      placeholder: 'Password',
-      type: 'box',
-      passwordConfig: {
-        showPassword,
-        setShowPassword,
-      },
-    },
-  ]
 
   const buttonList = [
     {
@@ -99,24 +82,40 @@ export default function SignInScreen({navigation}) {
         </View>
         <Formik
           initialValues={{email: '', password: ''}}
-          onSubmit={(value) => console.log(value)}>
-          {({handleChange, handleSubmit}) => (
+          onSubmit={(value) => console.log(value)}
+          validationSchema={validationSchema}>
+          {({handleChange, handleSubmit, errors}) => (
             <>
               <View style={styles.inputsContainer}>
                 <Input
                   placeholder="Email"
                   onChangeText={handleChange('email')}
                   type="box"
-                  customContainerStyle={{marginBottom: 20}}
+                  customContainerStyle={
+                    errors && errors.email
+                      ? tailwind('mb-1')
+                      : {marginBottom: 20}
+                  }
                   autoCapitalize="none"
                 />
+                {errors && errors.email && (
+                  <Text style={{color: 'red', marginBottom: 20}}>
+                    {errors.email}
+                  </Text>
+                )}
                 <Input
                   placeholder="Password"
                   type="box"
                   autoCapitalize="none"
                   onChangeText={handleChange('password')}
                   passwordConfig={{showPassword, setShowPassword}}
+                  customContainerStyle={
+                    errors && errors.password ? tailwind('mb-1') : null
+                  }
                 />
+                {errors && errors.password && (
+                  <Text style={{color: 'red'}}>{errors.password}</Text>
+                )}
               </View>
               {buttonList.map((button, index) => (
                 <Button key={index} {...button} />

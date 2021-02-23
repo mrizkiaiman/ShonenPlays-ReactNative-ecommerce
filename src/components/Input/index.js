@@ -16,6 +16,7 @@ export default function Input({
   passwordConfig,
   autoCapitalize,
   onSubmit,
+  onBlur,
 }) {
   const {width} = Size
   const styles = StyleSheet.create({
@@ -57,6 +58,7 @@ export default function Input({
           secureTextEntry={!passwordConfig.showPassword}
           autoCapitalize="none"
           placeholderTextColor={'#777777'}
+          onBlur={onBlur ? () => onBlur() : null}
         />
         {passwordConfig.showPassword ? (
           <TouchableOpacity
@@ -85,6 +87,7 @@ export default function Input({
           style={styles.input}
           placeholderTextColor={'#777777'}
           autoCapitalize={autoCapitalize}
+          onBlur={onBlur ? () => onBlur() : null}
         />
       </View>
     )

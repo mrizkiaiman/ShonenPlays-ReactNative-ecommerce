@@ -53,7 +53,8 @@
     "redux-thunk": "^2.3.0",
     "rn-material-ui-textfield": "^1.0.1",
     "tailwind-rn": "^2.0.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
