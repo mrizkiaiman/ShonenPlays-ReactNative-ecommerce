@@ -8,7 +8,7 @@ import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
 import {Formik, useFormikContext} from 'formik'
 import * as Yup from 'yup'
-import {Input, Button} from '../../components'
+import {Input, Button, ErrorMessage, FormField} from '../../components'
 //Functions
 import {Toast, FormValidation} from '../../utils'
 import {addUser} from '../../store/actions/users'
@@ -19,13 +19,15 @@ export default function SignInScreen({navigation}) {
   const usersFromRedux = useSelector((state) => state.users.data)
 
   const dispatch = useDispatch()
-  const signInOnSubmit = (email, password) => {
+  const signInOnSubmit = ({email, password}) => {
     const isVerified = usersFromRedux.some(
       (user) => user.email == email && user.password == password,
     )
     if (isVerified) {
       Toast({title: 'Success', text: 'Logged in'})
       navigation.navigate('BottomTabs', {screen: 'Home'})
+    } else {
+      Toast({title: 'Failed', text: 'Wrong email/password', type: 'error'})
     }
   }
 
@@ -51,40 +53,28 @@ export default function SignInScreen({navigation}) {
         </View>
         <Formik
           initialValues={{email: '', password: ''}}
-          onSubmit={() => signInOnSubmit(email, password)}
+          onSubmit={(email, password) => signInOnSubmit(email, password)}
           validationSchema={FormValidation.Login}>
-          {({handleChange, handleSubmit, errors}) => (
+          {({handleChange, handleSubmit, errors, setFieldTouched, touched}) => (
             <>
               <View style={styles.inputsContainer}>
-                <Input
+                <FormField
+                  name="email"
                   placeholder="Email"
-                  onChangeText={handleChange('email')}
+                  autoCapitalize="none"
                   type="box"
                   customContainerStyle={
-                    errors && errors.email
-                      ? tailwind('mb-1')
-                      : {marginBottom: 20}
+                    touched.email ? tailwind('mb-5') : tailwind('mb-5')
                   }
-                  autoCapitalize="none"
+                  errorMessageCustomStyles={{marginTop: -16, marginBottom: 14}}
                 />
-                {errors && errors.email && (
-                  <Text style={{color: 'red', marginBottom: 20}}>
-                    {errors.email}
-                  </Text>
-                )}
-                <Input
+                <FormField
+                  name="password"
                   placeholder="Password"
                   type="box"
                   autoCapitalize="none"
-                  onChangeText={handleChange('password')}
                   passwordConfig={{showPassword, setShowPassword}}
-                  customContainerStyle={
-                    errors && errors.password ? tailwind('mb-1') : null
-                  }
                 />
-                {errors && errors.password && (
-                  <Text style={{color: 'red'}}>{errors.password}</Text>
-                )}
               </View>
               <Button
                 onSubmit={handleSubmit}
