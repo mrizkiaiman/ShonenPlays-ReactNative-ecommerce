@@ -6,9 +6,7 @@ import styles from './style'
 //Assets
 import GoogleIcon from '../../assets/Icons/google.svg'
 //Components
-import {Formik, useFormikContext} from 'formik'
-import * as Yup from 'yup'
-import {Input, Button, ErrorMessage, FormField} from '../../components'
+import {Button, FormField, FormButton, Form} from '../../components'
 //Functions
 import {Toast, FormValidation} from '../../utils'
 import {addUser} from '../../store/actions/users'
@@ -51,51 +49,44 @@ export default function SignInScreen({navigation}) {
             Enter your email and password to sign in
           </Text>
         </View>
-        <Formik
+        <Form
           initialValues={{email: '', password: ''}}
           onSubmit={(email, password) => signInOnSubmit(email, password)}
           validationSchema={FormValidation.Login}>
-          {({handleChange, handleSubmit, errors, setFieldTouched, touched}) => (
-            <>
-              <View style={styles.inputsContainer}>
-                <FormField
-                  name="email"
-                  placeholder="Email"
-                  autoCapitalize="none"
-                  type="box"
-                  customContainerStyle={
-                    touched.email ? tailwind('mb-5') : tailwind('mb-5')
-                  }
-                  errorMessageCustomStyles={{marginTop: -16, marginBottom: 14}}
-                />
-                <FormField
-                  name="password"
-                  placeholder="Password"
-                  type="box"
-                  autoCapitalize="none"
-                  passwordConfig={{showPassword, setShowPassword}}
-                />
-              </View>
-              <Button
-                onSubmit={handleSubmit}
-                styling={{
-                  buttonStyle: styles.signInButton,
-                  textStyle: styles.signInButtonText,
-                }}
-                title="Sign in"
-              />
-              <Button
-                onSubmit={() => googleSignIn()}
-                styling={{
-                  buttonStyle: styles.connectWithGoogleButton,
-                  textStyle: styles.connectWithGoogleButtonText,
-                }}
-                title="Connect with Google"
-                additionalComponents={{position: 'left', comps: <GoogleIcon />}}
-              />
-            </>
-          )}
-        </Formik>
+          <View style={styles.inputsContainer}>
+            <FormField
+              name="email"
+              placeholder="Email"
+              autoCapitalize="none"
+              type="box"
+              customContainerStyle={tailwind('mb-5')}
+              errorMessageCustomStyles={{marginTop: -16, marginBottom: 14}}
+            />
+            <FormField
+              name="password"
+              placeholder="Password"
+              type="box"
+              autoCapitalize="none"
+              passwordConfig={{showPassword, setShowPassword}}
+            />
+          </View>
+          <FormButton
+            styling={{
+              buttonStyle: styles.signInButton,
+              textStyle: styles.signInButtonText,
+            }}
+            title="Sign in"
+          />
+        </Form>
+        <Button
+          onSubmit={() => googleSignIn()}
+          styling={{
+            buttonStyle: styles.connectWithGoogleButton,
+            textStyle: styles.connectWithGoogleButtonText,
+          }}
+          title="Connect with Google"
+          additionalComponents={{position: 'left', comps: <GoogleIcon />}}
+        />
         <Text style={styles.navigateToSignUpText}>
           Don't have an account?{' '}
           <Text
