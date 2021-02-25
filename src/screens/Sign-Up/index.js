@@ -39,7 +39,8 @@ export default function SignUpScreen({navigation}) {
   }
 
   const googleSignIn = () => {
-    navigation.navigate('Home')
+    Toast({title: 'Success', text: 'Logged in'})
+    navigation.navigate('BottomTabs', {screen: 'Home'})
   }
 
   return (

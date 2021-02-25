@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
+import {Text, View, ScrollView, TouchableOpacity, FlatList} from 'react-native'
 import {useDispatch} from 'react-redux'
 import {Provinces} from '../../mockdata'
 //Styling
@@ -9,11 +9,9 @@ const {width, height} = Size
 import {tailwind} from '../../style/tailwind'
 //Assets
 import PinLocationIcon from '../../assets/Icons/map.svg'
-import CheckedIcon from '../../assets/Icons/circle-check.svg'
 //Components
 import {Modalize} from 'react-native-modalize'
-import {ProvinceModal, CityModal} from './components'
-import {Input} from '../../components'
+import {Input, ItemList} from '../../components'
 import {FooterButton, ModalHeader} from '../../parts'
 //Functions
 import {Toast} from '../../utils'
@@ -34,11 +32,13 @@ export default ({navigation, route: {params}}) => {
   const [pic, setPic] = useState(params.addressData.pic)
   const [phone, setPhone] = useState(params.addressData.phone)
   const [address, setAddress] = useState(params.addressData.address)
-  const [province, setProvince] = useState(params.addressData.province)
-  const [city, setCity] = useState(params.addressData.city)
   const [postalCode, setPostalCode] = useState(params.addressData.postalCode)
+
+  const [province, setProvince] = useState(params.addressData.province)
   const provinces = Object.keys(Provinces)
+  const [city, setCity] = useState(params.addressData.city)
   const [cities, setCities] = useState([])
+
   const dispatch = useDispatch()
   //Modalize
   const provinceModal = useRef(null)
@@ -217,24 +217,24 @@ export default ({navigation, route: {params}}) => {
             title="Province"
           />
         }
-        modalHeight={height / 1.25}>
-        {provinces.map((value, index) => (
-          <TouchableOpacity
-            style={styles.provinceCityListContainer}
-            onPress={() => {
-              setProvince(value)
-              setCity('')
-              setCities(Provinces[value])
-              modalAction('close', 'province')
-            }}
-            key={index}>
-            <Text style={styles.provinceCityListText}>{value}</Text>
-            {value === province ? (
-              <CheckedIcon style={{marginRight: 16, marginBottom: 4}} />
-            ) : null}
-          </TouchableOpacity>
-        ))}
-      </Modalize>
+        modalHeight={height / 1.25}
+        flatListProps={{
+          data: provinces,
+          keyExtractor: (item, index) => index.toString(),
+          renderItem: ({item}) => (
+            <ItemList
+              value={item}
+              checkedValue={province}
+              customStyle={styles.provinceCityListContainer}
+              onSubmit={() => {
+                setProvince(item)
+                setCity('')
+                setCities(Provinces[item])
+                modalAction('close', 'province')
+              }}
+            />
+          ),
+        }}></Modalize>
       <Modalize
         ref={cityModal}
         HeaderComponent={
@@ -244,22 +244,22 @@ export default ({navigation, route: {params}}) => {
             title="City"
           />
         }
-        modalHeight={height / 1.25}>
-        {cities.map((value, index) => (
-          <TouchableOpacity
-            style={styles.provinceCityListContainer}
-            onPress={() => {
-              setCity(value)
-              modalAction('close', 'city')
-            }}
-            key={index}>
-            <Text style={styles.provinceCityListText}>{value}</Text>
-            {value === city ? (
-              <CheckedIcon style={{marginRight: 16, marginBottom: 4}} />
-            ) : null}
-          </TouchableOpacity>
-        ))}
-      </Modalize>
+        modalHeight={height / 1.25}
+        flatListProps={{
+          data: cities,
+          keyExtractor: (item, index) => index.toString(),
+          renderItem: ({item}) => (
+            <ItemList
+              value={item}
+              checkedValue={city}
+              customStyle={styles.provinceCityListContainer}
+              onSubmit={() => {
+                setCity(item)
+                modalAction('close', 'city')
+              }}
+            />
+          ),
+        }}></Modalize>
     </>
   )
 }
