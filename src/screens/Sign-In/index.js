@@ -52,7 +52,7 @@ export default function SignInScreen({navigation}) {
         <Form
           initialValues={{email: '', password: ''}}
           onSubmit={(email, password) => signInOnSubmit(email, password)}
-          validationSchema={FormValidation.Login}>
+          validationSchema={FormValidation.SignIn}>
           <View style={styles.inputsContainer}>
             <FormField
               name="email"
