@@ -5,7 +5,6 @@ import {NavigationContainer} from '@react-navigation/native'
 import BottomTabs from './components/BottomTabs'
 import Categories from '../screens/Categories'
 import Products from '../screens/Products'
-import ProductsByCategory from '../screens/ProductsByCategory'
 import ProductDetails from '../screens/ProductDetails'
 import Search from '../screens/Search'
 import Checkout from '../screens/Checkout'
@@ -50,15 +49,10 @@ export default function navigation() {
           component={Products}
           options={({route}) => ({
             headerShown: true,
-            title: `Results for ${route.params.keyword}`,
-          })}
-        />
-        <Stack.Screen
-          name="ProductsByCategory"
-          component={ProductsByCategory}
-          options={({route}) => ({
-            headerShown: true,
-            title: route.params.category.name,
+            title:
+              route.params && route.params.category
+                ? route.params.category.name
+                : route.params.keyword,
           })}
         />
         <Stack.Screen
