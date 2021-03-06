@@ -7,8 +7,6 @@ import {tailwind} from '../../style/tailwind'
 //Components
 import {Product, Search} from '../../components'
 import {EmptyState} from '../../parts'
-//Functions
-import {useFetchHandler} from '../../hooks'
 
 export default ({navigation, route: {params}}) => {
   const {category, keyword} = params

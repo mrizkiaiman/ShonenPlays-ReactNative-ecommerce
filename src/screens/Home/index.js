@@ -9,20 +9,24 @@ import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Components
 import {Carousel, PopularCategory, SearchBar} from './components'
-import {Category, Product} from '../../components'
+import {Category, Product, ActivityIndicator} from '../../components'
 import {ScrollViewBounced} from '../../parts'
+//Functions
+import {useAPI} from '../../hooks'
+import {FetchBestSeller, FetchPopularCategories} from '../../services/Home'
 
 export default function Home({navigation}) {
   const [searchKeyword, setSearchKeyword] = useState('')
-  const popularCategoryList = useMemo(() => {
-    return Categories.filter((category) => category.isPopular === true)
-  }, [])
-  const bestSellerProducts = useMemo(() => {
-    return Products.filter((product) => product.isPopular === true)
-  }, [])
+  const getBestSellerAPI = useAPI(FetchBestSeller)
+  const getPopularCategoriesAPI = useAPI(FetchPopularCategories)
 
-  return (
-    <>
+  if (getBestSellerAPI.loading && getPopularCategoriesAPI.loading)
+    return <ActivityIndicator />
+
+  return getBestSellerAPI.loading && getPopularCategoriesAPI.loading ? (
+    <ActivityIndicator />
+  ) : (
+    <View>
       <ScrollView>
         <ScrollViewBounced color="#006266" />
         <View style={styles.mainContainer}>
@@ -54,7 +58,7 @@ export default function Home({navigation}) {
               {/* <Text style={styles.functionalText}>See all</Text> */}
             </View>
             <ScrollView horizontal style={styles.sectionContentContainer}>
-              {popularCategoryList.map((category, index) => (
+              {getPopularCategoriesAPI.response.map((category, index) => (
                 <PopularCategory key={index} category={category} />
               ))}
             </ScrollView>
@@ -79,7 +83,7 @@ export default function Home({navigation}) {
                 ...styles.sectionContentContainer,
                 ...tailwind('flex-wrap justify-between items-center'),
               }}>
-              {bestSellerProducts.slice(0, 4).map((product, index) => (
+              {getBestSellerAPI.response.slice(0, 4).map((product, index) => (
                 <Product
                   customStyle={{
                     width: width > 410 ? 175 : 155,
@@ -119,7 +123,7 @@ export default function Home({navigation}) {
           </View>
         </View>
       </ScrollView>
-    </>
+    </View>
   )
 }
 

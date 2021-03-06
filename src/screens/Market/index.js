@@ -11,8 +11,6 @@ const {width, height} = Size
 //Components
 import {TabScreenHeader} from '../../parts'
 import {Search, Product, Category} from '../../components'
-//Functions
-import {useFetchHandler} from '../../hooks'
 
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
