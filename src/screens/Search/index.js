@@ -9,8 +9,6 @@ import {tailwind} from '../../style/tailwind'
 //Components
 import {Search, Category} from '../../components'
 import {PopularCategory} from './components'
-//Functions
-import {useFetchHandler} from '../../hooks'
 
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')

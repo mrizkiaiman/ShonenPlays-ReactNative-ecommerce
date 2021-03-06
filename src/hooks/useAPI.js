@@ -1,38 +1,33 @@
 import {useState, useEffect} from 'react'
-import {useDispatch} from 'react-redux'
-import axios from '../services/axios'
 import AsyncStorage from '@react-native-community/async-storage'
 
-export default (options, token, config) => {
+export default (apiFunction, token) => {
   const [response, setResponse] = useState([])
   const [error, setError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const callApi = async () => {
       if (token) {
         // const token = await AsyncStorage.getItem('token')
-        const tokens =
+        const myToken =
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmY2EyYTk5YWRhYzgwMTVjYmIzMDZhYiIsImVtYWlsIjoibS5kc2EuYWltYW5AZ21haWwuY29tIiwiaWF0IjoxNjA3NDkyMDIzfQ.MSmLLhR6xH0CvN-gZ4w_QO5sWKLVpukrvfjsWqQ-eOI'
         options.headers = {
-          token: tokens,
+          token: myToken,
         }
       }
 
-      axios(options)
-        .then(({data}) => {
-          setResponse(data)
-          setIsLoading(false)
-        })
-        .catch((err) => {
-          setError(true)
-          setIsLoading(false)
-        })
+      try {
+        const result = await apiFunction()
+        setLoading(false)
+        setResponse(result)
+      } catch (error) {
+        setError(true)
+      }
     }
 
-    fetchData()
+    callApi()
   }, [])
 
-  return {response, error, isLoading}
+  return {response, loading, error}
 }
