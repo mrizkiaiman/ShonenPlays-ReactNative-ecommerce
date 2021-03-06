@@ -1,4 +1,5 @@
 import React from 'react'
+import NavigationTheme from './theme'
 import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
 //Components
@@ -23,6 +24,7 @@ import Maps from '../screens/Address-maps'
 export default function navigation() {
   const Stack = createStackNavigator()
   return (
+    // <NavigationContainer theme={NavigationTheme}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{

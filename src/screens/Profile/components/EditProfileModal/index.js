@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import * as ImagePicker from 'expo-image-picker'
 //Styling
 import {Size} from '../../../../style'
 const {width, height} = Size
@@ -15,6 +16,23 @@ export default ({Hardcode}) => {
   const [name, setName] = useState(`${firstName} ${lastName}`)
   const [email, setEmail] = useState(mail)
   const [phone, setPhone] = useState(mobilePhone)
+  const [profileImage, setProfileImage] = useState('')
+
+  const selectImage = async () => {
+    const {granted} = await ImagePicker.requestCameraRollPermissionsAsync()
+    if (!granted) alert('You need to enable permission access')
+    else {
+      try {
+        const result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          quality: 0.5,
+        })
+        if (!result.cancelled) setProfileImage(result.uri)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   const userInfo = [
     {
@@ -50,9 +68,20 @@ export default ({Hardcode}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.uploadPhotoContainer}>
-        <View style={styles.profilePhoto}>
-          <UploadIcon />
-        </View>
+        {profileImage ? (
+          <TouchableOpacity onPress={() => selectImage()}>
+            <Image
+              source={{uri: profileImage}}
+              style={tailwind('rounded-full w-16 h-16')}
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => selectImage()}
+            style={styles.profilePhoto}>
+            <UploadIcon />
+          </TouchableOpacity>
+        )}
         <Text style={tailwind('font-normal ml-6 text-lg')}>
           Upload profile photo
         </Text>
@@ -85,8 +114,8 @@ const styles = StyleSheet.create({
   },
   uploadPhotoContainer: tailwind('flex-row items-center p-4 mt-2 bg-white'),
   profilePhoto: {
-    height: 60,
-    width: 60,
+    height: 64,
+    width: 64,
     borderRadius: 100,
     backgroundColor: '#F3F3F3',
     ...tailwind('justify-center items-center'),

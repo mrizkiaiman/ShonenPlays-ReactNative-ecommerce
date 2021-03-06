@@ -1,5 +1,5 @@
 import React, {useRef} from 'react'
-import {Text, View, Image, ScrollView, TouchableOpacity} from 'react-native'
+import {Text, View, Image, ScrollView} from 'react-native'
 import hardcode from './helpers/hardcode'
 //Styling
 import styles from './style'
@@ -21,6 +21,7 @@ import {TabScreenHeader, ModalHeader} from '../../parts'
 import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 //Functions
 import {WhatsAppLink} from '../../utils'
+import {useLocation} from '../../hooks'
 
 export default ({navigation}) => {
   const {firstName, lastName, mail, img} = hardcode

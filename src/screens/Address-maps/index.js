@@ -1,9 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import {Text, View} from 'react-native'
-//Styling
-import styles from './style'
-import {Size} from '../../style'
-import {tailwind} from '../../style/tailwind'
 //Components
 import {InputMap, ChooseLocationButton} from './components'
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
