@@ -1,10 +1,10 @@
 import axios from '../axios'
 
-export default async (categoryId) => {
+export default async () => {
   try {
     const response = await axios({
       method: 'get',
-      url: `/products/${categoryId}`,
+      url: '/categories/popular',
     })
     return response.data
   } catch (error) {
