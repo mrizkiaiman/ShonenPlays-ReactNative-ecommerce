@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react'
 import {Text, View, Image, ScrollView} from 'react-native'
+import {useSelector} from 'react-redux'
 import hardcode from './helpers/hardcode'
 //Styling
 import styles from './style'
@@ -14,7 +15,7 @@ import {
   ShippingAddressIcon,
   HelpIcon,
   LogoutIcon,
-} from '../../assets/Icons/MoreMenu'
+} from '../../assets/icons/MoreMenu'
 //Components
 import {Modalize} from 'react-native-modalize'
 import {TabScreenHeader, ModalHeader} from '../../parts'
@@ -22,11 +23,12 @@ import {UploadModal} from '../../components'
 import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 //Functions
 import {WhatsAppLink} from '../../utils'
-import {useLocation} from '../../hooks'
-import {UpdateProfile} from '../../services/Profile'
+import {UpdateProfile} from '../../services/profile'
 
 export default ({navigation}) => {
-  const {firstName, lastName, mail, img} = hardcode
+  const profileFromRedux = useSelector((state) => state.profile)
+  const {firstName, lastName, mail, img} = profileFromRedux
+
   const [uploadVisible, setUploadVisible] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [profileImage, setProfileImage] = useState('')
@@ -141,7 +143,7 @@ export default ({navigation}) => {
         }
         modalHeight={height / 1.25}>
         <EditProfileModal
-          Hardcode={hardcode}
+          profileData={profileFromRedux}
           profileImage={profileImage}
           setProfileImage={setProfileImage}
         />

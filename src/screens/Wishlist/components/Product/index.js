@@ -13,7 +13,7 @@ import {Size, Buttons} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
 //Assets
-import TrashIcon from '../../../../assets/Icons/trash.svg'
+import TrashIcon from '../../../../assets/icons/trash.svg'
 //Components
 //Functions
 import {IDRFormat} from '../../../../utils'

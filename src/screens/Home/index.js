@@ -13,7 +13,7 @@ import {Category, Product, ActivityIndicator} from '../../components'
 import {ScrollViewBounced} from '../../parts'
 //Functions
 import {useAPI} from '../../hooks'
-import {FetchBestSeller, FetchPopularCategories} from '../../services/Home'
+import {FetchBestSeller, FetchPopularCategories} from '../../services/home'
 
 export default function Home({navigation}) {
   const [searchKeyword, setSearchKeyword] = useState('')

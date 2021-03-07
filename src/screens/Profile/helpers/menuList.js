@@ -1,12 +1,12 @@
 import React from 'react'
 //Assets
-import EditProfileIcon from '../../../assets/Icons/MoreMenu/editProfile.svg'
-import ChangePasswordIcon from '../../../assets/Icons/MoreMenu/changePassword.svg'
-import WishlistIcon from '../../../assets/Icons/MoreMenu/wishlist.svg'
-import ShippingAddressIcon from '../../../assets/Icons/MoreMenu/shippingAddress.svg'
-import AboutIcon from '../../../assets/Icons/MoreMenu/about.svg'
-import HelpIcon from '../../../assets/Icons/MoreMenu/help.svg'
-import LogoutIcon from '../../../assets/Icons/MoreMenu/logout.svg'
+import EditProfileIcon from '../../../assets/icons/MoreMenu/editProfile.svg'
+import ChangePasswordIcon from '../../../assets/icons/MoreMenu/changePassword.svg'
+import WishlistIcon from '../../../assets/icons/MoreMenu/wishlist.svg'
+import ShippingAddressIcon from '../../../assets/icons/MoreMenu/shippingAddress.svg'
+import AboutIcon from '../../../assets/icons/MoreMenu/about.svg'
+import HelpIcon from '../../../assets/icons/MoreMenu/help.svg'
+import LogoutIcon from '../../../assets/icons/MoreMenu/logout.svg'
 
 export const firstRow = [
   {

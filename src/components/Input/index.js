@@ -3,9 +3,9 @@ import {View, TextInput, StyleSheet, TouchableOpacity, Text} from 'react-native'
 import {Buttons, Colors, Fonts, Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Assets
-import RightIcon from '../../assets/Icons/rightDirection.svg'
-import ShowPasswordIcon from '../../assets/Icons/showPassword.svg'
-import HidePasswordIcon from '../../assets/Icons/hidePassword.svg'
+import RightIcon from '../../assets/icons/rightDirection.svg'
+import ShowPasswordIcon from '../../assets/icons/showPassword.svg'
+import HidePasswordIcon from '../../assets/icons/hidePassword.svg'
 
 export default function Input({
   value,

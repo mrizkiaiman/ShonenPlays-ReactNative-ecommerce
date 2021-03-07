@@ -18,8 +18,7 @@ const {width, height} = Size
 //Components
 import {QtyControl} from '../../../../components'
 //Functions
-import IDRFormat from '../../../../utils/IDRFormat'
-import Toast from '../../../../utils/Toast'
+import {Toast, IDRFormat} from '../../../../utils'
 import {removeProduct} from '../../../../store/actions/checkout'
 
 export default ({productData}) => {

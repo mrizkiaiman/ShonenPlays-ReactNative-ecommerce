@@ -1,13 +1,14 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import {useDispatch} from 'react-redux'
+import {Image} from 'react-native-expo-image-cache'
 //Styling
 import {Size, Buttons} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import WishlistIcon from '../../assets/Icons/wishlist.svg'
+import WishlistIcon from '../../assets/icons/wishlist.svg'
 //Components
 import Button from '../Button'
 //Functions
@@ -62,7 +63,16 @@ export default ({product, customStyle}) => {
       <TouchableOpacity
         onPress={() => navigation.navigate('ProductDetails', {product})}
         style={styles.contentContainer}>
-        <Image style={styles.productImage} source={{uri: img}} />
+        <Image
+          style={styles.productImage}
+          tint="light"
+          uri={img}
+          preview={{
+            uri: product.thumbnailImg
+              ? product.thumbnailImg
+              : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098166/shonenplays/Model_Kit_-_Barbatos_msxbpy.png',
+          }}
+        />
         <Text style={styles.productText}>{name}</Text>
       </TouchableOpacity>
       <View>

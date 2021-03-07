@@ -4,6 +4,7 @@ import checkout from './checkout'
 import wishlist from './wishlist'
 import users from './users'
 import orders from './orders'
+import profile from './profile'
 
 export default combineReducers({
   address,
@@ -11,4 +12,5 @@ export default combineReducers({
   wishlist,
   users,
   orders,
+  profile,
 })

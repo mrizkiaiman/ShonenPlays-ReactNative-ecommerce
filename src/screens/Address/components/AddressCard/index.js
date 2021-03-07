@@ -7,8 +7,8 @@ import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
 //Assets
-import DeleteIcon from '../../../../assets/Icons/delete-x.svg'
-import EditIcon from '../../../../assets/Icons/edit.svg'
+import DeleteIcon from '../../../../assets/icons/delete-x.svg'
+import EditIcon from '../../../../assets/icons/edit.svg'
 //Components
 //Functions
 import {removeAddress} from '../../../../store/actions/address'

@@ -6,7 +6,7 @@ import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 //Assets
-import PlusIcon from '../../assets/Icons/plus.svg'
+import PlusIcon from '../../assets/icons/plus.svg'
 //Components
 import {EmptyState} from '../../parts'
 import {Button} from '../../components'

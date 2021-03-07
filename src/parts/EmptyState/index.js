@@ -11,7 +11,7 @@ import {
   EmptyStateOrders,
   EmptyStateProducts,
   EmptyStateWishlist,
-} from '../../assets/Illustrations/EmptyState'
+} from '../../assets/illustrations/EmptyState'
 //Components
 import {Button} from '../../components'
 //Functions

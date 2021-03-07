@@ -4,10 +4,10 @@ import {Size} from './src/style'
 import {tailwind} from './src/style/tailwind'
 const {width, height} = Size
 //Assets
-import GamingIllustration from './src/assets/Illustrations/Intro-screens/Intro-game.svg'
-import DeliveryIllustration from './src/assets/Illustrations/Intro-screens/Intro-delivery.svg'
-import EasyRegistrationIllustration from './src/assets/Illustrations/Intro-screens/Intro-easyRegistration.svg'
-import WelcomeIllustration from './src/assets/Illustrations/Intro-screens/Intro-welcome.svg'
+import GamingIllustration from './src/assets/illustrations/Intro-screens/Intro-game.svg'
+import DeliveryIllustration from './src/assets/illustrations/Intro-screens/Intro-delivery.svg'
+import EasyRegistrationIllustration from './src/assets/illustrations/Intro-screens/Intro-easyRegistration.svg'
+import WelcomeIllustration from './src/assets/illustrations/Intro-screens/Intro-welcome.svg'
 //Components
 import {Ionicons} from '@expo/vector-icons'
 import AppIntroSlider from 'react-native-app-intro-slider'

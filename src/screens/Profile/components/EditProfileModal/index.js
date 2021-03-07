@@ -6,12 +6,12 @@ import {Size} from '../../../../style'
 const {width, height} = Size
 import {tailwind} from '../../../../style/tailwind'
 //Assets
-import UploadIcon from '../../../../assets/Icons/upload.svg'
+import UploadIcon from '../../../../assets/icons/upload.svg'
 //Components
 import {Input, Address} from '../../../../components'
 
-export default ({Hardcode, profileImage, setProfileImage}) => {
-  const {firstName, lastName, mail, defaultAddress, mobilePhone} = Hardcode
+export default ({profileData, profileImage, setProfileImage}) => {
+  const {firstName, lastName, mail, defaultAddress, mobilePhone} = profileData
   const [name, setName] = useState(`${firstName} ${lastName}`)
   const [email, setEmail] = useState(mail)
   const [phone, setPhone] = useState(mobilePhone)
