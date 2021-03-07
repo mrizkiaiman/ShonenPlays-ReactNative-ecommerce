@@ -7,7 +7,7 @@ export default () => {
   return (
     <AnimatedLoader
       visible={true}
-      source={require('../../assets/Animations/Loading.json')}
+      source={require('../../assets/animations/Loading.json')}
       speed={1}
       animationStyle={{
         width: 380,

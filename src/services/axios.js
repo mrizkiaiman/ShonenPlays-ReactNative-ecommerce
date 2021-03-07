@@ -2,7 +2,7 @@ import axios from 'axios'
 import {Cache} from '../utils'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://192.168.0.107:3000',
 })
 
 // const get = instance.get

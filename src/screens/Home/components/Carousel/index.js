@@ -30,9 +30,9 @@ export default () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const images = [
     // require('../../../../assets/Carousel/carousel-1.png'),
-    require('../../../../assets/Carousel/carousel-3.jpg'),
-    require('../../../../assets/Carousel/carousel-4.jpg'),
-    require('../../../../assets/Carousel/carousel-2.jpg'),
+    require('../../../../assets/carousel/carousel-3.jpg'),
+    require('../../../../assets/carousel/carousel-4.jpg'),
+    require('../../../../assets/carousel/carousel-2.jpg'),
   ]
 
   const _renderItem = ({item, index}) => {

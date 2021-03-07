@@ -16,7 +16,7 @@ export default ({progress = 0, visible = false, onDone}) => {
             loop={false}
             speed={1}
             animationStyle={{width: 260, height: 260}}
-            source={require('../../assets/Animations/Done.json')}
+            source={require('../../assets/animations/Done.json')}
             overlayColor="white"
           />
         )}

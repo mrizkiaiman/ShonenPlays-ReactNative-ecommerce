@@ -65,8 +65,8 @@ export default ({product, customStyle}) => {
         style={styles.contentContainer}>
         <Image
           style={styles.productImage}
-          tint="light"
           uri={img}
+          tint="light"
           preview={{
             uri: product.thumbnailImg
               ? product.thumbnailImg

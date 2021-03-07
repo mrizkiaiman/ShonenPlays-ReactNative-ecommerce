@@ -1,6 +1,7 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
+import {Image} from 'react-native-expo-image-cache'
 //Styling
 import {tailwind} from '../../../../style/tailwind'
 
@@ -10,7 +11,13 @@ export default ({category}) => {
     <TouchableOpacity
       onPress={() => navigation.navigate('Products', {category})}
       style={styles.mainContainer}>
-      <Image style={styles.image} source={{uri: category.popularIcon}} />
+      <Image
+        style={styles.image}
+        uri={category.popularIcon}
+        tint="light"
+        resizeMode="contain"
+        preview={{uri: category.thumbnailPopular}}
+      />
       <Text style={styles.nameText}>{category.name}</Text>
     </TouchableOpacity>
   )
