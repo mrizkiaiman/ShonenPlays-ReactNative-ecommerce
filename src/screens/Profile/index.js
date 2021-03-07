@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import {Text, View, Image, ScrollView} from 'react-native'
 import hardcode from './helpers/hardcode'
 //Styling
@@ -18,13 +18,18 @@ import {
 //Components
 import {Modalize} from 'react-native-modalize'
 import {TabScreenHeader, ModalHeader} from '../../parts'
+import {UploadModal} from '../../components'
 import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 //Functions
 import {WhatsAppLink} from '../../utils'
 import {useLocation} from '../../hooks'
+import {UpdateProfile} from '../../services/Profile'
 
 export default ({navigation}) => {
   const {firstName, lastName, mail, img} = hardcode
+  const [uploadVisible, setUploadVisible] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [profileImage, setProfileImage] = useState('')
   //Modalize
   const editProfileModal = useRef(null)
   const changePasswordModal = useRef(null)
@@ -42,6 +47,13 @@ export default ({navigation}) => {
         modal.close()
       }
     }
+  }
+
+  const saveProfile = async () => {
+    setUploadVisible(true)
+    await UpdateProfile(profileImage, (progress) => setUploadProgress(progress))
+    setUploadVisible(false)
+    modalAction('close', 'editProfile')
   }
 
   const menuFirstRow = [
@@ -85,6 +97,7 @@ export default ({navigation}) => {
 
   return (
     <>
+      <UploadModal progress={uploadProgress} visible={uploadVisible} />
       <ScrollView style={styles.mainContainer}>
         <TabScreenHeader
           text={{
@@ -122,19 +135,22 @@ export default ({navigation}) => {
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'editProfile')}
-            saveMethod={() => console.log('Test')}
+            saveMethod={() => saveProfile()}
             title="Edit Profile"
           />
         }
         modalHeight={height / 1.25}>
-        <EditProfileModal Hardcode={hardcode} />
+        <EditProfileModal
+          Hardcode={hardcode}
+          profileImage={profileImage}
+          setProfileImage={setProfileImage}
+        />
       </Modalize>
       <Modalize
         ref={changePasswordModal}
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'changePassword')}
-            saveMethod={() => console.log('Test')}
             title="Change Password"
           />
         }

@@ -9,14 +9,12 @@ import {tailwind} from '../../../../style/tailwind'
 import UploadIcon from '../../../../assets/Icons/upload.svg'
 //Components
 import {Input, Address} from '../../../../components'
-//Functions
 
-export default ({Hardcode}) => {
+export default ({Hardcode, profileImage, setProfileImage}) => {
   const {firstName, lastName, mail, defaultAddress, mobilePhone} = Hardcode
   const [name, setName] = useState(`${firstName} ${lastName}`)
   const [email, setEmail] = useState(mail)
   const [phone, setPhone] = useState(mobilePhone)
-  const [profileImage, setProfileImage] = useState('')
 
   const selectImage = async () => {
     const {granted} = await ImagePicker.requestCameraRollPermissionsAsync()
@@ -27,7 +25,10 @@ export default ({Hardcode}) => {
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           quality: 0.5,
         })
-        if (!result.cancelled) setProfileImage(result.uri)
+
+        if (!result.cancelled) {
+          setProfileImage(result)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -71,7 +72,7 @@ export default ({Hardcode}) => {
         {profileImage ? (
           <TouchableOpacity onPress={() => selectImage()}>
             <Image
-              source={{uri: profileImage}}
+              source={{uri: profileImage.uri}}
               style={tailwind('rounded-full w-16 h-16')}
             />
           </TouchableOpacity>
