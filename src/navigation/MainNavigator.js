@@ -10,20 +10,21 @@ import Checkout from '../screens/Checkout'
 import OrderDetails from '../screens/OrderDetails'
 import Wishlist from '../screens/Wishlist'
 import ChangePassword from '../screens/ChangePassword'
+import SignIn from '../screens/Sign-In'
 //More menu
 import ShippingAddress from '../screens/Address'
 import AddShippingAddress from '../screens/Address-add'
 import EditShippingAddress from '../screens/Address-edit'
 import Maps from '../screens/Address-maps'
 
-const MainStack = () => {
+const MainNavigator = () => {
   const Stack = createStackNavigator()
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName={'Home'}>
+      initialRouteName={'BottomTabs'}>
       <Stack.Screen
         options={{title: 'Home'}}
         name="BottomTabs"
@@ -123,8 +124,15 @@ const MainStack = () => {
           title: 'Change Password',
         })}
       />
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={() => ({
+          headerShown: false,
+        })}
+      />
     </Stack.Navigator>
   )
 }
 
-export default MainStack
+export default MainNavigator

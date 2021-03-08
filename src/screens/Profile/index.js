@@ -23,11 +23,13 @@ import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 import {WhatsAppLink} from '../../utils'
 import {UpdateProfile} from '../../services/profile'
 import {updatePhoto} from '../../store/actions/profile'
+import {useAuth} from '../../hooks'
 
 export default ({navigation}) => {
   const profileFromRedux = useSelector((state) => state.profile)
   const {firstName, lastName, mail, img} = profileFromRedux
   const dispatch = useDispatch()
+  const {user, logOut} = useAuth()
 
   const [uploadVisible, setUploadVisible] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
@@ -96,7 +98,10 @@ export default ({navigation}) => {
     {
       name: 'Logout',
       icon: <LogoutIcon />,
-      customOnSubmit: () => navigation.navigate('SignIn'),
+      customOnSubmit: () => {
+        logOut()
+        navigation.navigate('SignIn')
+      },
     },
   ]
 

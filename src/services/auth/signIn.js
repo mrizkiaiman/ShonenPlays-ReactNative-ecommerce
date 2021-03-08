@@ -10,8 +10,8 @@ export default async (email, password) => {
         password,
       },
     })
-    return response.data
+    return {ok: true, data: response.data}
   } catch (error) {
-    throw error
+    return error
   }
 }
