@@ -31,7 +31,10 @@
     "expo-updates": "~0.3.3",
     "formik": "^2.2.6",
     "install": "^0.13.0",
+<<<<<<< HEAD
     "jwt-decode": "^3.1.2",
+=======
+>>>>>>> 7cd74428714beec4570f3a7a27916427dbf1ab74
     "lottie-react-native": "~2.6.1",
     "moment": "^2.29.1",
     "postcss": "^7",
