@@ -1,12 +1,10 @@
 import React, {useRef, useState} from 'react'
 import {Text, View, Image, ScrollView} from 'react-native'
-import {useSelector} from 'react-redux'
-import hardcode from './helpers/hardcode'
+import {useSelector, useDispatch} from 'react-redux'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
 const {width, height} = Size
-import {tailwind} from '../../style/tailwind'
 //Assets
 import {
   EditProfileIcon,
@@ -24,14 +22,16 @@ import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 //Functions
 import {WhatsAppLink} from '../../utils'
 import {UpdateProfile} from '../../services/profile'
+import {updatePhoto} from '../../store/actions/profile'
 
 export default ({navigation}) => {
   const profileFromRedux = useSelector((state) => state.profile)
   const {firstName, lastName, mail, img} = profileFromRedux
+  const dispatch = useDispatch()
 
   const [uploadVisible, setUploadVisible] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
-  const [profileImage, setProfileImage] = useState('')
+  const [profileImage, setProfileImage] = useState(profileFromRedux.img)
   //Modalize
   const editProfileModal = useRef(null)
   const changePasswordModal = useRef(null)
@@ -53,7 +53,10 @@ export default ({navigation}) => {
 
   const saveProfile = async () => {
     setUploadVisible(true)
-    await UpdateProfile(profileImage, (progress) => setUploadProgress(progress))
+    const result = await UpdateProfile(profileImage, (progress) =>
+      setUploadProgress(progress),
+    )
+    dispatch(updatePhoto(result.link))
     setUploadVisible(false)
     modalAction('close', 'editProfile')
   }

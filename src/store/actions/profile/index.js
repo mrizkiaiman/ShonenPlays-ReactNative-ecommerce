@@ -1,5 +1,7 @@
-export const updateProfile = ({updatedObj}) => {
+export const updatePhoto = (img) => {
   return (dispatch, getState) => {
-    dispatch({type: 'UPDATE_STATE_ORDERS', payload: updatedObj})
+    let currentProfile = getState().profile
+    currentProfile.img = img
+    dispatch({type: 'UPDATE_STATE_ORDERS', payload: currentProfile})
   }
 }

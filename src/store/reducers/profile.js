@@ -3,7 +3,7 @@ const defaultState = {
   lastName: 'Aiman',
   mail: 'm.rizki.aiman@gmail.com',
   img:
-    'https://pbs.twimg.com/profile_images/1332549281740247042/Ww6aPg8I_400x400.jpg',
+    'https://pbs.twimg.com/profile_images/1359790350332694530/FDyUo1h7_400x400.jpg',
   userType: 1,
   defaultAddress: {
     name: 'Home',

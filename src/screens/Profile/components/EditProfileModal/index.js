@@ -69,7 +69,7 @@ export default ({profileData, profileImage, setProfileImage}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.uploadPhotoContainer}>
-        {profileImage ? (
+        {profileImage.uri ? (
           <TouchableOpacity onPress={() => selectImage()}>
             <Image
               source={{uri: profileImage.uri}}
@@ -80,7 +80,10 @@ export default ({profileData, profileImage, setProfileImage}) => {
           <TouchableOpacity
             onPress={() => selectImage()}
             style={styles.profilePhoto}>
-            <UploadIcon />
+            <Image
+              source={{uri: profileData.img}}
+              style={tailwind('rounded-full w-16 h-16')}
+            />
           </TouchableOpacity>
         )}
         <Text style={tailwind('font-normal ml-6 text-lg')}>
