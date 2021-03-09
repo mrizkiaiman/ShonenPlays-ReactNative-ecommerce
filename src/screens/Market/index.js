@@ -26,13 +26,11 @@ export default ({navigation}) => {
             orangeText: 'ket',
           }}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-          <Search
-            searchKeyword={searchKeyword}
-            setSearchKeyword={setSearchKeyword}
-            onSubmit={() => console.log('Test')}
-          />
-        </TouchableOpacity>
+        <Search
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+          onSubmit={() => console.log('Test')}
+        />
         <Image
           source={{
             uri:

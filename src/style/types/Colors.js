@@ -9,4 +9,5 @@ export default {
   black: '#212121',
   gray: '#E2E2E2',
   primaryBlue: '#0389FF',
+  placeholder: '#B4B4B4',
 }

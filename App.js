@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {AppLoading} from 'expo'
 import {Provider} from 'react-redux'
 import {NavigationContainer} from '@react-navigation/native'
+import * as ScreenOrientation from 'expo-screen-orientation'
 import store from './src/store'
 //Components
 import AppIntroSlider from './app-intro-slider'
@@ -29,6 +30,17 @@ export default function App() {
   const [openApp, setOpenApp] = useState(false)
   const [user, setUser] = useState()
   const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    lockOrientation()
+  }, [])
+
+  const lockOrientation = async () => {
+    const locked = await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP,
+    )
+    return locked
+  }
 
   let [fontsLoaded] = useFonts({
     Oxanium_200ExtraLight,

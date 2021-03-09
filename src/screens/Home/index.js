@@ -37,15 +37,7 @@ export default function Home({navigation}) {
               <Text style={styles.welcomeUserText}>
                 Welcome, M. Rizki Aiman
               </Text>
-              <SearchBar
-                searchKeyword={searchKeyword}
-                setSearchKeyword={setSearchKeyword}
-                customStyle={{
-                  container: {
-                    marginTop: 24,
-                  },
-                }}
-              />
+              <SearchBar />
             </View>
             <View style={styles.carouselContainer}>
               <Carousel />

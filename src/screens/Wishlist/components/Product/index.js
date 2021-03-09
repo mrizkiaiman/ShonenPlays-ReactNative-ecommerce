@@ -11,7 +11,8 @@ import {useDispatch} from 'react-redux'
 //Styling
 import {Size, Buttons} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
-const {width, height} = Size
+const {width, height, responsiveSize} = Size
+const {ip7, ipx} = responsiveSize
 //Assets
 import TrashIcon from '../../../../assets/icons/trash.svg'
 //Components
@@ -24,41 +25,44 @@ import {Toast} from '../../../../utils'
 export default ({product}) => {
   const {name, img, price} = product
   const dispatch = useDispatch()
+
+  const removeItem = () => {
+    Alert.alert(
+      'Remove',
+      'Are you sure you want to remove this item?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            dispatch(removeWishlist(product))
+            Toast({
+              title: 'Success',
+              text: 'Item has been removed from the wishlist!',
+            })
+          },
+        },
+      ],
+      {cancelable: false},
+    )
+  }
+
   return (
     <View style={styles.mainContainer}>
       <Image style={styles.image} source={{uri: img}} />
-      <View style={{...tailwind('ml-4 justify-between'), height: 110}}>
+      <View style={{...tailwind('ml-4 justify-between')}}>
         <View>
-          <Text style={tailwind('font-normal font-semibold mb-2')}>{name}</Text>
+          <Text style={styles.productNameText}>{name}</Text>
           <Text style={tailwind('font-normal font-semibold text-dgray')}>
             Rp{IDRFormat(price)}
           </Text>
           <View style={tailwind('flex-row items-center mt-7')}>
             <TouchableOpacity
-              onPress={() => {
-                Alert.alert(
-                  'Remove',
-                  'Are you sure you want to remove this item?',
-                  [
-                    {
-                      text: 'Cancel',
-                      onPress: () => console.log('Cancel Pressed'),
-                      style: 'cancel',
-                    },
-                    {
-                      text: 'OK',
-                      onPress: () => {
-                        dispatch(removeWishlist(product))
-                        Toast({
-                          title: 'Success',
-                          text: 'Item has been removed from the wishlist!',
-                        })
-                      },
-                    },
-                  ],
-                  {cancelable: false},
-                )
-              }}
+              onPress={() => removeItem()}
               style={styles.deleteButton}>
               <TrashIcon />
             </TouchableOpacity>
@@ -84,16 +88,24 @@ export default ({product}) => {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: tailwind('flex-row bg-white p-4 rounded-lg light-shadow mb-5'),
+  mainContainer:
+    width > ipx.width
+      ? tailwind('flex-row bg-white p-4 rounded-lg light-shadow mb-5')
+      : tailwind('flex-row bg-white p-4 rounded-lg light-shadow mb-5'),
   image: {
-    width: 80,
-    height: 110,
+    width: 100,
+    height: 130,
     borderRadius: 5,
   },
   addToCartButton: {
-    ...tailwind('bg-dgreen flex-row items-center justify-center rounded px-12'),
+    ...tailwind('bg-dgreen flex-row items-center justify-center rounded'),
     height: 40,
+    paddingHorizontal: width > ip7.width ? 35 : 28,
   },
+  productNameText:
+    width > ip7.width
+      ? tailwind('font-normal font-semibold mb-2 w-11/12')
+      : tailwind('font-normal font-semibold mb-2 w-10/12'),
   deleteButton: {
     ...Buttons.whiteBorderedSubmitButton,
     height: 40,
