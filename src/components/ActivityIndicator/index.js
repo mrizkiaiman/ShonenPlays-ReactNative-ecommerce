@@ -10,17 +10,8 @@ export default () => {
       source={require('../../assets/animations/Loading.json')}
       speed={1}
       animationStyle={{
-        width: 380,
-        height: 380,
-        marginBottom: -140,
-        marginTop: -40,
-      }}>
-      <Text
-        style={{
-          ...tailwind('font-bold text-2xl text-white'),
-        }}>
-        Loading. . .
-      </Text>
-    </AnimatedLoader>
+        width: 250,
+        height: 250,
+      }}></AnimatedLoader>
   )
 }

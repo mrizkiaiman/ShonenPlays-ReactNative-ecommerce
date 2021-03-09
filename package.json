@@ -20,6 +20,7 @@
     "axios": "^0.21.0",
     "expo": "~39.0.2",
     "expo-blur": "~8.2.0",
+    "expo-constants": "~9.2.0",
     "expo-font": "~8.3.0",
     "expo-google-app-auth": "^8.1.4",
     "expo-image-picker": "~9.1.1",
@@ -31,10 +32,7 @@
     "expo-updates": "~0.3.3",
     "formik": "^2.2.6",
     "install": "^0.13.0",
-<<<<<<< HEAD
     "jwt-decode": "^3.1.2",
-=======
->>>>>>> 7cd74428714beec4570f3a7a27916427dbf1ab74
     "lottie-react-native": "~2.6.1",
     "moment": "^2.29.1",
     "postcss": "^7",

@@ -3,7 +3,9 @@
   "displayName": "client",
   "expo": {
     "splash": {
-      "image": "./src/assets/Logo.png"
+      "image": "./src/assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#e63c4b"
     },
     "packagerOpts": {
       "config": "metro.config.js",

@@ -9,6 +9,7 @@ import Toast from 'react-native-toast-message'
 import AuthNavigator from './src/navigation/AuthNavigator'
 import MainNavigator from './src/navigation/MainNavigator'
 import Navigation from './src/navigation'
+import {OfflineNotice} from './src/components'
 //Fonts
 import {
   useFonts,
@@ -52,6 +53,7 @@ export default function App() {
     return (
       <AuthContext.Provider value={{user, setUser}}>
         <Provider store={store}>
+          <OfflineNotice />
           <Navigation user={user} />
           <Toast ref={(ref) => Toast.setRef(ref)} />
         </Provider>

@@ -61,7 +61,7 @@ export default ({product, customStyle}) => {
   return (
     <View style={styles.mainContainer}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ProductDetails', {product})}
+        onPress={() => navigation.push('ProductDetails', {product})}
         style={styles.contentContainer}>
         <Image
           style={styles.productImage}

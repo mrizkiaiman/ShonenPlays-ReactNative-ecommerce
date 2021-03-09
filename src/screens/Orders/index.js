@@ -10,8 +10,6 @@ import {tailwind} from '../../style/tailwind'
 //Components
 import {TabScreenHeader, EmptyState} from '../../parts'
 import {OrderCard} from './components'
-import {Search} from '../../components'
-//Functions
 
 export default ({navigation}) => {
   useEffect(() => {
@@ -21,7 +19,6 @@ export default ({navigation}) => {
   const isFocused = useIsFocused()
   const ordersFromRedux = useSelector((state) => state.orders.data)
   const [orders, setOrders] = useState([])
-  const [searchKeyword, setSearchKeyword] = useState('')
   return (
     <>
       <ScrollView>
@@ -32,11 +29,7 @@ export default ({navigation}) => {
               orangeText: 'ers',
             }}
           />
-          <Search
-            searchKeyword={searchKeyword}
-            setSearchKeyword={setSearchKeyword}
-            onSubmit={() => console.log('Test')}
-          />
+
           {orders.length > 0 ? (
             <View style={tailwind('mt-4')}>
               {orders.map((order, index) => (

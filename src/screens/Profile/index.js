@@ -162,6 +162,7 @@ export default ({navigation}) => {
           <ModalHeader
             cancelMethod={() => modalAction('close', 'changePassword')}
             title="Change Password"
+            saveMethod={() => console.log('Test')}
           />
         }
         modalHeight={height / 1.25}>
