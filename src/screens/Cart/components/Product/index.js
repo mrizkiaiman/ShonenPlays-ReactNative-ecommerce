@@ -20,7 +20,7 @@ import {QtyControl} from '../../../../components'
 //Functions
 import {Toast, IDRFormat} from '../../../../utils'
 import {removeFromCart_API} from '../../../../services/cart'
-import {updateCart} from '../../../../store/actions/cart'
+import {updateCart_redux} from '../../../../store/actions/cart'
 
 export default ({productData}) => {
   const {product, qty} = productData
@@ -37,7 +37,7 @@ export default ({productData}) => {
           text: 'OK',
           onPress: async () => {
             const updatedCart = await removeFromCart_API(_id)
-            dispatch(updateCart(updatedCart.data))
+            dispatch(updateCart_redux(updatedCart.data))
             Toast({
               title: 'Success',
               text: 'Item has been removed from the cart',

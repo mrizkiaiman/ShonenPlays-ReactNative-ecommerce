@@ -24,7 +24,8 @@ import {Input, ItemList} from '../../components'
 import {FooterButton, ModalHeader} from '../../parts'
 //Functions
 import {Toast} from '../../utils'
-import {addAddress} from '../../store/actions/address'
+import {addAddress, updateAddress_redux} from '../../store/actions/address'
+import {addAddress_API} from '../../services/address'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
@@ -51,8 +52,6 @@ export default ({navigation, route: {params}}) => {
   const provinces = Object.keys(Provinces)
   const [city, setCity] = useState('')
   const [cities, setCities] = useState([])
-  const addressFromRedux = useSelector((state) => state.address.data)
-
   const dispatch = useDispatch()
   //Modalize
   const provinceModal = useRef(null)
@@ -73,7 +72,7 @@ export default ({navigation, route: {params}}) => {
     }
   }
 
-  const saveAddress = () => {
+  const saveAddress = async () => {
     if (!address || !province || !city || !postalCode || !name || !phone) {
       Toast({
         title: 'Warning!',
@@ -92,7 +91,8 @@ export default ({navigation, route: {params}}) => {
         lat: latitude,
         pic,
       }
-      dispatch(addAddress(addressObj))
+      const {data} = await addAddress_API(addressObj)
+      dispatch(updateAddress_redux(data))
       Toast({
         title: 'Success',
         text: 'Your address has been saved!',

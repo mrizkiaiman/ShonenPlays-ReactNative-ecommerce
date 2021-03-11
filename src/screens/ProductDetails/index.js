@@ -13,7 +13,7 @@ import {FooterButton, ScrollViewBounced} from '../../parts'
 import {useAPI} from '../../hooks'
 import {IDRFormat, Toast} from '../../utils'
 import {addToCart_API} from '../../services/cart'
-import {updateCart} from '../../store/actions/cart'
+import {updateCart_redux} from '../../store/actions/cart'
 import {getProductsByCategory_API} from '../../services/products'
 
 export default ({route: {params}, navigation}) => {
@@ -31,7 +31,7 @@ export default ({route: {params}, navigation}) => {
       qty,
       price: product.price,
     })
-    dispatch(updateCart(updatedCart.data))
+    dispatch(updateCart_redux(updatedCart.data))
     Toast({title: 'Success', text: 'Added to cart!'})
     navigation.goBack()
   }

@@ -15,7 +15,7 @@ import Button from '../Button'
 import IDRFormat from '../../utils/IDRFormat'
 import {Toast} from '../../utils'
 import {addToCart_API} from '../../services/cart'
-import {updateCart} from '../../store/actions/cart'
+import {updateCart_redux} from '../../store/actions/cart'
 
 export default ({product, customStyle}) => {
   const styles = StyleSheet.create({
@@ -60,12 +60,12 @@ export default ({product, customStyle}) => {
   const dispatch = useDispatch()
 
   const addToCart_API = async () => {
-    const updatedCart = await addToCart_API({
+    const {data} = await addToCart_API({
       productId: product._id,
       qty: 1,
       price: product.price,
     })
-    dispatch(updateCart(updatedCart.data))
+    dispatch(updateCart_redux(data))
     Toast({title: 'Success', text: 'Added to cart!'})
   }
 
