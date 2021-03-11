@@ -1,7 +1,5 @@
 import React, {useEffect, useContext} from 'react'
 import {ScrollView, View, Text, ActivityIndicator} from 'react-native'
-//Data
-import {Categories, Products} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -11,12 +9,19 @@ const {width, height} = Size
 import {Carousel, PopularCategory, SearchBar} from './components'
 import {Category, Product} from '../../components'
 import {ScrollViewBounced} from '../../parts'
+//Others
 import {StaticContext} from '../../contexts'
+import {getCart} from '../../store/actions/cart'
+import {useDispatch} from 'react-redux'
 
 export default function Home({navigation}) {
+  const dispatch = useDispatch()
   const {bestSellerProducts, popularCategories, allCategories} = useContext(
     StaticContext,
   )
+  useEffect(() => {
+    dispatch(getCart())
+  }, [])
 
   return (
     <ScrollView>

@@ -6,7 +6,7 @@ export default async ({productId}) => {
   try {
     const response = await axios({
       method: 'patch',
-      url: '/carts/remove',
+      url: '/cart/remove',
       params: {
         productId,
       },

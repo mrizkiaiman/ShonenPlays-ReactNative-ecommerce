@@ -6,7 +6,7 @@ export default async () => {
   try {
     const response = await axios({
       method: 'get',
-      url: '/carts',
+      url: '/cart',
       headers: {token},
     })
     return response.data
