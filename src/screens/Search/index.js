@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useContext} from 'react'
 import {Text, View, ScrollView} from 'react-native'
 import {Categories} from '../../mockdata'
 //Styling
@@ -12,11 +12,13 @@ import {PopularCategory} from './components'
 //Functions
 import {useAPI} from '../../hooks'
 import {FetchPopularCategories} from '../../services/products'
+import {StaticContext} from '../../contexts'
 
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const popularKeywords = ['AJ1 Chicago', 'Shonen JUMP!', 'One Piece']
   const getPopularCategoriesAPI = useAPI(FetchPopularCategories)
+  const {popularCategories} = useContext(StaticContext)
 
   return (
     <ScrollView style={tailwind('bg-white')}>
@@ -50,7 +52,7 @@ export default ({navigation}) => {
             <Text style={styles.titleSectionText}>Top categories</Text>
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
-            {getPopularCategoriesAPI.response.map((category, index) => (
+            {popularCategories.response.map((category, index) => (
               <PopularCategory key={index} category={category} />
             ))}
           </ScrollView>

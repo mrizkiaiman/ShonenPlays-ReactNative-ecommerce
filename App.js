@@ -26,7 +26,11 @@ import {
 import AuthContext from './src/auth/context'
 import authStorage from './src/auth/storage'
 import {StaticContext} from './src/contexts'
-import {FetchBestSeller, FetchPopularCategories} from './src/services/products'
+import {
+  FetchBestSeller,
+  FetchPopularCategories,
+  FetchCategories,
+} from './src/services/products'
 import {useAPI} from './src/hooks'
 
 export default function App() {
@@ -35,6 +39,7 @@ export default function App() {
   const [isReady, setIsReady] = useState(false)
   const bestSellerProducts = useAPI(FetchBestSeller)
   const popularCategories = useAPI(FetchPopularCategories)
+  const allCategories = useAPI(FetchCategories)
 
   useEffect(() => {
     lockOrientation()
@@ -73,6 +78,7 @@ export default function App() {
           value={{
             bestSellerProducts,
             popularCategories,
+            allCategories,
           }}>
           <Provider store={store}>
             <OfflineNotice />

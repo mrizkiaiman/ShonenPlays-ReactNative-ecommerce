@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useEffect, useContext} from 'react'
 import {ScrollView, View, Text, ActivityIndicator} from 'react-native'
 //Data
 import {Categories, Products} from '../../mockdata'
@@ -12,14 +12,18 @@ import {Carousel, PopularCategory, SearchBar} from './components'
 import {Category, Product} from '../../components'
 import {ScrollViewBounced} from '../../parts'
 import {StaticContext} from '../../contexts'
-//Functions
 
 export default function Home({navigation}) {
-  const {bestSellerProducts, popularCategories} = useContext(StaticContext)
+  const {bestSellerProducts, popularCategories, allCategories} = useContext(
+    StaticContext,
+  )
+
   return (
     <ScrollView>
       <ScrollViewBounced color="#006266" />
-      {bestSellerProducts.loading && popularCategories.loading ? (
+      {bestSellerProducts.loading &&
+      popularCategories.loading &&
+      allCategories.loading ? (
         <View style={{flex: 1, justifyContent: 'center'}}>
           <ActivityIndicator size="large" color="#0389FF" />
         </View>
@@ -92,7 +96,7 @@ export default function Home({navigation}) {
               <Text
                 onPress={() =>
                   navigation.navigate('Categories', {
-                    Categories,
+                    allCategories: allCategories.response,
                   })
                 }
                 style={styles.functionalText}>
@@ -103,7 +107,7 @@ export default function Home({navigation}) {
               style={tailwind(
                 'flex-row flex-wrap items-center justify-between',
               )}>
-              {Categories.slice(0, 9).map((category, index) => (
+              {allCategories.response.slice(0, 9).map((category, index) => (
                 <Category key={index} category={category} />
               ))}
             </View>

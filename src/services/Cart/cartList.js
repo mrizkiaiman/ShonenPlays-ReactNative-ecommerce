@@ -1,8 +1,8 @@
 import axios from '../axios'
-import AsyncStorage from '@react-native-community/async-storage'
+import authStorage from '../../auth/storage'
 
 export default async () => {
-  const token = await AsyncStorage.getItem('token')
+  const token = await authStorage.getToken()
   try {
     const response = await axios({
       method: 'get',

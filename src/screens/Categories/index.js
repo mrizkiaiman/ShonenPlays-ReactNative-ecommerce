@@ -8,22 +8,20 @@ import {SvgUri} from 'react-native-svg'
 
 export default ({
   route: {
-    params: {Categories},
+    params: {allCategories},
   },
   navigation,
 }) => {
   return (
     <ScrollView style={styles.mainContainer}>
       <View style={styles.categoryListContainer}>
-        {Categories.map((category, index) => (
+        {allCategories.map((category, index) => (
           <View
             key={index}
             style={tailwind('justify-center items-center mb-4')}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('Products', {
-                  category,
-                })
+                navigation.navigate('Products', {categoryId: category._id})
               }
               style={
                 index % 2 === 0
