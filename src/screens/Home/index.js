@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react'
+import React, {useState, useContext} from 'react'
 import {ScrollView, View, Text, ActivityIndicator} from 'react-native'
 //Data
 import {Categories, Products} from '../../mockdata'
@@ -11,19 +11,15 @@ const {width, height} = Size
 import {Carousel, PopularCategory, SearchBar} from './components'
 import {Category, Product} from '../../components'
 import {ScrollViewBounced} from '../../parts'
+import {StaticContext} from '../../contexts'
 //Functions
-import {useAPI} from '../../hooks'
-import {FetchBestSeller, FetchPopularCategories} from '../../services/home'
 
 export default function Home({navigation}) {
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const getBestSellerAPI = useAPI(FetchBestSeller)
-  const getPopularCategoriesAPI = useAPI(FetchPopularCategories)
-
+  const {bestSellerProducts, popularCategories} = useContext(StaticContext)
   return (
     <ScrollView>
       <ScrollViewBounced color="#006266" />
-      {getBestSellerAPI.loading && getPopularCategoriesAPI.loading ? (
+      {bestSellerProducts.loading && popularCategories.loading ? (
         <View style={{flex: 1, justifyContent: 'center'}}>
           <ActivityIndicator size="large" color="#0389FF" />
         </View>
@@ -49,7 +45,7 @@ export default function Home({navigation}) {
               {/* <Text style={styles.functionalText}>See all</Text> */}
             </View>
             <ScrollView horizontal style={styles.sectionContentContainer}>
-              {getPopularCategoriesAPI.response.map((category, index) => (
+              {popularCategories.response.map((category, index) => (
                 <PopularCategory key={index} category={category} />
               ))}
             </ScrollView>
@@ -74,7 +70,7 @@ export default function Home({navigation}) {
                 ...styles.sectionContentContainer,
                 ...tailwind('flex-wrap justify-between items-center'),
               }}>
-              {getBestSellerAPI.response.slice(0, 4).map((product, index) => (
+              {bestSellerProducts.response.slice(0, 4).map((product, index) => (
                 <Product
                   customStyle={{
                     width: width > 410 ? 175 : 155,

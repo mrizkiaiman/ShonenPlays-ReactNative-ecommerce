@@ -23,7 +23,7 @@ import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 import {WhatsAppLink} from '../../utils'
 import {UpdateProfile} from '../../services/profile'
 import {updatePhoto} from '../../store/actions/profile'
-import {useAuth} from '../../hooks'
+import useAuth from '../../auth/useAuth'
 
 export default ({navigation}) => {
   const profileFromRedux = useSelector((state) => state.profile)

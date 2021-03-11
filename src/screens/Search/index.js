@@ -9,13 +9,14 @@ import {tailwind} from '../../style/tailwind'
 //Components
 import {Search, Category} from '../../components'
 import {PopularCategory} from './components'
+//Functions
+import {useAPI} from '../../hooks'
+import {FetchPopularCategories} from '../../services/products'
 
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const popularKeywords = ['AJ1 Chicago', 'Shonen JUMP!', 'One Piece']
-  const popularCategoryList = useMemo(() => {
-    return Categories.filter((category) => category.isPopular === true)
-  }, [])
+  const getPopularCategoriesAPI = useAPI(FetchPopularCategories)
 
   return (
     <ScrollView style={tailwind('bg-white')}>
@@ -49,7 +50,7 @@ export default ({navigation}) => {
             <Text style={styles.titleSectionText}>Top categories</Text>
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
-            {popularCategoryList.map((category, index) => (
+            {getPopularCategoriesAPI.response.map((category, index) => (
               <PopularCategory key={index} category={category} />
             ))}
           </ScrollView>

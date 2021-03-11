@@ -12,7 +12,8 @@ import {Provinces} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
-const {width, height} = Size
+const {width, height, responsiveSize} = Size
+const {ip7, ipx} = responsiveSize
 import {tailwind} from '../../style/tailwind'
 //Assets
 import PinLocationIcon from '../../assets/icons/map.svg'
@@ -187,8 +188,8 @@ export default ({navigation, route: {params}}) => {
     <>
       <ScrollView>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{flex: 1}}>
+          keyboardVerticalOffset={height > ip7.height ? 100 : -145}
+          behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
           <View style={styles.mainContainer}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitleText}>Shipping Address</Text>

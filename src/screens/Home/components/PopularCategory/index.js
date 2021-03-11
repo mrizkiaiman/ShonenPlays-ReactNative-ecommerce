@@ -9,7 +9,9 @@ export default ({category}) => {
   const navigation = useNavigation()
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Products', {category})}
+      onPress={() =>
+        navigation.navigate('Products', {categoryId: category._id})
+      }
       style={styles.mainContainer}>
       <Image
         style={styles.image}

@@ -5,12 +5,12 @@ import {NavigationContainer} from '@react-navigation/native'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import store from './src/store'
 //Components
+import {OfflineNotice} from './src/components'
 import AppIntroSlider from './app-intro-slider'
 import Toast from 'react-native-toast-message'
 import AuthNavigator from './src/navigation/AuthNavigator'
 import MainNavigator from './src/navigation/MainNavigator'
 import Navigation from './src/navigation'
-import {OfflineNotice} from './src/components'
 //Fonts
 import {
   useFonts,
@@ -25,11 +25,16 @@ import {
 //Functions
 import AuthContext from './src/auth/context'
 import authStorage from './src/auth/storage'
+import {StaticContext} from './src/contexts'
+import {FetchBestSeller, FetchPopularCategories} from './src/services/products'
+import {useAPI} from './src/hooks'
 
 export default function App() {
   const [openApp, setOpenApp] = useState(false)
   const [user, setUser] = useState()
   const [isReady, setIsReady] = useState(false)
+  const bestSellerProducts = useAPI(FetchBestSeller)
+  const popularCategories = useAPI(FetchPopularCategories)
 
   useEffect(() => {
     lockOrientation()
@@ -64,11 +69,17 @@ export default function App() {
   else {
     return (
       <AuthContext.Provider value={{user, setUser}}>
-        <Provider store={store}>
-          <OfflineNotice />
-          <Navigation user={user} />
-          <Toast ref={(ref) => Toast.setRef(ref)} />
-        </Provider>
+        <StaticContext.Provider
+          value={{
+            bestSellerProducts,
+            popularCategories,
+          }}>
+          <Provider store={store}>
+            <OfflineNotice />
+            <Navigation user={user} />
+            <Toast ref={(ref) => Toast.setRef(ref)} />
+          </Provider>
+        </StaticContext.Provider>
       </AuthContext.Provider>
     )
   }

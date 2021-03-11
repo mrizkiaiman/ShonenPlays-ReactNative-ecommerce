@@ -1,8 +1,8 @@
 import {useContext} from 'react'
 import jwtDecode from 'jwt-decode'
 
-import AuthContext from '../auth/context'
-import authStorage from '../auth/storage'
+import AuthContext from './context'
+import authStorage from './storage'
 
 export default useAuth = () => {
   const {user, setUser} = useContext(AuthContext)

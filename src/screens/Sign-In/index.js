@@ -7,7 +7,7 @@ import GoogleIcon from '../../assets/icons/google.svg'
 //Components
 import {Button, FormField, FormButton, Form} from '../../components'
 //Functions
-import {useAuth} from '../../hooks'
+import useAuth from '../../auth/useAuth'
 import {SignInAPI} from '../../services/auth'
 import {Toast, FormValidation} from '../../utils'
 import {tailwind} from '../../style/tailwind'
