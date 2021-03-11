@@ -19,21 +19,12 @@ const {width, height} = Size
 import {QtyControl} from '../../../../components'
 //Functions
 import {Toast, IDRFormat} from '../../../../utils'
-import {removeProduct} from '../../../../store/actions/checkout'
+import {RemoveFromCart} from '../../../../services/cart'
+import {updateCart} from '../../../../store/actions/cart'
 
 export default ({productData}) => {
-  const {
-    img,
-    name,
-    qty,
-    productId,
-    description,
-    stock,
-    price,
-    weight,
-    category,
-  } = productData
-  const [value, setValue] = useState(qty)
+  const {product, qty} = productData
+  const {img, name, price, _id} = product
   const dispatch = useDispatch()
   const navigation = useNavigation()
   const removeFromCartOnSubmit = () => {
@@ -48,8 +39,9 @@ export default ({productData}) => {
         },
         {
           text: 'OK',
-          onPress: () => {
-            dispatch(removeProduct(productData))
+          onPress: async () => {
+            const updatedCart = await RemoveFromCart(_id)
+            dispatch(updateCart(updatedCart.data))
             Toast({
               title: 'Success',
               text: 'Item has been removed from the cart',
@@ -78,8 +70,7 @@ export default ({productData}) => {
         </Text>
         <View style={{marginStart: width > 410 ? -55 : -25, marginTop: 55}}>
           <QtyControl
-            value={value}
-            setValue={setValue}
+            value={qty}
             customControlContainerStyle={{
               width: 40,
               height: 40,

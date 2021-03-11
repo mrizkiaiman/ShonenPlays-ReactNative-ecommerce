@@ -11,16 +11,13 @@ const {width, height} = Size
 import WishlistIcon from '../../assets/icons/wishlist.svg'
 //Components
 import Button from '../Button'
-//Functions
+//Others
 import IDRFormat from '../../utils/IDRFormat'
-import {addProduct} from '../../store/actions/checkout'
-import {addWishlist} from '../../store/actions/wishlist'
 import {Toast} from '../../utils'
+import {AddToCart} from '../../services/cart'
+import {updateCart} from '../../store/actions/cart'
 
 export default ({product, customStyle}) => {
-  const {name, price, img} = product
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
   const styles = StyleSheet.create({
     mainContainer: {
       ...tailwind(
@@ -58,6 +55,22 @@ export default ({product, customStyle}) => {
     buttonText: tailwind('font-normal font-semibold text-white text-sm'),
   })
 
+  const {name, price, img} = product
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const addToCart = async () => {
+    const updatedCart = await AddToCart({
+      productId: product._id,
+      qty: 1,
+      price: product.price,
+    })
+    dispatch(updateCart(updatedCart.data))
+    Toast({title: 'Success', text: 'Added to cart!'})
+  }
+
+  const addToWishlist = () => {}
+
   return (
     <View style={styles.mainContainer}>
       <TouchableOpacity
@@ -84,24 +97,10 @@ export default ({product, customStyle}) => {
               buttonStyle: styles.addToCartButton,
             }}
             title="Add to cart"
-            onSubmit={() => {
-              product.qty = 1
-              dispatch(addProduct(product))
-              Toast({
-                title: 'Success',
-                text: 'Item has been added to the cart!',
-              })
-            }}
+            onSubmit={() => addToCart()}
           />
           <TouchableOpacity
-            onPress={() => {
-              product.qty = 1
-              dispatch(addWishlist(product))
-              Toast({
-                title: 'Success',
-                text: 'Item has been saved to the wishlist!',
-              })
-            }}
+            onPress={() => addToWishlist()}
             style={styles.wishListButton}>
             <WishlistIcon />
           </TouchableOpacity>

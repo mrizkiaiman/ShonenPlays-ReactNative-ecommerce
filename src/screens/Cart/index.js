@@ -8,6 +8,8 @@ import {tailwind} from '../../style/tailwind'
 import {Product} from './components'
 import {Button} from '../../components'
 import {EmptyState, TabScreenHeader} from '../../parts'
+//Others
+import {IDRFormat} from '../../utils'
 
 export default ({navigation}) => {
   const cartFromRedux = useSelector((state) => state.cart.data)
@@ -23,7 +25,7 @@ export default ({navigation}) => {
         <View style={styles.productsContainer}>
           {cartFromRedux &&
           cartFromRedux.products &&
-          cartFromRedux.length > 0 ? (
+          cartFromRedux.products.length > 0 ? (
             cartFromRedux.products.map((item, index) => (
               <Product key={index} productData={item} />
             ))

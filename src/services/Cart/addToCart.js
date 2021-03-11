@@ -1,7 +1,7 @@
 import axios from '../axios'
 import authStorage from '../../auth/storage'
 
-export default async ({productId, qty}) => {
+export default async ({productId, qty, price}) => {
   const token = await authStorage.getToken()
   try {
     const response = await axios({
@@ -10,6 +10,7 @@ export default async ({productId, qty}) => {
       data: {
         productId,
         qty,
+        price,
       },
       headers: {token},
     })
