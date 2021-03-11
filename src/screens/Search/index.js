@@ -11,13 +11,13 @@ import {Search, Category} from '../../components'
 import {PopularCategory} from './components'
 //Functions
 import {useAPI} from '../../hooks'
-import {FetchPopularCategories} from '../../services/products'
+import {getPopularCategories_API} from '../../services/products'
 import {StaticContext} from '../../contexts'
 
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const popularKeywords = ['AJ1 Chicago', 'Shonen JUMP!', 'One Piece']
-  const getPopularCategoriesAPI = useAPI(FetchPopularCategories)
+  const getPopularCategoriesAPI = useAPI(getPopularCategories_API)
   const {popularCategories} = useContext(StaticContext)
 
   return (

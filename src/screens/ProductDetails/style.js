@@ -20,9 +20,9 @@ export default StyleSheet.create({
   relatedProductsContainer: tailwind('px-5 py-5 pb-10'),
   relatedProductText: tailwind('font-normal font-bold text-lg pb-2'),
   qtyControlContainer: tailwind('self-center pb-10'),
-  addToCartButton: {
+  addToCart_APIButton: {
     ...Buttons.submitButton,
     width: width * 0.9,
   },
-  addToCartButtonText: tailwind('font-normal font-semibold text-white'),
+  addToCart_APIButtonText: tailwind('font-normal font-semibold text-white'),
 })

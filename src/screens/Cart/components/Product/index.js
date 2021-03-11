@@ -19,7 +19,7 @@ const {width, height} = Size
 import {QtyControl} from '../../../../components'
 //Functions
 import {Toast, IDRFormat} from '../../../../utils'
-import {RemoveFromCart} from '../../../../services/cart'
+import {removeFromCart_API} from '../../../../services/cart'
 import {updateCart} from '../../../../store/actions/cart'
 
 export default ({productData}) => {
@@ -27,7 +27,7 @@ export default ({productData}) => {
   const {img, name, price, _id} = product
   const dispatch = useDispatch()
   const navigation = useNavigation()
-  const removeFromCartOnSubmit = () => {
+  const removeFromCart_APIOnSubmit = () => {
     Alert.alert(
       'Remove',
       'Are you sure you want to remove this item?',
@@ -36,7 +36,7 @@ export default ({productData}) => {
         {
           text: 'OK',
           onPress: async () => {
-            const updatedCart = await RemoveFromCart(_id)
+            const updatedCart = await removeFromCart_API(_id)
             dispatch(updateCart(updatedCart.data))
             Toast({
               title: 'Success',
@@ -78,7 +78,7 @@ export default ({productData}) => {
           />
         </View>
       </View>
-      <TouchableOpacity onPress={() => removeFromCartOnSubmit()}>
+      <TouchableOpacity onPress={() => removeFromCart_APIOnSubmit()}>
         <Ionicons
           style={{marginTop: -2}}
           name="ios-close"

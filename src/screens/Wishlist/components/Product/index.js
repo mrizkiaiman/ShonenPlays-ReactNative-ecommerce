@@ -75,7 +75,7 @@ export default ({product}) => {
                   text: 'Item has been added to the cart!',
                 })
               }}
-              style={styles.addToCartButton}>
+              style={styles.addToCart_APIButton}>
               <Text style={tailwind('font-normal font-semibold text-white')}>
                 Add to cart
               </Text>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 5,
   },
-  addToCartButton: {
+  addToCart_APIButton: {
     ...tailwind('bg-dgreen flex-row items-center justify-center rounded'),
     height: 40,
     paddingHorizontal: width > ip7.width ? 35 : 28,

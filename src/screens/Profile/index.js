@@ -21,7 +21,7 @@ import {UploadModal} from '../../components'
 import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 //Functions
 import {WhatsAppLink} from '../../utils'
-import {UpdateProfile} from '../../services/profile'
+import {updateProfile_API} from '../../services/profile'
 import {updatePhoto} from '../../store/actions/profile'
 import useAuth from '../../auth/useAuth'
 
@@ -55,7 +55,7 @@ export default ({navigation}) => {
 
   const saveProfile = async () => {
     setUploadVisible(true)
-    const result = await UpdateProfile(profileImage, (progress) =>
+    const result = await updateProfile_API(profileImage, (progress) =>
       setUploadProgress(progress),
     )
     dispatch(updatePhoto(result.link))

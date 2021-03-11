@@ -12,21 +12,21 @@ import {FooterButton, ScrollViewBounced} from '../../parts'
 //Functions
 import {useAPI} from '../../hooks'
 import {IDRFormat, Toast} from '../../utils'
-import {AddToCart} from '../../services/cart'
+import {addToCart_API} from '../../services/cart'
 import {updateCart} from '../../store/actions/cart'
-import {FetchProductsByCategory} from '../../services/products'
+import {getProductsByCategory_API} from '../../services/products'
 
 export default ({route: {params}, navigation}) => {
   const [qty, setQty] = useState(1)
   const {product} = params
   const dispatch = useDispatch()
-  const productsByCategory = useAPI(FetchProductsByCategory, product.category)
+  const productsByCategory = useAPI(getProductsByCategory_API, product.category)
   const relatedProducts = productsByCategory.response.filter(
     (item) => item._id !== product._id,
   )
 
-  const addToCartOnSubmit = async () => {
-    const updatedCart = await AddToCart({
+  const addToCart_APIOnSubmit = async () => {
+    const updatedCart = await addToCart_API({
       productId: product._id,
       qty,
       price: product.price,
@@ -70,10 +70,10 @@ export default ({route: {params}, navigation}) => {
       </ScrollView>
       <View>
         <FooterButton
-          onSubmit={() => addToCartOnSubmit()}
+          onSubmit={() => addToCart_APIOnSubmit()}
           styling={{
-            buttonStyle: styles.addToCartButton,
-            textStyle: styles.addToCartButtonText,
+            buttonStyle: styles.addToCart_APIButton,
+            textStyle: styles.addToCart_APIButtonText,
           }}
           title="Add to cart"
         />

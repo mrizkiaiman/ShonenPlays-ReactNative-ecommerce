@@ -27,9 +27,9 @@ import AuthContext from './src/auth/context'
 import authStorage from './src/auth/storage'
 import {StaticContext} from './src/contexts'
 import {
-  FetchBestSeller,
-  FetchPopularCategories,
-  FetchCategories,
+  getBestSeller_API,
+  getPopularCategories_API,
+  getCategories_API,
 } from './src/services/products'
 import {useAPI} from './src/hooks'
 
@@ -37,9 +37,9 @@ export default function App() {
   const [openApp, setOpenApp] = useState(false)
   const [user, setUser] = useState()
   const [isReady, setIsReady] = useState(false)
-  const bestSellerProducts = useAPI(FetchBestSeller)
-  const popularCategories = useAPI(FetchPopularCategories)
-  const allCategories = useAPI(FetchCategories)
+  const bestSellerProducts = useAPI(getBestSeller_API)
+  const popularCategories = useAPI(getPopularCategories_API)
+  const allCategories = useAPI(getCategories_API)
 
   useEffect(() => {
     lockOrientation()

@@ -1,8 +1,8 @@
-import {FetchCartList} from '../../../services/cart'
+import {getCart_API} from '../../../services/cart'
 
-export const getCart = (data) => {
+export const fetchCart = (data) => {
   return async (dispatch, getState) => {
-    const fetchedCart = await FetchCartList()
+    const fetchedCart = await getCart_API()
     dispatch({type: 'UPDATE_STATE_CART', payload: fetchedCart[0]})
   }
 }

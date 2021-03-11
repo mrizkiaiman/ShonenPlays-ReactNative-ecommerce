@@ -8,13 +8,13 @@ import {Product, Search} from '../../components'
 import {EmptyState} from '../../parts'
 //Functions
 import {useAPI} from '../../hooks'
-import {FetchProductsByCategory} from '../../services/products'
+import {getProductsByCategory_API} from '../../services/products'
 import {StaticContext} from '../../contexts'
 
 export default ({navigation, route: {params}}) => {
   const {categoryId} = params
   const {bestSellerProducts} = useContext(StaticContext)
-  const productsByCategory = useAPI(FetchProductsByCategory, categoryId)
+  const productsByCategory = useAPI(getProductsByCategory_API, categoryId)
 
   return (
     <>

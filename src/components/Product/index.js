@@ -14,7 +14,7 @@ import Button from '../Button'
 //Others
 import IDRFormat from '../../utils/IDRFormat'
 import {Toast} from '../../utils'
-import {AddToCart} from '../../services/cart'
+import {addToCart_API} from '../../services/cart'
 import {updateCart} from '../../store/actions/cart'
 
 export default ({product, customStyle}) => {
@@ -40,7 +40,7 @@ export default ({product, customStyle}) => {
       width: width > 410 ? 140 : 135,
     },
     priceProductText: tailwind('font-normal font-semibold text-xs mx-2'),
-    addToCartButton: {
+    addToCart_APIButton: {
       ...Buttons.submitButton,
       height: 40,
       width: width > 410 ? 110 : 95,
@@ -59,8 +59,8 @@ export default ({product, customStyle}) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const addToCart = async () => {
-    const updatedCart = await AddToCart({
+  const addToCart_API = async () => {
+    const updatedCart = await addToCart_API({
       productId: product._id,
       qty: 1,
       price: product.price,
@@ -94,10 +94,10 @@ export default ({product, customStyle}) => {
           <Button
             styling={{
               textStyle: styles.buttonText,
-              buttonStyle: styles.addToCartButton,
+              buttonStyle: styles.addToCart_APIButton,
             }}
             title="Add to cart"
-            onSubmit={() => addToCart()}
+            onSubmit={() => addToCart_API()}
           />
           <TouchableOpacity
             onPress={() => addToWishlist()}

@@ -11,7 +11,7 @@ import {Category, Product} from '../../components'
 import {ScrollViewBounced} from '../../parts'
 //Others
 import {StaticContext} from '../../contexts'
-import {getCart} from '../../store/actions/cart'
+import {fetchCart} from '../../store/actions/cart'
 import {useDispatch} from 'react-redux'
 
 export default function Home({navigation}) {
@@ -20,7 +20,7 @@ export default function Home({navigation}) {
     StaticContext,
   )
   useEffect(() => {
-    dispatch(getCart())
+    dispatch(fetchCart())
   }, [])
 
   return (

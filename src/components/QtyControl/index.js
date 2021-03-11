@@ -9,7 +9,7 @@ const {width, height} = Size
 //Assets
 //Components
 //Functions
-import {RemoveFromCart, UpdateQtyProduct} from '../../services/cart'
+import {removeFromCart_API, updateQtyProduct_API} from '../../services/cart'
 import {updateCart} from '../../store/actions/cart'
 
 export default ({
@@ -40,11 +40,11 @@ export default ({
   const dispatch = useDispatch()
   const changeValue = async (action) => {
     if (action === '+') {
-      const updatedCart = await UpdateQtyProduct(product._id, action)
+      const updatedCart = await updateQtyProduct_API(product._id, action)
       dispatch(updateCart(updatedCart.data))
     } else {
       if (value !== 1) {
-        const updatedCart = await UpdateQtyProduct(product._id, action)
+        const updatedCart = await updateQtyProduct_API(product._id, action)
         dispatch(updateCart(updatedCart.data))
       }
     }

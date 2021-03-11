@@ -1,4 +1,4 @@
-export {default as FetchCategories} from './categories'
-export {default as FetchBestSeller} from './bestSeller'
-export {default as FetchPopularCategories} from './popularCategories'
-export {default as FetchProductsByCategory} from './productsByCategory'
+export {default as getCategories_API} from './getCategories'
+export {default as getBestSeller_API} from './getBestSeller'
+export {default as getPopularCategories_API} from './getPopularCategories'
+export {default as getProductsByCategory_API} from './getProductsByCategory'

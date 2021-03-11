@@ -88,11 +88,9 @@ export default ({navigation, route: {params}}) => {
         province,
         city,
         postalCode,
-        longitude,
-        latitude,
+        lng: longitude,
+        lat: latitude,
         pic,
-        // ...params.location,
-        isDefault: addressFromRedux.length > 0 ? false : true,
       }
       dispatch(addAddress(addressObj))
       Toast({

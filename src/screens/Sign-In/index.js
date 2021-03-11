@@ -8,7 +8,7 @@ import GoogleIcon from '../../assets/icons/google.svg'
 import {Button, FormField, FormButton, Form} from '../../components'
 //Functions
 import useAuth from '../../auth/useAuth'
-import {SignInAPI} from '../../services/auth'
+import {signIn_API} from '../../services/auth'
 import {Toast, FormValidation} from '../../utils'
 import {tailwind} from '../../style/tailwind'
 
@@ -18,7 +18,7 @@ export default function SignInScreen({navigation}) {
 
   const signInOnSubmit = async (values) => {
     const {email, password} = values
-    const result = await SignInAPI(email, password)
+    const result = await signIn_API(email, password)
 
     if (result.ok) {
       auth.logIn(result.data.token)
