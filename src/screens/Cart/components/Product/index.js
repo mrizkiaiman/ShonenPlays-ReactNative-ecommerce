@@ -32,11 +32,7 @@ export default ({productData}) => {
       'Remove',
       'Are you sure you want to remove this item?',
       [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
+        {text: 'Cancel'},
         {
           text: 'OK',
           onPress: async () => {

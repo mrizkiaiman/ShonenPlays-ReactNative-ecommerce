@@ -9,7 +9,8 @@ const {width, height} = Size
 //Assets
 //Components
 //Functions
-import {updateProductQty} from '../../store/actions/checkout'
+import {RemoveFromCart, UpdateQtyProduct} from '../../services/cart'
+import {updateCart} from '../../store/actions/cart'
 
 export default ({
   value,
@@ -17,7 +18,7 @@ export default ({
   customControlContainerStyle,
   customValueTextStyle,
   customIconSize,
-  product,
+  product: {product, _id, qty},
 }) => {
   const styles = StyleSheet.create({
     mainContainer: {
@@ -37,14 +38,14 @@ export default ({
     },
   })
   const dispatch = useDispatch()
-  const changeValue = (action) => {
+  const changeValue = async (action) => {
     if (action === '+') {
-      setValue((value) => value + 1)
-      if (product) dispatch(updateProductQty(product, action))
+      const updatedCart = await UpdateQtyProduct(product._id, action)
+      dispatch(updateCart(updatedCart.data))
     } else {
       if (value !== 1) {
-        setValue((value) => value - 1)
-        if (product) dispatch(updateProductQty(product, action))
+        const updatedCart = await UpdateQtyProduct(product._id, action)
+        dispatch(updateCart(updatedCart.data))
       }
     }
   }
