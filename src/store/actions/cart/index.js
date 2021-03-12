@@ -12,3 +12,9 @@ export const updateCart_redux = (data) => {
     dispatch({type: 'UPDATE_STATE_CART', payload: data})
   }
 }
+
+export const clearCart_redux = () => {
+  return async (dispatch) => {
+    dispatch({type: 'UPDATE_STATE_CART', payload: {}})
+  }
+}

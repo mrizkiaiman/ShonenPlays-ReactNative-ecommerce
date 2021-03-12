@@ -22,44 +22,37 @@ import {FooterButton, EmptyState, ModalHeader} from '../../parts'
 //Functions
 import {IDRFormat, Toast} from '../../utils'
 import {
-  updateAddress,
-  updateShippingMethod,
-  emptyCheckout,
-  paidCheckout,
-} from '../../store/actions/checkout'
-import {updateOrder} from '../../store/actions/orders'
+  updateCartAddress_API,
+  updateCartShipping_API,
+  submitCart_API,
+} from '../../services/cart'
+import {updateCart_redux, clearCart_redux} from '../../store/actions/cart'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
-    setSelectedAddress(params && params.address ? params.address : null)
-    dispatch(updateAddress(params && params.address ? params.address : null))
+    if (params && params.address) {
+      setSelectedAddress(params && params.address ? params.address : null)
+    }
   }, [params])
-
-  useEffect(() => {
-    setSelectedAddress(defaultAddress[0])
-  }, [defaultAddress])
 
   const dispatch = useDispatch()
   const cartFromRedux = useSelector((state) => state.cart.data)
-  const addressFromRedux = useSelector((state) => state.address.data)
-  const defaultAddress = useMemo(() => {
-    return addressFromRedux.filter((address) => address.isDefault == true)
-  }, [])
-
-  const [selectedAddress, setSelectedAddress] = useState({})
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState(
-    cartFromRedux && cartFromRedux.shippingMethod
-      ? cartFromRedux.shippingMethod
-      : {},
+  const [selectedAddress, setSelectedAddress] = useState(
+    cartFromRedux.shipping_address,
   )
-  const setAddress = (value) => {
-    dispatch(updateAddress(value))
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState(
+    cartFromRedux.shipping_method,
+  )
+  const setAddress = async (value) => {
+    const {data} = await updateCartAddress_API(value._id)
+    dispatch(updateCart_redux(data))
     setSelectedAddress(value)
     modalAction('close', 'shippingAddress')
   }
 
-  const setShippingMethod = (value) => {
-    dispatch(updateShippingMethod(value))
+  const setShippingMethod = async (value) => {
+    const {data} = await updateCartShipping_API(value)
+    dispatch(updateCart_redux(data))
     setSelectedShippingMethod(value)
     modalAction('close', 'shippingMethod')
   }
@@ -72,9 +65,8 @@ export default ({navigation, route: {params}}) => {
         type: 'error',
       })
     else {
-      dispatch(paidCheckout())
-      dispatch(updateOrder())
-      dispatch(emptyCheckout())
+      submitCart_API()
+      dispatch(clearCart_redux())
       navigation.navigate('BottomTabs', {screen: 'Orders'})
       Toast({
         title: 'Success',
@@ -162,7 +154,7 @@ export default ({navigation, route: {params}}) => {
                 textStyle: tailwind('font-normal font-semibold'),
               }}
               title={`${selectedShippingMethod.name}  -  Rp${IDRFormat(
-                selectedShippingMethod.price,
+                Number(selectedShippingMethod.cost),
               )}`}
               additionalComponents={{comps: <RightIcon />, position: 'right'}}
               onSubmit={() => modalAction('open', 'shippingMethod')}
@@ -188,9 +180,9 @@ export default ({navigation, route: {params}}) => {
             costData={{
               shipping:
                 cartFromRedux &&
-                cartFromRedux.shippingMethod &&
-                cartFromRedux.shippingMethod.price
-                  ? cartFromRedux.shippingMethod.price
+                cartFromRedux.shipping_method &&
+                cartFromRedux.shipping_method.cost
+                  ? cartFromRedux.shipping_method.cost
                   : 0,
               total: cartFromRedux && cartFromRedux.total,
               discount: cartFromRedux && cartFromRedux.discount,

@@ -25,7 +25,7 @@ export default ({setShippingMethod}) => {
             {shipping.name}
           </Text>
           <Text style={tailwind('font-normal font-semibold')}>
-            Rp{IDRFormat(shipping.price)}
+            Rp{IDRFormat(shipping.cost)}
           </Text>
         </TouchableOpacity>
       ))}

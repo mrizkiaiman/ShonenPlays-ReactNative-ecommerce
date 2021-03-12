@@ -11,7 +11,6 @@ import {Address} from '../../../../components'
 //Functions
 
 export default ({setAddress}) => {
-  const dispatch = useDispatch()
   const addressFromRedux = useSelector((state) => state.address.data)
 
   return (

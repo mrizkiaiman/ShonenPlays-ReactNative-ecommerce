@@ -26,6 +26,8 @@ import {FooterButton, ModalHeader} from '../../parts'
 import {Toast} from '../../utils'
 import {updateAddress_redux} from '../../store/actions/address'
 import {addAddress_API} from '../../services/address'
+import {updateCartAddress_API} from '../../services/cart'
+import {updateCart_redux} from '../../store/actions/cart'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
@@ -92,14 +94,18 @@ export default ({navigation, route: {params}}) => {
         pic,
       }
       const updatedAddresses = await addAddress_API(addressObj)
-      dispatch(updateAddress_redux(updatedAddresses))
+      dispatch(updateAddress_redux(updatedAddresses.data))
       Toast({
         title: 'Success',
         text: 'Your address has been saved!',
       })
-      if (params && params.from === 'checkout')
+      if (params && params.from === 'checkout') {
+        const {data} = await updateCartAddress_API(
+          updatedAddresses.newAddress._id,
+        )
+        dispatch(updateCart_redux(data))
         navigation.navigate('Checkout', {address: addressObj})
-      else navigation.goBack()
+      } else navigation.goBack()
     }
   }
 

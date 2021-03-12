@@ -1,3 +1,12 @@
+import {getOrders_API} from '../../../services/orders'
+
+export const fetchOrders_redux = () => {
+  return async (dispatch) => {
+    const fetchedOrders = await getOrders_API()
+    dispatch({type: 'UPDATE_STATE_ORDERS', payload: fetchedOrders})
+  }
+}
+
 export const updateOrder = () => {
   return (dispatch, getState) => {
     let currentCheckout = getState().checkout.data
