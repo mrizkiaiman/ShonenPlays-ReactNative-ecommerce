@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native'
 import {useDispatch} from 'react-redux'
 //Styling
 import {Size, Buttons} from '../../../../style'
@@ -16,15 +9,28 @@ const {ip7, ipx} = responsiveSize
 //Assets
 import TrashIcon from '../../../../assets/icons/trash.svg'
 //Components
+import {Image} from 'react-native-expo-image-cache'
 //Functions
 import {IDRFormat} from '../../../../utils'
 import {addProduct} from '../../../../store/actions/checkout'
 import {removeWishlist} from '../../../../store/actions/wishlist'
 import {Toast} from '../../../../utils'
+import {addToCart_API} from '../../../../services/cart'
+import {updateCart_redux} from '../../../../store/actions/cart'
 
 export default ({product}) => {
-  const {name, img, price} = product
+  const {name, img, price, _id} = product
   const dispatch = useDispatch()
+
+  const addToCart = async () => {
+    const {data} = await addToCart_API({
+      productId: _id,
+      qty: 1,
+      price: price,
+    })
+    dispatch(updateCart_redux(data))
+    Toast({title: 'Success', text: 'Added to cart!'})
+  }
 
   const removeItem = () => {
     Alert.alert(
@@ -53,7 +59,16 @@ export default ({product}) => {
 
   return (
     <View style={styles.mainContainer}>
-      <Image style={styles.image} source={{uri: img}} />
+      <Image
+        style={styles.image}
+        uri={img}
+        tint="light"
+        preview={{
+          uri: product.thumbnailImg
+            ? product.thumbnailImg
+            : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+        }}
+      />
       <View style={{...tailwind('ml-4 justify-between')}}>
         <View>
           <Text style={styles.productNameText}>{name}</Text>
@@ -67,14 +82,7 @@ export default ({product}) => {
               <TrashIcon />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => {
-                product.qty = 1
-                dispatch(addProduct(product))
-                Toast({
-                  title: 'Success',
-                  text: 'Item has been added to the cart!',
-                })
-              }}
+              onPress={() => addToCart()}
               style={styles.addToCart_APIButton}>
               <Text style={tailwind('font-normal font-semibold text-white')}>
                 Add to cart

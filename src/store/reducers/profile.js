@@ -3,7 +3,9 @@ const defaultState = {
   lastName: 'Aiman',
   mail: 'm.rizki.aiman@gmail.com',
   img:
-    'https://pbs.twimg.com/profile_images/1359790350332694530/FDyUo1h7_400x400.jpg',
+    'https://res.cloudinary.com/dqdhg7qnc/image/upload/v1615534208/shonenplays/user/123_jqkvog.jpg',
+  thumbnailImg:
+    'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615536749/shonenplays/user/123_tamzvc.jpg',
   userType: 1,
   defaultAddress: {
     name: 'Home',

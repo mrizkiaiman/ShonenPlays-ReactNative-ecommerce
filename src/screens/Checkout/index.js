@@ -40,7 +40,7 @@ export default ({navigation, route: {params}}) => {
   }, [defaultAddress])
 
   const dispatch = useDispatch()
-  const checkoutFromRedux = useSelector((state) => state.checkout.data)
+  const cartFromRedux = useSelector((state) => state.cart.data)
   const addressFromRedux = useSelector((state) => state.address.data)
   const defaultAddress = useMemo(() => {
     return addressFromRedux.filter((address) => address.isDefault == true)
@@ -48,8 +48,8 @@ export default ({navigation, route: {params}}) => {
 
   const [selectedAddress, setSelectedAddress] = useState({})
   const [selectedShippingMethod, setSelectedShippingMethod] = useState(
-    checkoutFromRedux && checkoutFromRedux.shippingMethod
-      ? checkoutFromRedux.shippingMethod
+    cartFromRedux && cartFromRedux.shippingMethod
+      ? cartFromRedux.shippingMethod
       : {},
   )
   const setAddress = (value) => {
@@ -141,9 +141,9 @@ export default ({navigation, route: {params}}) => {
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Products</Text>
           </View>
-          {checkoutFromRedux &&
-            checkoutFromRedux.products &&
-            checkoutFromRedux.products.map((product, index) => (
+          {cartFromRedux &&
+            cartFromRedux.products &&
+            cartFromRedux.products.map((product, index) => (
               <Product key={index} productData={product} />
             ))}
         </View>
@@ -187,13 +187,13 @@ export default ({navigation, route: {params}}) => {
           <OrderSummary
             costData={{
               shipping:
-                checkoutFromRedux &&
-                checkoutFromRedux.shippingMethod &&
-                checkoutFromRedux.shippingMethod.price
-                  ? checkoutFromRedux.shippingMethod.price
+                cartFromRedux &&
+                cartFromRedux.shippingMethod &&
+                cartFromRedux.shippingMethod.price
+                  ? cartFromRedux.shippingMethod.price
                   : 0,
-              total: checkoutFromRedux && checkoutFromRedux.total,
-              discount: checkoutFromRedux && checkoutFromRedux.discount,
+              total: cartFromRedux && cartFromRedux.total,
+              discount: cartFromRedux && cartFromRedux.discount,
             }}
           />
         </View>

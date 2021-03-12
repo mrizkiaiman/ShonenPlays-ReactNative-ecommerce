@@ -1,12 +1,5 @@
 import React, {useState} from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import {useDispatch} from 'react-redux'
 import {useNavigation} from '@react-navigation/native'
@@ -14,8 +7,8 @@ import {useNavigation} from '@react-navigation/native'
 import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
-//Assets
 //Components
+import {Image} from 'react-native-expo-image-cache'
 import {QtyControl} from '../../../../components'
 //Functions
 import {Toast, IDRFormat} from '../../../../utils'
@@ -55,16 +48,25 @@ export default ({productData}) => {
         onPress={() =>
           navigation.navigate('ProductDetails', {product: productData})
         }>
-        <Image style={styles.productImage} source={{uri: img}} />
+        <Image
+          style={styles.productImage}
+          uri={img}
+          tint="light"
+          preview={{
+            uri: product.thumbnailImg
+              ? product.thumbnailImg
+              : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+          }}
+        />
       </TouchableOpacity>
       <View style={styles.contentContainer}>
-        <Text numberOfLines={1} style={styles.productNameText}>
+        <Text numberOfLines={2} style={styles.productNameText}>
           {name}
         </Text>
         <Text numberOfLines={1} style={styles.productPriceText}>
           Rp{IDRFormat(Number(price))}
         </Text>
-        <View style={{marginStart: width > 410 ? -55 : -25, marginTop: 55}}>
+        <View style={{marginStart: width > 410 ? -55 : -25, marginTop: 45}}>
           <QtyControl
             value={qty}
             customControlContainerStyle={{

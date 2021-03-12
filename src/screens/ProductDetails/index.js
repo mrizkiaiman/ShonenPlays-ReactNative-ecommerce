@@ -19,6 +19,7 @@ import {getProductsByCategory_API} from '../../services/products'
 export default ({route: {params}, navigation}) => {
   const [qty, setQty] = useState(1)
   const {product} = params
+  console.log(product)
   const dispatch = useDispatch()
   const productsByCategory = useAPI(getProductsByCategory_API, product.category)
   const relatedProducts = productsByCategory.response.filter(
@@ -52,7 +53,7 @@ export default ({route: {params}, navigation}) => {
             every two to three months.
           </Text>
           <View style={styles.qtyControlContainer}>
-            <QtyControl value={qty} setValue={setQty} />
+            <QtyControl product={product} value={qty} setValue={setQty} />
           </View>
         </View>
         <View style={styles.relatedProductsContainer}>

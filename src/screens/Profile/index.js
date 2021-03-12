@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {Text, View, Image, ScrollView} from 'react-native'
+import {Text, View, ScrollView} from 'react-native'
 import {useSelector, useDispatch} from 'react-redux'
 //Styling
 import styles from './style'
@@ -15,6 +15,7 @@ import {
   LogoutIcon,
 } from '../../assets/icons/MoreMenu'
 //Components
+import {Image} from 'react-native-expo-image-cache'
 import {Modalize} from 'react-native-modalize'
 import {TabScreenHeader, ModalHeader} from '../../parts'
 import {UploadModal} from '../../components'
@@ -27,7 +28,7 @@ import useAuth from '../../auth/useAuth'
 
 export default ({navigation}) => {
   const profileFromRedux = useSelector((state) => state.profile)
-  const {firstName, lastName, mail, img} = profileFromRedux
+  const {firstName, lastName, mail, img, thumbnailImg} = profileFromRedux
   const dispatch = useDispatch()
   const {user, logOut} = useAuth()
 
@@ -116,7 +117,16 @@ export default ({navigation}) => {
           }}
         />
         <View style={styles.profileContainer}>
-          <Image style={styles.profilePhoto} source={{uri: img}} />
+          <Image
+            style={styles.profilePhoto}
+            uri={img}
+            tint="light"
+            preview={{
+              uri: thumbnailImg
+                ? thumbnailImg
+                : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+            }}
+          />
           <View style={styles.profileNameContainer}>
             <Text style={styles.nameText}>
               {firstName} {lastName}

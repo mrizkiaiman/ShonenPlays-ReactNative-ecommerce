@@ -16,6 +16,7 @@ import IDRFormat from '../../utils/IDRFormat'
 import {Toast} from '../../utils'
 import {addToCart_API} from '../../services/cart'
 import {updateCart_redux} from '../../store/actions/cart'
+import {addWishlist} from '../../store/actions/wishlist'
 
 export default ({product, customStyle}) => {
   const styles = StyleSheet.create({
@@ -59,7 +60,7 @@ export default ({product, customStyle}) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
 
-  const addToCart_API = async () => {
+  const addToCart = async () => {
     const {data} = await addToCart_API({
       productId: product._id,
       qty: 1,
@@ -69,7 +70,14 @@ export default ({product, customStyle}) => {
     Toast({title: 'Success', text: 'Added to cart!'})
   }
 
-  const addToWishlist = () => {}
+  const addToWishlist = () => {
+    product.qty = 1
+    dispatch(addWishlist(product))
+    Toast({
+      title: 'Success',
+      text: 'Item has been saved to the wishlist!',
+    })
+  }
 
   return (
     <View style={styles.mainContainer}>
@@ -83,7 +91,7 @@ export default ({product, customStyle}) => {
           preview={{
             uri: product.thumbnailImg
               ? product.thumbnailImg
-              : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098166/shonenplays/Model_Kit_-_Barbatos_msxbpy.png',
+              : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
           }}
         />
         <Text style={styles.productText}>{name}</Text>
@@ -97,7 +105,7 @@ export default ({product, customStyle}) => {
               buttonStyle: styles.addToCart_APIButton,
             }}
             title="Add to cart"
-            onSubmit={() => addToCart_API()}
+            onSubmit={() => addToCart()}
           />
           <TouchableOpacity
             onPress={() => addToWishlist()}
