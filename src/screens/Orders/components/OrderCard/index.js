@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import moment from 'moment'
 //Styling
 import {Size} from '../../../../style'
@@ -8,6 +8,7 @@ const {width, height} = Size
 //Assets
 import DotsIcon from '../../../../assets/icons/dots-vertical.svg'
 //Components
+import {Image} from 'react-native-expo-image-cache'
 import {Button} from '../../../../components'
 //Functions
 import {IDRFormat} from '../../../../utils'
@@ -35,7 +36,16 @@ export default ({order}) => {
       </View>
       <View style={tailwind('flex-row')}>
         <View>
-          <Image source={{uri: order.products[0].img}} style={styles.image} />
+          <Image
+            uri={order.products[0].product.img}
+            tint="light"
+            preview={{
+              uri: order.products[0].product.thumbnailImg
+                ? order.products[0].product.thumbnailImg
+                : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+            }}
+            style={styles.image}
+          />
         </View>
         <View>
           <Text numberOfLines={1} style={styles.productNameText}>

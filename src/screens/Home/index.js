@@ -14,6 +14,7 @@ import {ScrollViewBounced} from '../../parts'
 import {StaticContext} from '../../contexts'
 import {fetchCart_redux} from '../../store/actions/cart'
 import {fetchAddress_redux} from '../../store/actions/address'
+import {fetchOrders_redux} from '../../store/actions/orders'
 
 export default function Home({navigation}) {
   const dispatch = useDispatch()
@@ -23,6 +24,7 @@ export default function Home({navigation}) {
   useEffect(() => {
     dispatch(fetchCart_redux())
     dispatch(fetchAddress_redux())
+    dispatch(fetchOrders_redux())
   }, [])
 
   return (
