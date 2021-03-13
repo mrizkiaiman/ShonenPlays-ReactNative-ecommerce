@@ -13,7 +13,7 @@ import {StaticContext} from '../../contexts'
 
 export default ({navigation, route: {params}}) => {
   const {categoryId} = params
-  const {bestSellerProducts} = useContext(StaticContext)
+  const {bestSellerProducts, promoProducts} = useContext(StaticContext)
   const productsByCategory = useAPI(getProductsByCategory_API, categoryId)
 
   return (
@@ -37,11 +37,20 @@ export default ({navigation, route: {params}}) => {
             />
           </View>
         )
-      ) : (
+      ) : params && params.keyword == 'Best Seller' ? (
         <FlatList
           ListHeaderComponent={<Search />}
           numColumns={2}
           data={bestSellerProducts.response}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item}) => <Product product={item} />}
+          columnWrapperStyle={tailwind('justify-between m-4 mx-6')}
+        />
+      ) : (
+        <FlatList
+          ListHeaderComponent={<Search />}
+          numColumns={2}
+          data={promoProducts.response}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => <Product product={item} />}
           columnWrapperStyle={tailwind('justify-between m-4 mx-6')}

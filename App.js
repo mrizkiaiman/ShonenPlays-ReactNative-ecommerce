@@ -30,6 +30,7 @@ import {
   getBestSeller_API,
   getPopularCategories_API,
   getCategories_API,
+  getPromo_API,
 } from './src/services/products'
 import {useAPI} from './src/hooks'
 
@@ -37,7 +38,9 @@ export default function App() {
   const [openApp, setOpenApp] = useState(false)
   const [user, setUser] = useState()
   const [isReady, setIsReady] = useState(false)
+
   const bestSellerProducts = useAPI(getBestSeller_API)
+  const promoProducts = useAPI(getPromo_API)
   const popularCategories = useAPI(getPopularCategories_API)
   const allCategories = useAPI(getCategories_API)
 
@@ -79,6 +82,7 @@ export default function App() {
             bestSellerProducts,
             popularCategories,
             allCategories,
+            promoProducts,
           }}>
           <Provider store={store}>
             <OfflineNotice />

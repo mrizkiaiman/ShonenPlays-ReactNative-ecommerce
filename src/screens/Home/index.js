@@ -103,11 +103,7 @@ export default function Home({navigation}) {
             <View style={styles.sectionHeaderContainer}>
               <Text style={styles.titleSectionText}>Categories</Text>
               <Text
-                onPress={() =>
-                  navigation.navigate('Categories', {
-                    allCategories: allCategories.response,
-                  })
-                }
+                onPress={() => navigation.navigate('Categories')}
                 style={styles.functionalText}>
                 See all
               </Text>
