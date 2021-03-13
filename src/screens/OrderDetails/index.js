@@ -14,6 +14,8 @@ import {FooterButton} from '../../parts'
 //Functions
 import {IDRFormat, Toast} from '../../utils'
 import {reOrder} from '../../store/actions/checkout'
+import {reOrder_API} from '../../services/orders'
+import {updateCart_redux} from '../../store/actions/cart'
 
 export default ({navigation, route}) => {
   const {
@@ -22,17 +24,18 @@ export default ({navigation, route}) => {
 
   const {
     products,
-    shippingAddress,
-    shippingMethod,
+    shipping_address,
+    shipping_method,
     total,
     discount,
     id_order,
     date,
     status,
+    _id,
   } = order
 
   const dispatch = useDispatch()
-  const reOrderOnSubmit = () => {
+  const reOrderOnSubmit = async () => {
     if (status === 0)
       Toast({
         title: 'Warning',
@@ -40,7 +43,8 @@ export default ({navigation, route}) => {
         type: 'error',
       })
     else {
-      dispatch(reOrder(order))
+      const {data} = await reOrder_API(_id)
+      dispatch(updateCart_redux(data))
       Toast({
         title: 'Success',
         text: 'Items are successfully added to cart',
@@ -60,7 +64,7 @@ export default ({navigation, route}) => {
     },
     {
       title: 'Order ID',
-      value: id_order,
+      value: id_order ? id_order : `IX-VWXYZ-001`,
     },
   ]
 
@@ -87,25 +91,25 @@ export default ({navigation, route}) => {
               Products
             </Text>
             {products.map((product, index) => (
-              <Product key={index} product={product} />
+              <Product key={index} productData={product} />
             ))}
           </View>
           <View style={tailwind('mt-2 p-4 bg-white')}>
             <Text style={tailwind('font-normal font-semibold mb-6')}>
               Shipping Address
             </Text>
-            <Address addressData={shippingAddress} />
+            <Address addressData={shipping_address} />
           </View>
           <View style={tailwind('mt-2 p-4 bg-white')}>
             <Text style={tailwind('font-normal font-semibold mb-6')}>
               Shipping Method
             </Text>
             <Text style={tailwind('font-normal font-semibold mb-2')}>
-              {shippingMethod.name}
+              {shipping_method.name}
             </Text>
             <Text
               style={tailwind('font-normal font-semibold text-dgray text-sm')}>
-              Rp{IDRFormat(shippingMethod.price)}
+              Rp{IDRFormat(shipping_method.cost)}
             </Text>
           </View>
           <View style={tailwind('mt-2 p-4 bg-white mb-8')}>
@@ -114,7 +118,7 @@ export default ({navigation, route}) => {
             </Text>
             <OrderSummary
               costData={{
-                shipping: shippingMethod.price,
+                shipping: shipping_method.cost,
                 total,
                 discount,
               }}

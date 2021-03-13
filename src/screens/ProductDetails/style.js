@@ -8,10 +8,11 @@ export default StyleSheet.create({
   mainContentContainer: tailwind('bg-white px-5'),
   productImage: {
     resizeMode: 'contain',
-    height: 250,
-    width: 250,
+    height: 280,
+    width: 280,
     alignSelf: 'center',
-    marginVertical: 60,
+    marginVertical: 50,
+    borderRadius: 10,
   },
   productNameText: tailwind('font-normal font-bold text-xl pb-2'),
   priceText: tailwind('font-normal font-semibold text-dgray pb-8'),
@@ -19,9 +20,9 @@ export default StyleSheet.create({
   relatedProductsContainer: tailwind('px-5 py-5 pb-10'),
   relatedProductText: tailwind('font-normal font-bold text-lg pb-2'),
   qtyControlContainer: tailwind('self-center pb-10'),
-  addToCartButton: {
+  addToCart_APIButton: {
     ...Buttons.submitButton,
     width: width * 0.9,
   },
-  addToCartButtonText: tailwind('font-normal font-semibold text-white'),
+  addToCart_APIButtonText: tailwind('font-normal font-semibold text-white'),
 })

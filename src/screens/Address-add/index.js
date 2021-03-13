@@ -12,18 +12,22 @@ import {Provinces} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
-const {width, height} = Size
+const {width, height, responsiveSize} = Size
+const {ip7, ipx} = responsiveSize
 import {tailwind} from '../../style/tailwind'
 //Assets
-import PinLocationIcon from '../../assets/Icons/map.svg'
-import CheckedIcon from '../../assets/Icons/circle-check.svg'
+import PinLocationIcon from '../../assets/icons/map.svg'
+import CheckedIcon from '../../assets/icons/circle-check.svg'
 //Components
 import {Modalize} from 'react-native-modalize'
 import {Input, ItemList} from '../../components'
 import {FooterButton, ModalHeader} from '../../parts'
 //Functions
 import {Toast} from '../../utils'
-import {addAddress} from '../../store/actions/address'
+import {updateAddress_redux} from '../../store/actions/address'
+import {addAddress_API} from '../../services/address'
+import {updateCartAddress_API} from '../../services/cart'
+import {updateCart_redux} from '../../store/actions/cart'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
@@ -50,8 +54,6 @@ export default ({navigation, route: {params}}) => {
   const provinces = Object.keys(Provinces)
   const [city, setCity] = useState('')
   const [cities, setCities] = useState([])
-  const addressFromRedux = useSelector((state) => state.address.data)
-
   const dispatch = useDispatch()
   //Modalize
   const provinceModal = useRef(null)
@@ -72,7 +74,7 @@ export default ({navigation, route: {params}}) => {
     }
   }
 
-  const saveAddress = () => {
+  const saveAddress = async () => {
     if (!address || !province || !city || !postalCode || !name || !phone) {
       Toast({
         title: 'Warning!',
@@ -87,20 +89,23 @@ export default ({navigation, route: {params}}) => {
         province,
         city,
         postalCode,
-        longitude,
-        latitude,
+        lng: longitude,
+        lat: latitude,
         pic,
-        // ...params.location,
-        isDefault: addressFromRedux.length > 0 ? false : true,
       }
-      dispatch(addAddress(addressObj))
+      const updatedAddresses = await addAddress_API(addressObj)
+      dispatch(updateAddress_redux(updatedAddresses.data))
       Toast({
         title: 'Success',
         text: 'Your address has been saved!',
       })
-      if (params.from === 'checkout')
+      if (params && params.from === 'checkout') {
+        const {data} = await updateCartAddress_API(
+          updatedAddresses.newAddress._id,
+        )
+        dispatch(updateCart_redux(data))
         navigation.navigate('Checkout', {address: addressObj})
-      else navigation.goBack()
+      } else navigation.goBack()
     }
   }
 
@@ -186,33 +191,33 @@ export default ({navigation, route: {params}}) => {
   return (
     <>
       <ScrollView>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={{flex: 1}}>
-          <View style={styles.mainContainer}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitleText}>Shipping Address</Text>
-              {addressInfo.map((info, index) => (
-                <Input key={index} {...info} />
-              ))}
+        <View style={styles.mainContainer}>
+          <View style={styles.sectionContainer}>
+            <Text style={styles.sectionTitleText}>Shipping Address</Text>
+            {addressInfo.map((info, index) => (
+              <Input key={index} {...info} />
+            ))}
+          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Maps', {from: 'add'})}
+            style={styles.pinLocationContainer}>
+            <View style={tailwind('flex-row items-center')}>
+              <PinLocationIcon style={{marginRight: 10}} />
+              <Text style={styles.pinLocationText}>Pin location</Text>
             </View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Maps', {from: 'add'})}
-              style={styles.pinLocationContainer}>
-              <View style={tailwind('flex-row items-center')}>
-                <PinLocationIcon style={{marginRight: 10}} />
-                <Text style={styles.pinLocationText}>Pin location</Text>
-              </View>
-              {latitude && longitude ? <CheckedIcon /> : null}
-            </TouchableOpacity>
+            {latitude && longitude ? <CheckedIcon /> : null}
+          </TouchableOpacity>
+          <KeyboardAvoidingView
+            keyboardVerticalOffset={height > ip7.height ? 100 : -145}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitleText}>Contact Person</Text>
               {userInfo.map((info, index) => (
                 <Input key={index} {...info} />
               ))}
             </View>
-          </View>
-        </KeyboardAvoidingView>
+          </KeyboardAvoidingView>
+        </View>
       </ScrollView>
 
       <FooterButton

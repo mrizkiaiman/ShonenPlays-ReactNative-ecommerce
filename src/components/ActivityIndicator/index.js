@@ -1,14 +1,17 @@
 import React from 'react'
-import {View} from 'react-native'
-import LottieView from 'lottie-react-native'
+import {View, Text} from 'react-native'
+import AnimatedLoader from 'react-native-animated-loader'
+import {tailwind} from '../../style/tailwind'
 
-export default ({visible}) => {
-  if (!visible) return null
+export default () => {
   return (
-    <LottieView
-      source={require('../../assets/Loading.json')}
-      autoplay={true}
-      loop
-    />
+    <AnimatedLoader
+      visible={true}
+      source={require('../../assets/animations/Loading.json')}
+      speed={1}
+      animationStyle={{
+        width: 250,
+        height: 250,
+      }}></AnimatedLoader>
   )
 }

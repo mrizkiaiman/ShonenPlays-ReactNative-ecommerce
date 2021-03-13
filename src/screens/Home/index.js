@@ -1,7 +1,6 @@
-import React, {useState, useMemo, useEffect} from 'react'
-import {ScrollView, View, Text, Image} from 'react-native'
-//Data
-import {Categories, Products} from '../../mockdata'
+import React, {useEffect, useContext} from 'react'
+import {ScrollView, View, Text, ActivityIndicator} from 'react-native'
+import {useDispatch} from 'react-redux'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -11,20 +10,33 @@ const {width, height} = Size
 import {Carousel, PopularCategory, SearchBar} from './components'
 import {Category, Product} from '../../components'
 import {ScrollViewBounced} from '../../parts'
+//Others
+import {StaticContext} from '../../contexts'
+import {fetchCart_redux} from '../../store/actions/cart'
+import {fetchAddress_redux} from '../../store/actions/address'
+import {fetchOrders_redux} from '../../store/actions/orders'
 
 export default function Home({navigation}) {
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const popularCategoryList = useMemo(() => {
-    return Categories.filter((category) => category.isPopular === true)
-  }, [])
-  const bestSellerProducts = useMemo(() => {
-    return Products.filter((product) => product.isPopular === true)
+  const dispatch = useDispatch()
+  const {bestSellerProducts, popularCategories, allCategories} = useContext(
+    StaticContext,
+  )
+  useEffect(() => {
+    dispatch(fetchCart_redux())
+    dispatch(fetchAddress_redux())
+    dispatch(fetchOrders_redux())
   }, [])
 
   return (
-    <>
-      <ScrollView>
-        <ScrollViewBounced color="#006266" />
+    <ScrollView>
+      <ScrollViewBounced color="#006266" />
+      {bestSellerProducts.loading &&
+      popularCategories.loading &&
+      allCategories.loading ? (
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color="#0389FF" />
+        </View>
+      ) : (
         <View style={styles.mainContainer}>
           <View style={styles.banner}>
             <View style={styles.bannerContentContainer}>
@@ -34,15 +46,7 @@ export default function Home({navigation}) {
               <Text style={styles.welcomeUserText}>
                 Welcome, M. Rizki Aiman
               </Text>
-              <SearchBar
-                searchKeyword={searchKeyword}
-                setSearchKeyword={setSearchKeyword}
-                customStyle={{
-                  container: {
-                    marginTop: 24,
-                  },
-                }}
-              />
+              <SearchBar />
             </View>
             <View style={styles.carouselContainer}>
               <Carousel />
@@ -54,7 +58,7 @@ export default function Home({navigation}) {
               {/* <Text style={styles.functionalText}>See all</Text> */}
             </View>
             <ScrollView horizontal style={styles.sectionContentContainer}>
-              {popularCategoryList.map((category, index) => (
+              {popularCategories.response.map((category, index) => (
                 <PopularCategory key={index} category={category} />
               ))}
             </ScrollView>
@@ -79,7 +83,7 @@ export default function Home({navigation}) {
                 ...styles.sectionContentContainer,
                 ...tailwind('flex-wrap justify-between items-center'),
               }}>
-              {bestSellerProducts.slice(0, 4).map((product, index) => (
+              {bestSellerProducts.response.slice(0, 4).map((product, index) => (
                 <Product
                   customStyle={{
                     width: width > 410 ? 175 : 155,
@@ -99,11 +103,7 @@ export default function Home({navigation}) {
             <View style={styles.sectionHeaderContainer}>
               <Text style={styles.titleSectionText}>Categories</Text>
               <Text
-                onPress={() =>
-                  navigation.navigate('Categories', {
-                    Categories,
-                  })
-                }
+                onPress={() => navigation.navigate('Categories')}
                 style={styles.functionalText}>
                 See all
               </Text>
@@ -112,14 +112,14 @@ export default function Home({navigation}) {
               style={tailwind(
                 'flex-row flex-wrap items-center justify-between',
               )}>
-              {Categories.slice(0, 9).map((category, index) => (
+              {allCategories.response.slice(0, 9).map((category, index) => (
                 <Category key={index} category={category} />
               ))}
             </View>
           </View>
         </View>
-      </ScrollView>
-    </>
+      )}
+    </ScrollView>
   )
 }
 

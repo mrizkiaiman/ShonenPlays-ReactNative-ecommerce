@@ -7,16 +7,39 @@ import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
 //Assets
-import DeleteIcon from '../../../../assets/Icons/delete-x.svg'
-import EditIcon from '../../../../assets/Icons/edit.svg'
+import DeleteIcon from '../../../../assets/icons/delete-x.svg'
+import EditIcon from '../../../../assets/icons/edit.svg'
 //Components
 //Functions
-import {removeAddress} from '../../../../store/actions/address'
 import {Toast} from '../../../../utils'
+import {updateAddress_redux} from '../../../../store/actions/address'
+import {deleteAddress_API} from '../../../../services/address'
 
 export default ({address}) => {
   const navigation = useNavigation()
   const dispatch = useDispatch()
+
+  const removeAddress = () => {
+    Alert.alert(
+      'Remove',
+      'Are you sure you want to remove this address?',
+      [
+        {text: 'Cancel'},
+        {
+          text: 'OK',
+          onPress: async () => {
+            const updatedAddresses = await deleteAddress_API(address._id)
+            dispatch(updateAddress_redux(updatedAddresses))
+            Toast({
+              title: 'Success',
+              text: 'Address has been removed',
+            })
+          },
+        },
+      ],
+      {cancelable: false},
+    )
+  }
 
   return (
     <View style={styles.mainContainer}>
@@ -39,30 +62,7 @@ export default ({address}) => {
           <Text style={styles.functionalText}>Edit</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            Alert.alert(
-              'Remove',
-              'Are you sure you want to remove this address?',
-              [
-                {
-                  text: 'Cancel',
-                  onPress: () => console.log('Cancel Pressed'),
-                  style: 'cancel',
-                },
-                {
-                  text: 'OK',
-                  onPress: () => {
-                    dispatch(removeAddress(address))
-                    Toast({
-                      title: 'Success',
-                      text: 'Address has been removed',
-                    })
-                  },
-                },
-              ],
-              {cancelable: false},
-            )
-          }}
+          onPress={() => removeAddress()}
           style={tailwind('flex-row items-center')}>
           <DeleteIcon style={tailwind('mr-1')} />
           <Text style={styles.functionalText}>Delete</Text>

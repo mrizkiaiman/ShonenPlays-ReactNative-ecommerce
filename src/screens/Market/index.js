@@ -1,23 +1,22 @@
-import React, {useState, useMemo} from 'react'
-import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native'
-//Data
-import {Categories, Products} from '../../mockdata'
+import React, {useState, useContext} from 'react'
+import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
-//Assets
 //Components
+import {Image} from 'react-native-expo-image-cache'
 import {TabScreenHeader} from '../../parts'
 import {Search, Product, Category} from '../../components'
-//Functions
-import {useFetchHandler} from '../../hooks'
+//Others
+import {StaticContext} from '../../contexts'
 
 export default ({navigation}) => {
+  const {allCategories, promoProducts, bestSellerProducts} = useContext(
+    StaticContext,
+  )
   const [searchKeyword, setSearchKeyword] = useState('')
-  const popularItems = Products.filter((product) => product.isPopular === true)
-  const promoItems = Products.filter((product) => product.isPromo === true)
 
   return (
     <ScrollView>
@@ -28,19 +27,19 @@ export default ({navigation}) => {
             orangeText: 'ket',
           }}
         />
-        <TouchableOpacity onPress={() => navigation.navigate('Search')}>
-          <Search
-            searchKeyword={searchKeyword}
-            setSearchKeyword={setSearchKeyword}
-            onSubmit={() => console.log('Test')}
-          />
-        </TouchableOpacity>
+        <Search
+          searchKeyword={searchKeyword}
+          setSearchKeyword={setSearchKeyword}
+          onSubmit={() => console.log('Test')}
+        />
         <Image
-          source={{
-            uri:
-              'https://storage.googleapis.com/shonenplays-mobile/promos/Screen%20Shot%202021-01-13%20at%2017.56.35.png',
-          }}
+          uri="https://storage.googleapis.com/shonenplays-mobile/promos/Screen%20Shot%202021-01-13%20at%2017.56.35.png"
           style={styles.bannerImage}
+          tint="light"
+          preview={{
+            uri:
+              'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+          }}
         />
         <View
           style={{
@@ -49,10 +48,16 @@ export default ({navigation}) => {
           }}>
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Popular Items</Text>
-            <Text style={styles.functionalText}>See all</Text>
+            <Text
+              onPress={() =>
+                navigation.navigate('Products', {keyword: 'Best Seller'})
+              }
+              style={styles.functionalText}>
+              See all
+            </Text>
           </View>
           <View style={tailwind('flex-wrap flex-row justify-between')}>
-            {popularItems.slice(0, 4).map((product, index) => (
+            {bestSellerProducts.response.slice(0, 4).map((product, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() =>
@@ -72,10 +77,16 @@ export default ({navigation}) => {
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Promo Items</Text>
-            <Text style={styles.functionalText}>See all</Text>
+            <Text
+              onPress={() =>
+                navigation.navigate('Products', {keyword: 'Promo Items'})
+              }
+              style={styles.functionalText}>
+              See all
+            </Text>
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
-            {promoItems.map((product, index) => (
+            {promoProducts.response.map((product, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() =>
@@ -95,18 +106,14 @@ export default ({navigation}) => {
           <View style={{...styles.sectionHeaderContainer, marginBottom: 0}}>
             <Text style={styles.titleSectionText}>Categories</Text>
             <Text
-              onPress={() =>
-                navigation.navigate('Categories', {
-                  Categories,
-                })
-              }
+              onPress={() => navigation.navigate('Categories')}
               style={styles.functionalText}>
               See all
             </Text>
           </View>
           <View
             style={tailwind('flex-row flex-wrap items-center justify-between')}>
-            {Categories.slice(0, 6).map((category, index) => (
+            {allCategories.response.slice(0, 6).map((category, index) => (
               <Category key={index} category={category} />
             ))}
           </View>

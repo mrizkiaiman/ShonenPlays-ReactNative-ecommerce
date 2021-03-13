@@ -6,12 +6,10 @@ import {Products} from '../../mockdata'
 import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
-//Assets
 //Components
 import {EmptyState} from '../../parts'
 import {Search, Product} from '../../components'
 import {WishlistProduct} from './components'
-//Functions
 
 export default () => {
   const [searchKeyword, setSearchKeyword] = useState('')

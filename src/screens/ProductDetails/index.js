@@ -10,32 +10,30 @@ import {tailwind} from '../../style/tailwind'
 import {Product, QtyControl} from '../../components'
 import {FooterButton, ScrollViewBounced} from '../../parts'
 //Functions
+import {useAPI} from '../../hooks'
 import {IDRFormat, Toast} from '../../utils'
-import {addProduct} from '../../store/actions/checkout'
+import {addToCart_API} from '../../services/cart'
+import {updateCart_redux} from '../../store/actions/cart'
+import {getProductsByCategory_API} from '../../services/products'
 
 export default ({route: {params}, navigation}) => {
   const [qty, setQty] = useState(1)
   const {product} = params
+  console.log(product)
   const dispatch = useDispatch()
-  const [productCategory, setProductCategory] = useState(
-    product.category && product.category._id
-      ? product.category._id
-      : product.category,
+  const productsByCategory = useAPI(getProductsByCategory_API, product.category)
+  const relatedProducts = productsByCategory.response.filter(
+    (item) => item._id !== product._id,
   )
-  const [relatedProducts, setRelatedProduct] = useMemo(() => {
-    return Categories.filter((category) => category._id === productCategory)
-  }, [])
 
-  const filteredRelatedProducts = useMemo(() => {
-    return relatedProducts.products.filter(
-      (relatedProduct) => relatedProduct._id !== product._id,
-    )
-  }, [])
-
-  const addToCartOnSubmit = () => {
-    product.qty = qty
-    dispatch(addProduct(product))
-    Toast({title: 'Success', text: 'Item has been added to the cart!'})
+  const addToCart_APIOnSubmit = async () => {
+    const updatedCart = await addToCart_API({
+      productId: product._id,
+      qty,
+      price: product.price,
+    })
+    dispatch(updateCart_redux(updatedCart.data))
+    Toast({title: 'Success', text: 'Added to cart!'})
     navigation.goBack()
   }
 
@@ -55,13 +53,13 @@ export default ({route: {params}, navigation}) => {
             every two to three months.
           </Text>
           <View style={styles.qtyControlContainer}>
-            <QtyControl value={qty} setValue={setQty} />
+            <QtyControl product={product} value={qty} setValue={setQty} />
           </View>
         </View>
         <View style={styles.relatedProductsContainer}>
           <Text style={styles.relatedProductText}>Related Products</Text>
           <ScrollView style={{marginStart: -10}} horizontal>
-            {filteredRelatedProducts.map((product, index) => (
+            {relatedProducts.map((product, index) => (
               <Product
                 key={index}
                 customStyle={tailwind('mr-3')}
@@ -73,10 +71,10 @@ export default ({route: {params}, navigation}) => {
       </ScrollView>
       <View>
         <FooterButton
-          onSubmit={() => addToCartOnSubmit()}
+          onSubmit={() => addToCart_APIOnSubmit()}
           styling={{
-            buttonStyle: styles.addToCartButton,
-            textStyle: styles.addToCartButtonText,
+            buttonStyle: styles.addToCart_APIButton,
+            textStyle: styles.addToCart_APIButtonText,
           }}
           title="Add to cart"
         />

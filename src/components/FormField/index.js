@@ -6,13 +6,20 @@ import Input from '../Input'
 import ErrorMessage from '../ErrorMessage'
 
 export default ({name, errorMessageCustomStyles, ...otherProps}) => {
-  const {setFieldTouched, handleChange, errors, touched} = useFormikContext()
+  const {
+    setFieldTouched,
+    setFieldValue,
+    values,
+    errors,
+    touched,
+  } = useFormikContext()
   return (
     <View style={styles.mainContainer}>
       <Input
         {...otherProps}
-        onChangeText={handleChange(name)}
-        onBlur={() => setFieldTouched(name)}
+        // onBlur={() => setFieldTouched(name)}
+        onChangeText={(text) => setFieldValue(name, text)}
+        value={values[name]}
       />
       <ErrorMessage
         visible={touched[name]}

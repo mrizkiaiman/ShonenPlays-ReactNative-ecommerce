@@ -1,29 +1,25 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 //Styling
 import styles from './style'
 import {tailwind} from '../../style/tailwind'
 //Components
 import {SvgUri} from 'react-native-svg'
+//Others
+import {StaticContext} from '../../contexts'
 
-export default ({
-  route: {
-    params: {Categories},
-  },
-  navigation,
-}) => {
+export default ({navigation}) => {
+  const {allCategories} = useContext(StaticContext)
   return (
     <ScrollView style={styles.mainContainer}>
       <View style={styles.categoryListContainer}>
-        {Categories.map((category, index) => (
+        {allCategories.response.map((category, index) => (
           <View
             key={index}
             style={tailwind('justify-center items-center mb-4')}>
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('Products', {
-                  category,
-                })
+                navigation.navigate('Products', {categoryId: category._id})
               }
               style={
                 index % 2 === 0

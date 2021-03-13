@@ -5,7 +5,7 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import CheckedIcon from '../../assets/Icons/circle-check.svg'
+import CheckedIcon from '../../assets/icons/circle-check.svg'
 //Components
 //Functions
 

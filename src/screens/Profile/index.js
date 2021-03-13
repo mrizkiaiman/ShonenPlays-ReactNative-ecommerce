@@ -1,11 +1,10 @@
-import React, {useRef} from 'react'
-import {Text, View, Image, ScrollView} from 'react-native'
-import hardcode from './helpers/hardcode'
+import React, {useRef, useState} from 'react'
+import {Text, View, ScrollView} from 'react-native'
+import {useSelector, useDispatch} from 'react-redux'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
 const {width, height} = Size
-import {tailwind} from '../../style/tailwind'
 //Assets
 import {
   EditProfileIcon,
@@ -14,17 +13,28 @@ import {
   ShippingAddressIcon,
   HelpIcon,
   LogoutIcon,
-} from '../../assets/Icons/MoreMenu'
+} from '../../assets/icons/MoreMenu'
 //Components
+import {Image} from 'react-native-expo-image-cache'
 import {Modalize} from 'react-native-modalize'
 import {TabScreenHeader, ModalHeader} from '../../parts'
+import {UploadModal} from '../../components'
 import {Menu, EditProfileModal, ChangePasswordModal} from './components'
 //Functions
 import {WhatsAppLink} from '../../utils'
-import {useLocation} from '../../hooks'
+import {updateProfile_API} from '../../services/profile'
+import {updatePhoto} from '../../store/actions/profile'
+import useAuth from '../../auth/useAuth'
 
 export default ({navigation}) => {
-  const {firstName, lastName, mail, img} = hardcode
+  const profileFromRedux = useSelector((state) => state.profile)
+  const {firstName, lastName, mail, img, thumbnailImg} = profileFromRedux
+  const dispatch = useDispatch()
+  const {user, logOut} = useAuth()
+
+  const [uploadVisible, setUploadVisible] = useState(false)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [profileImage, setProfileImage] = useState(profileFromRedux.img)
   //Modalize
   const editProfileModal = useRef(null)
   const changePasswordModal = useRef(null)
@@ -42,6 +52,16 @@ export default ({navigation}) => {
         modal.close()
       }
     }
+  }
+
+  const saveProfile = async () => {
+    setUploadVisible(true)
+    const result = await updateProfile_API(profileImage, (progress) =>
+      setUploadProgress(progress),
+    )
+    dispatch(updatePhoto(result.link))
+    setUploadVisible(false)
+    modalAction('close', 'editProfile')
   }
 
   const menuFirstRow = [
@@ -79,12 +99,16 @@ export default ({navigation}) => {
     {
       name: 'Logout',
       icon: <LogoutIcon />,
-      customOnSubmit: () => navigation.navigate('SignIn'),
+      customOnSubmit: () => {
+        logOut()
+        navigation.navigate('SignIn')
+      },
     },
   ]
 
   return (
     <>
+      <UploadModal progress={uploadProgress} visible={uploadVisible} />
       <ScrollView style={styles.mainContainer}>
         <TabScreenHeader
           text={{
@@ -93,7 +117,16 @@ export default ({navigation}) => {
           }}
         />
         <View style={styles.profileContainer}>
-          <Image style={styles.profilePhoto} source={{uri: img}} />
+          <Image
+            style={styles.profilePhoto}
+            uri={img}
+            tint="light"
+            preview={{
+              uri: thumbnailImg
+                ? thumbnailImg
+                : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+            }}
+          />
           <View style={styles.profileNameContainer}>
             <Text style={styles.nameText}>
               {firstName} {lastName}
@@ -122,20 +155,24 @@ export default ({navigation}) => {
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'editProfile')}
-            saveMethod={() => console.log('Test')}
+            saveMethod={() => saveProfile()}
             title="Edit Profile"
           />
         }
         modalHeight={height / 1.25}>
-        <EditProfileModal Hardcode={hardcode} />
+        <EditProfileModal
+          profileData={profileFromRedux}
+          profileImage={profileImage}
+          setProfileImage={setProfileImage}
+        />
       </Modalize>
       <Modalize
         ref={changePasswordModal}
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'changePassword')}
-            saveMethod={() => console.log('Test')}
             title="Change Password"
+            saveMethod={() => console.log('Test')}
           />
         }
         modalHeight={height / 1.25}>

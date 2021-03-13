@@ -8,14 +8,15 @@ import {Size} from '../../style'
 const {width, height} = Size
 import {tailwind} from '../../style/tailwind'
 //Assets
-import PinLocationIcon from '../../assets/Icons/map.svg'
+import PinLocationIcon from '../../assets/icons/map.svg'
 //Components
 import {Modalize} from 'react-native-modalize'
 import {Input, ItemList} from '../../components'
 import {FooterButton, ModalHeader} from '../../parts'
 //Functions
 import {Toast} from '../../utils'
-import {addAddress, updateAddress} from '../../store/actions/address'
+import {updateAddress_redux} from '../../store/actions/address'
+import {editAddress_API} from '../../services/address'
 
 export default ({navigation, route: {params}}) => {
   const [latitude, setLatitude] = useState(
@@ -58,36 +59,32 @@ export default ({navigation, route: {params}}) => {
       }
     }
   }
-  const saveAddress = () => {
-    if (
-      !address ||
-      !province ||
-      !city ||
-      !postalCode ||
-      !name ||
-      !phone ||
-      !longitude ||
-      !latitude
-    ) {
+  const saveAddress = async () => {
+    if (!address || !province || !city || !postalCode || !name || !phone) {
       Toast({
         title: 'Warning!',
         text: 'Please fill all required input',
         type: 'error',
       })
     } else {
-      dispatch(
-        updateAddress({
-          _id: params.addressData._id,
-          name,
-          phone,
-          address,
-          province,
-          city,
-          postalCode,
-          longitude,
-          latitude,
-        }),
+      const addressObj = {
+        _id: params.addressData._id,
+        name,
+        phone,
+        address,
+        province,
+        city,
+        postalCode,
+        lng: longitude,
+        lat: latitude,
+        pic,
+      }
+
+      const updatedAddresses = await editAddress_API(
+        params.addressData._id,
+        addressObj,
       )
+      dispatch(updateAddress_redux(updatedAddresses))
       Toast({
         title: 'Success',
         text: 'Your address has been saved!',
@@ -98,8 +95,8 @@ export default ({navigation, route: {params}}) => {
 
   const userInfo = [
     {
-      value: name,
-      onChangeText: setName,
+      value: pic,
+      onChangeText: setPic,
       placeholder: 'Name',
       type: 'box',
       customContainerStyle: {

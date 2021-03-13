@@ -7,17 +7,17 @@ import Cart from '../../screens/Cart'
 import Orders from '../../screens/Orders'
 import Profile from '../../screens/Profile'
 //Assets - Inactive
-import HomeIcon from '../../assets/Icons/BottomTabs/home.svg'
-import MarketIcon from '../../assets/Icons/BottomTabs/market.svg'
-import CartIcon from '../../assets/Icons/BottomTabs/cart.svg'
-import OrdersIcon from '../../assets/Icons/BottomTabs/orders.svg'
-import ProfileIcon from '../../assets/Icons/BottomTabs/profile.svg'
+import HomeIcon from '../../assets/icons/BottomTabs/home.svg'
+import MarketIcon from '../../assets/icons/BottomTabs/market.svg'
+import CartIcon from '../../assets/icons/BottomTabs/cart.svg'
+import OrdersIcon from '../../assets/icons/BottomTabs/orders.svg'
+import ProfileIcon from '../../assets/icons/BottomTabs/profile.svg'
 //Assets - Active
-import ActiveHomeIcon from '../../assets/Icons/BottomTabs/ActiveIcons/home.svg'
-import ActiveMarketIcon from '../../assets/Icons/BottomTabs/ActiveIcons/market.svg'
-import ActiveCartIcon from '../../assets/Icons/BottomTabs/ActiveIcons/cart.svg'
-import ActiveOrdersIcon from '../../assets/Icons/BottomTabs/ActiveIcons/orders.svg'
-import ActiveProfileIcon from '../../assets/Icons/BottomTabs/ActiveIcons/profile.svg'
+import ActiveHomeIcon from '../../assets/icons/BottomTabs/ActiveIcons/home.svg'
+import ActiveMarketIcon from '../../assets/icons/BottomTabs/ActiveIcons/market.svg'
+import ActiveCartIcon from '../../assets/icons/BottomTabs/ActiveIcons/cart.svg'
+import ActiveOrdersIcon from '../../assets/icons/BottomTabs/ActiveIcons/orders.svg'
+import ActiveProfileIcon from '../../assets/icons/BottomTabs/ActiveIcons/profile.svg'
 
 const Tab = createBottomTabNavigator()
 

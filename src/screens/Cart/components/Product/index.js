@@ -1,12 +1,5 @@
 import React, {useState} from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Alert,
-} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import {useDispatch} from 'react-redux'
 import {useNavigation} from '@react-navigation/native'
@@ -14,43 +7,30 @@ import {useNavigation} from '@react-navigation/native'
 import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
-//Assets
 //Components
+import {Image} from 'react-native-expo-image-cache'
 import {QtyControl} from '../../../../components'
 //Functions
-import IDRFormat from '../../../../utils/IDRFormat'
-import Toast from '../../../../utils/Toast'
-import {removeProduct} from '../../../../store/actions/checkout'
+import {Toast, IDRFormat} from '../../../../utils'
+import {removeFromCart_API} from '../../../../services/cart'
+import {updateCart_redux} from '../../../../store/actions/cart'
 
 export default ({productData}) => {
-  const {
-    img,
-    name,
-    qty,
-    productId,
-    description,
-    stock,
-    price,
-    weight,
-    category,
-  } = productData
-  const [value, setValue] = useState(qty)
+  const {product, qty} = productData
+  const {img, name, price, _id} = product
   const dispatch = useDispatch()
   const navigation = useNavigation()
-  const removeFromCartOnSubmit = () => {
+  const removeFromCart_APIOnSubmit = () => {
     Alert.alert(
       'Remove',
       'Are you sure you want to remove this item?',
       [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
+        {text: 'Cancel'},
         {
           text: 'OK',
-          onPress: () => {
-            dispatch(removeProduct(productData))
+          onPress: async () => {
+            const updatedCart = await removeFromCart_API(_id)
+            dispatch(updateCart_redux(updatedCart.data))
             Toast({
               title: 'Success',
               text: 'Item has been removed from the cart',
@@ -68,19 +48,27 @@ export default ({productData}) => {
         onPress={() =>
           navigation.navigate('ProductDetails', {product: productData})
         }>
-        <Image style={styles.productImage} source={{uri: img}} />
+        <Image
+          style={styles.productImage}
+          uri={img}
+          tint="light"
+          preview={{
+            uri: product.thumbnailImg
+              ? product.thumbnailImg
+              : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+          }}
+        />
       </TouchableOpacity>
       <View style={styles.contentContainer}>
-        <Text numberOfLines={1} style={styles.productNameText}>
+        <Text numberOfLines={2} style={styles.productNameText}>
           {name}
         </Text>
         <Text numberOfLines={1} style={styles.productPriceText}>
           Rp{IDRFormat(Number(price))}
         </Text>
-        <View style={{marginStart: width > 410 ? -55 : -25, marginTop: 55}}>
+        <View style={{marginStart: width > 410 ? -55 : -25, marginTop: 45}}>
           <QtyControl
-            value={value}
-            setValue={setValue}
+            value={qty}
             customControlContainerStyle={{
               width: 40,
               height: 40,
@@ -92,7 +80,7 @@ export default ({productData}) => {
           />
         </View>
       </View>
-      <TouchableOpacity onPress={() => removeFromCartOnSubmit()}>
+      <TouchableOpacity onPress={() => removeFromCart_APIOnSubmit()}>
         <Ionicons
           style={{marginTop: -2}}
           name="ios-close"

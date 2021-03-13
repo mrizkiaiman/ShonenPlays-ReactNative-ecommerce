@@ -6,12 +6,14 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps'
 import * as Location from 'expo-location'
 //Functions
 import {Toast} from '../../utils'
+import {useLocation} from '../../hooks'
 
 export default ({navigation, route}) => {
   const {
     params: {from},
   } = route
-  const [location, setLocation] = useState({})
+  const locationAPI = useLocation()
+  const [location, setLocation] = useState(locationAPI ? locationAPI : {})
 
   const navigateScreen = () => {
     Toast({
@@ -20,21 +22,6 @@ export default ({navigation, route}) => {
     })
     if (from === 'edit') navigation.navigate('EditShippingAddress', {location})
     else navigation.navigate('AddShippingAddress', {location})
-  }
-
-  useEffect(() => {
-    getCurrentLocation()
-  }, [])
-
-  const getCurrentLocation = async () => {
-    let {status} = await Location.requestPermissionsAsync()
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied')
-      return
-    }
-
-    let location = await Location.getCurrentPositionAsync({})
-    setLocation(location)
   }
 
   const changeCurrentLocation = (loc) => {

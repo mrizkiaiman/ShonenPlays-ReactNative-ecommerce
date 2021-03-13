@@ -8,7 +8,7 @@ import {Size, Buttons} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import RightIcon from '../../assets/Icons/rightDirection-dgreen.svg'
+import RightIcon from '../../assets/icons/rightDirection-dgreen.svg'
 //Components
 import {Modalize} from 'react-native-modalize'
 import {
@@ -22,49 +22,44 @@ import {FooterButton, EmptyState, ModalHeader} from '../../parts'
 //Functions
 import {IDRFormat, Toast} from '../../utils'
 import {
-  updateAddress,
-  updateShippingMethod,
-  emptyCheckout,
-  paidCheckout,
-} from '../../store/actions/checkout'
-import {updateOrder} from '../../store/actions/orders'
+  updateCartAddress_API,
+  updateCartShipping_API,
+  submitCart_API,
+} from '../../services/cart'
+import {updateCart_redux, clearCart_redux} from '../../store/actions/cart'
+import {fetchOrders_redux} from '../../store/actions/orders'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
-    setSelectedAddress(params && params.address ? params.address : null)
-    dispatch(updateAddress(params && params.address ? params.address : null))
+    if (params && params.address) {
+      setSelectedAddress(params && params.address ? params.address : null)
+    }
   }, [params])
 
-  useEffect(() => {
-    setSelectedAddress(defaultAddress[0])
-  }, [defaultAddress])
-
   const dispatch = useDispatch()
-  const checkoutFromRedux = useSelector((state) => state.checkout.data)
+  const cartFromRedux = useSelector((state) => state.cart.data)
   const addressFromRedux = useSelector((state) => state.address.data)
-  const defaultAddress = useMemo(() => {
-    return addressFromRedux.filter((address) => address.isDefault == true)
-  }, [])
-
-  const [selectedAddress, setSelectedAddress] = useState({})
-  const [selectedShippingMethod, setSelectedShippingMethod] = useState(
-    checkoutFromRedux && checkoutFromRedux.shippingMethod
-      ? checkoutFromRedux.shippingMethod
-      : {},
+  const [selectedAddress, setSelectedAddress] = useState(
+    cartFromRedux.shipping_address ? cartFromRedux.shipping_address : null,
   )
-  const setAddress = (value) => {
-    dispatch(updateAddress(value))
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState(
+    cartFromRedux.shipping_method,
+  )
+  const setAddress = async (value) => {
+    const {data} = await updateCartAddress_API(value._id)
+    dispatch(updateCart_redux(data))
     setSelectedAddress(value)
     modalAction('close', 'shippingAddress')
   }
 
-  const setShippingMethod = (value) => {
-    dispatch(updateShippingMethod(value))
+  const setShippingMethod = async (value) => {
+    const {data} = await updateCartShipping_API(value)
+    dispatch(updateCart_redux(data))
     setSelectedShippingMethod(value)
     modalAction('close', 'shippingMethod')
   }
 
-  const paymentOnSubmit = () => {
+  const paymentOnSubmit = async () => {
     if (!selectedAddress || !selectedShippingMethod)
       Toast({
         title: 'Warning',
@@ -72,14 +67,14 @@ export default ({navigation, route: {params}}) => {
         type: 'error',
       })
     else {
-      dispatch(paidCheckout())
-      dispatch(updateOrder())
-      dispatch(emptyCheckout())
-      navigation.navigate('BottomTabs', {screen: 'Orders'})
+      await submitCart_API()
+      dispatch(fetchOrders_redux())
+      dispatch(clearCart_redux())
       Toast({
         title: 'Success',
         text: 'Payment success!',
       })
+      navigation.navigate('BottomTabs', {screen: 'Orders'})
     }
   }
 
@@ -119,12 +114,19 @@ export default ({navigation, route: {params}}) => {
               <Text
                 onPress={() => modalAction('open', 'shippingAddress')}
                 style={styles.functionalText}>
-                Change Address
+                {selectedAddress ? 'Change address' : 'Choose address'}
               </Text>
             )}
           </View>
           {selectedAddress ? (
             <Address addressData={selectedAddress} />
+          ) : addressFromRedux.length > 0 ? (
+            <EmptyState
+              onSubmit={() => modalAction('open', 'shippingAddress')}
+              screen="Address"
+              buttonText="Choose address"
+              size="sm"
+            />
           ) : (
             <EmptyState
               onSubmit={() =>
@@ -141,9 +143,9 @@ export default ({navigation, route: {params}}) => {
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Products</Text>
           </View>
-          {checkoutFromRedux &&
-            checkoutFromRedux.products &&
-            checkoutFromRedux.products.map((product, index) => (
+          {cartFromRedux &&
+            cartFromRedux.products &&
+            cartFromRedux.products.map((product, index) => (
               <Product key={index} productData={product} />
             ))}
         </View>
@@ -162,7 +164,7 @@ export default ({navigation, route: {params}}) => {
                 textStyle: tailwind('font-normal font-semibold'),
               }}
               title={`${selectedShippingMethod.name}  -  Rp${IDRFormat(
-                selectedShippingMethod.price,
+                Number(selectedShippingMethod.cost),
               )}`}
               additionalComponents={{comps: <RightIcon />, position: 'right'}}
               onSubmit={() => modalAction('open', 'shippingMethod')}
@@ -187,13 +189,19 @@ export default ({navigation, route: {params}}) => {
           <OrderSummary
             costData={{
               shipping:
-                checkoutFromRedux &&
-                checkoutFromRedux.shippingMethod &&
-                checkoutFromRedux.shippingMethod.price
-                  ? checkoutFromRedux.shippingMethod.price
+                cartFromRedux &&
+                cartFromRedux.shipping_method &&
+                cartFromRedux.shipping_method.cost
+                  ? cartFromRedux.shipping_method.cost
                   : 0,
-              total: checkoutFromRedux && checkoutFromRedux.total,
-              discount: checkoutFromRedux && checkoutFromRedux.discount,
+              total:
+                cartFromRedux.total -
+                (cartFromRedux &&
+                cartFromRedux.shipping_method &&
+                cartFromRedux.shipping_method.cost
+                  ? cartFromRedux.shipping_method.cost
+                  : 0),
+              discount: cartFromRedux && cartFromRedux.discount,
             }}
           />
         </View>

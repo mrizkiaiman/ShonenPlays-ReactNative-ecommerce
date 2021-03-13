@@ -6,7 +6,7 @@ import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
 //Assets
-import RightIcon from '../../../../assets/Icons/rightDirection.svg'
+import RightIcon from '../../../../assets/icons/rightDirection.svg'
 
 export default ({menu}) => {
   const {name, icon, screen, customOnSubmit} = menu

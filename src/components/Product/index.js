@@ -1,25 +1,24 @@
 import React from 'react'
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 import {useDispatch} from 'react-redux'
+import {Image} from 'react-native-expo-image-cache'
 //Styling
 import {Size, Buttons} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import WishlistIcon from '../../assets/Icons/wishlist.svg'
+import WishlistIcon from '../../assets/icons/wishlist.svg'
 //Components
 import Button from '../Button'
-//Functions
+//Others
 import IDRFormat from '../../utils/IDRFormat'
-import {addProduct} from '../../store/actions/checkout'
-import {addWishlist} from '../../store/actions/wishlist'
 import {Toast} from '../../utils'
+import {addToCart_API} from '../../services/cart'
+import {updateCart_redux} from '../../store/actions/cart'
+import {addWishlist} from '../../store/actions/wishlist'
 
 export default ({product, customStyle}) => {
-  const {name, price, img} = product
-  const navigation = useNavigation()
-  const dispatch = useDispatch()
   const styles = StyleSheet.create({
     mainContainer: {
       ...tailwind(
@@ -42,7 +41,7 @@ export default ({product, customStyle}) => {
       width: width > 410 ? 140 : 135,
     },
     priceProductText: tailwind('font-normal font-semibold text-xs mx-2'),
-    addToCartButton: {
+    addToCart_APIButton: {
       ...Buttons.submitButton,
       height: 40,
       width: width > 410 ? 110 : 95,
@@ -57,12 +56,44 @@ export default ({product, customStyle}) => {
     buttonText: tailwind('font-normal font-semibold text-white text-sm'),
   })
 
+  const {name, price, img} = product
+  const navigation = useNavigation()
+  const dispatch = useDispatch()
+
+  const addToCart = async () => {
+    const {data} = await addToCart_API({
+      productId: product._id,
+      qty: 1,
+      price: product.price,
+    })
+    dispatch(updateCart_redux(data))
+    Toast({title: 'Success', text: 'Added to cart!'})
+  }
+
+  const addToWishlist = () => {
+    product.qty = 1
+    dispatch(addWishlist(product))
+    Toast({
+      title: 'Success',
+      text: 'Item has been saved to the wishlist!',
+    })
+  }
+
   return (
     <View style={styles.mainContainer}>
       <TouchableOpacity
-        onPress={() => navigation.navigate('ProductDetails', {product})}
+        onPress={() => navigation.push('ProductDetails', {product})}
         style={styles.contentContainer}>
-        <Image style={styles.productImage} source={{uri: img}} />
+        <Image
+          style={styles.productImage}
+          uri={img}
+          tint="light"
+          preview={{
+            uri: product.thumbnailImg
+              ? product.thumbnailImg
+              : 'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+          }}
+        />
         <Text style={styles.productText}>{name}</Text>
       </TouchableOpacity>
       <View>
@@ -71,27 +102,13 @@ export default ({product, customStyle}) => {
           <Button
             styling={{
               textStyle: styles.buttonText,
-              buttonStyle: styles.addToCartButton,
+              buttonStyle: styles.addToCart_APIButton,
             }}
             title="Add to cart"
-            onSubmit={() => {
-              product.qty = 1
-              dispatch(addProduct(product))
-              Toast({
-                title: 'Success',
-                text: 'Item has been added to the cart!',
-              })
-            }}
+            onSubmit={() => addToCart()}
           />
           <TouchableOpacity
-            onPress={() => {
-              product.qty = 1
-              dispatch(addWishlist(product))
-              Toast({
-                title: 'Success',
-                text: 'Item has been saved to the wishlist!',
-              })
-            }}
+            onPress={() => addToWishlist()}
             style={styles.wishListButton}>
             <WishlistIcon />
           </TouchableOpacity>

@@ -6,17 +6,15 @@ import {Size} from '../../../../style'
 const {width, height} = Size
 import {tailwind} from '../../../../style/tailwind'
 //Assets
-import UploadIcon from '../../../../assets/Icons/upload.svg'
+import UploadIcon from '../../../../assets/icons/upload.svg'
 //Components
 import {Input, Address} from '../../../../components'
-//Functions
 
-export default ({Hardcode}) => {
-  const {firstName, lastName, mail, defaultAddress, mobilePhone} = Hardcode
+export default ({profileData, profileImage, setProfileImage}) => {
+  const {firstName, lastName, mail, defaultAddress, mobilePhone} = profileData
   const [name, setName] = useState(`${firstName} ${lastName}`)
   const [email, setEmail] = useState(mail)
   const [phone, setPhone] = useState(mobilePhone)
-  const [profileImage, setProfileImage] = useState('')
 
   const selectImage = async () => {
     const {granted} = await ImagePicker.requestCameraRollPermissionsAsync()
@@ -27,7 +25,10 @@ export default ({Hardcode}) => {
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           quality: 0.5,
         })
-        if (!result.cancelled) setProfileImage(result.uri)
+
+        if (!result.cancelled) {
+          setProfileImage(result)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -68,10 +69,10 @@ export default ({Hardcode}) => {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.uploadPhotoContainer}>
-        {profileImage ? (
+        {profileImage.uri ? (
           <TouchableOpacity onPress={() => selectImage()}>
             <Image
-              source={{uri: profileImage}}
+              source={{uri: profileImage.uri}}
               style={tailwind('rounded-full w-16 h-16')}
             />
           </TouchableOpacity>
@@ -79,7 +80,10 @@ export default ({Hardcode}) => {
           <TouchableOpacity
             onPress={() => selectImage()}
             style={styles.profilePhoto}>
-            <UploadIcon />
+            <Image
+              source={{uri: profileData.img}}
+              style={tailwind('rounded-full w-16 h-16')}
+            />
           </TouchableOpacity>
         )}
         <Text style={tailwind('font-normal ml-6 text-lg')}>

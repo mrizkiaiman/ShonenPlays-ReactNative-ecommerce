@@ -8,11 +8,11 @@ import {tailwind} from '../../style/tailwind'
 import {Product} from './components'
 import {Button} from '../../components'
 import {EmptyState, TabScreenHeader} from '../../parts'
-//Functions
+//Others
 import {IDRFormat} from '../../utils'
 
 export default ({navigation}) => {
-  const checkoutFromRedux = useSelector((state) => state.checkout.data)
+  const cartFromRedux = useSelector((state) => state.cart.data)
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -23,7 +23,13 @@ export default ({navigation}) => {
           }}
         />
         <View style={styles.productsContainer}>
-          {Object.keys(checkoutFromRedux).length === 0 ? (
+          {cartFromRedux &&
+          cartFromRedux.products &&
+          cartFromRedux.products.length > 0 ? (
+            cartFromRedux.products.map((item, index) => (
+              <Product key={index} productData={item} />
+            ))
+          ) : (
             <View style={tailwind('mt-10')}>
               <EmptyState
                 onSubmit={() => navigation.navigate('Market')}
@@ -31,33 +37,17 @@ export default ({navigation}) => {
                 buttonText="Browse items"
               />
             </View>
-          ) : (
-            checkoutFromRedux &&
-            checkoutFromRedux.products &&
-            (checkoutFromRedux.products.length > 0 ? (
-              checkoutFromRedux.products.map((item, index) => (
-                <Product key={index} productData={item} />
-              ))
-            ) : (
-              <View style={tailwind('mt-10')}>
-                <EmptyState
-                  onSubmit={() => navigation.navigate('Market')}
-                  screen="Cart"
-                  buttonText="Browse items"
-                />
-              </View>
-            ))
           )}
         </View>
       </ScrollView>
-      {checkoutFromRedux &&
-        checkoutFromRedux.products &&
-        checkoutFromRedux.products.length > 0 && (
+      {cartFromRedux &&
+        cartFromRedux.products &&
+        cartFromRedux.products.length > 0 && (
           <View style={styles.footer}>
             <View>
               <Text style={styles.totalText}>Total</Text>
               <Text style={styles.priceTotalText}>
-                Rp{IDRFormat(Number(checkoutFromRedux.total))}
+                Rp{IDRFormat(Number(cartFromRedux.total))}
               </Text>
             </View>
             <Button

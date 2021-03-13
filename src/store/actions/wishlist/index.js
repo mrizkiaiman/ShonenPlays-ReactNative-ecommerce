@@ -2,8 +2,12 @@ export const addWishlist = (product) => {
   return (dispatch, getState) => {
     let currentWishlist = getState().wishlist.data
     let newWishlist = currentWishlist.slice()
-    newWishlist.push(product)
-    dispatch({type: 'UPDATE_STATE_WISHLIST', payload: newWishlist})
+    const sameItem = newWishlist.some((wishlist) => wishlist._id == product._id)
+    if (sameItem) return
+    else {
+      newWishlist.push(product)
+      dispatch({type: 'UPDATE_STATE_WISHLIST', payload: newWishlist})
+    }
   }
 }
 

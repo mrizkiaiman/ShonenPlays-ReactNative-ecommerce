@@ -1,37 +1,37 @@
 import React, {useState} from 'react'
 import {SafeAreaView, View, Text, Image} from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
 import * as Google from 'expo-google-app-auth'
 import styles from './style'
 //Assets
-import GoogleIcon from '../../assets/Icons/google.svg'
+import GoogleIcon from '../../assets/icons/google.svg'
 //Components
 import {Button, FormField, FormButton, Form} from '../../components'
 //Functions
+import useAuth from '../../auth/useAuth'
+import {signIn_API} from '../../services/auth'
 import {Toast, FormValidation} from '../../utils'
-import {addUser} from '../../store/actions/users'
 import {tailwind} from '../../style/tailwind'
 
 export default function SignInScreen({navigation}) {
   const [showPassword, setShowPassword] = useState(false)
-  const usersFromRedux = useSelector((state) => state.users.data)
+  const auth = useAuth()
 
-  const dispatch = useDispatch()
-  const signInOnSubmit = ({email, password}) => {
-    const isVerified = usersFromRedux.some(
-      (user) => user.email == email && user.password == password,
-    )
-    if (isVerified) {
+  const signInOnSubmit = async (values) => {
+    const {email, password} = values
+    const result = await signIn_API(email, password)
+
+    if (result.ok) {
+      auth.logIn(result.data.token)
       Toast({title: 'Success', text: 'Logged in'})
-      navigation.navigate('BottomTabs', {screen: 'Home'})
-    } else {
+      navigation.push('BottomTabs', {screen: 'Home'})
+    } else if (result.name.includes('Error')) {
       Toast({title: 'Failed', text: 'Wrong email/password', type: 'error'})
     }
   }
 
   const googleSignIn = async () => {
     Toast({title: 'Success', text: 'Logged in'})
-    navigation.navigate('BottomTabs', {screen: 'Home'})
+    navigation.navigate('MainNavigator')
   }
 
   return (
@@ -51,7 +51,11 @@ export default function SignInScreen({navigation}) {
         </View>
         <Form
           initialValues={{email: '', password: ''}}
-          onSubmit={(email, password) => signInOnSubmit(email, password)}
+          onSubmit={async (values, {resetForm, setSubmitting}) => {
+            await signInOnSubmit(values)
+            setSubmitting(true)
+            resetForm()
+          }}
           validationSchema={FormValidation.SignIn}>
           <View style={styles.inputsContainer}>
             <FormField

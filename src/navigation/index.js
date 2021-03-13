@@ -1,5 +1,4 @@
-import React from 'react'
-import NavigationTheme from './theme'
+import React, {useState, useEffect} from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
 //Components
@@ -20,17 +19,19 @@ import ShippingAddress from '../screens/Address'
 import AddShippingAddress from '../screens/Address-add'
 import EditShippingAddress from '../screens/Address-edit'
 import Maps from '../screens/Address-maps'
+//Functions
+import AuthContext from '../auth/context'
+import authStorage from '../auth/storage'
 
-export default function navigation() {
+export default function navigation({user}) {
   const Stack = createStackNavigator()
   return (
-    // <NavigationContainer theme={NavigationTheme}>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName={'SignIn'}>
+        initialRouteName={user ? 'BottomTabs' : 'SignIn'}>
         <Stack.Screen
           options={{title: 'Home'}}
           name="BottomTabs"

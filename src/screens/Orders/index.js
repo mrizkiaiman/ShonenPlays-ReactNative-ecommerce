@@ -1,27 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 import {useSelector} from 'react-redux'
-import {useIsFocused} from '@react-navigation/native'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
-//Assets
 //Components
 import {TabScreenHeader, EmptyState} from '../../parts'
 import {OrderCard} from './components'
-import {Search} from '../../components'
-//Functions
 
 export default ({navigation}) => {
-  useEffect(() => {
-    setOrders(ordersFromRedux)
-  }, [isFocused])
-
-  const isFocused = useIsFocused()
   const ordersFromRedux = useSelector((state) => state.orders.data)
-  const [orders, setOrders] = useState([])
-  const [searchKeyword, setSearchKeyword] = useState('')
   return (
     <>
       <ScrollView>
@@ -32,14 +21,9 @@ export default ({navigation}) => {
               orangeText: 'ers',
             }}
           />
-          <Search
-            searchKeyword={searchKeyword}
-            setSearchKeyword={setSearchKeyword}
-            onSubmit={() => console.log('Test')}
-          />
-          {orders.length > 0 ? (
+          {ordersFromRedux.length > 0 ? (
             <View style={tailwind('mt-4')}>
-              {orders.map((order, index) => (
+              {ordersFromRedux.map((order, index) => (
                 <TouchableOpacity
                   key={index}
                   onPress={() => navigation.navigate('OrderDetails', {order})}>

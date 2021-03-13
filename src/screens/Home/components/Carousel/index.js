@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import {StyleSheet, View, Image, ActivityIndicator} from 'react-native'
+import {StyleSheet, View, ActivityIndicator} from 'react-native'
 import Carousel, {Pagination} from 'react-native-snap-carousel'
+import {Image} from 'react-native-expo-image-cache'
 //Styling
 import {tailwind} from '../../../../style/tailwind'
 import {Size, Colors} from '../../../../style'
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: width * 0.9,
-    ...tailwind('rounded-lg'),
+    borderRadius: 4,
   },
   spinner: {
     position: 'absolute',
@@ -30,13 +31,35 @@ export default () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const images = [
     // require('../../../../assets/Carousel/carousel-1.png'),
-    require('../../../../assets/Carousel/carousel-3.jpg'),
-    require('../../../../assets/Carousel/carousel-4.jpg'),
-    require('../../../../assets/Carousel/carousel-2.jpg'),
+    {
+      img:
+        'https://res.cloudinary.com/dqdhg7qnc/image/upload/v1615286669/shonenplays/carousel/carousel-2_pap7i5.jpg',
+      thumbnailImg:
+        'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615286669/shonenplays/carousel/carousel-2_pap7i5.jpg',
+    },
+    {
+      img:
+        'https://res.cloudinary.com/dqdhg7qnc/image/upload/v1615286670/shonenplays/carousel/carousel-3_vjfhuj.jpg',
+      thumbnailImg:
+        'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615286670/shonenplays/carousel/carousel-3_vjfhuj.jpg',
+    },
+    {
+      img:
+        'https://res.cloudinary.com/dqdhg7qnc/image/upload/v1615286669/shonenplays/carousel/carousel-4_g9vpzf.jpg',
+      thumbnailImg:
+        'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615286669/shonenplays/carousel/carousel-4_g9vpzf.jpg',
+    },
   ]
 
-  const _renderItem = ({item, index}) => {
-    return <Image style={styles.image} source={item} />
+  const _renderItem = ({item: {img, thumbnailImg}, index}) => {
+    return (
+      <Image
+        style={styles.image}
+        uri={img}
+        tint="light"
+        preview={{uri: thumbnailImg}}
+      />
+    )
   }
 
   return (
