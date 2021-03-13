@@ -1,7 +1,7 @@
-import React, {useState, useMemo} from 'react'
-import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native'
+import React, {useState, useContext} from 'react'
+import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 //Data
-import {Categories, Products} from '../../mockdata'
+import {Products} from '../../mockdata'
 //Styling
 import styles from './style'
 import {Size} from '../../style'
@@ -9,10 +9,14 @@ import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
 //Components
+import {Image} from 'react-native-expo-image-cache'
 import {TabScreenHeader} from '../../parts'
 import {Search, Product, Category} from '../../components'
+//Others
+import {StaticContext} from '../../contexts'
 
 export default ({navigation}) => {
+  const {allCategories} = useContext(StaticContext)
   const [searchKeyword, setSearchKeyword] = useState('')
   const popularItems = Products.filter((product) => product.isPopular === true)
   const promoItems = Products.filter((product) => product.isPromo === true)
@@ -32,11 +36,13 @@ export default ({navigation}) => {
           onSubmit={() => console.log('Test')}
         />
         <Image
-          source={{
-            uri:
-              'https://storage.googleapis.com/shonenplays-mobile/promos/Screen%20Shot%202021-01-13%20at%2017.56.35.png',
-          }}
+          uri="https://storage.googleapis.com/shonenplays-mobile/promos/Screen%20Shot%202021-01-13%20at%2017.56.35.png"
           style={styles.bannerImage}
+          tint="light"
+          preview={{
+            uri:
+              'https://res.cloudinary.com/dqdhg7qnc/image/upload/c_thumb,w_200,g_face/v1615098170/shonenplays/products/Manga_-_Weekly_Shonen_Jumo_Issue_5_q6enza.png',
+          }}
         />
         <View
           style={{
@@ -93,7 +99,7 @@ export default ({navigation}) => {
             <Text
               onPress={() =>
                 navigation.navigate('Categories', {
-                  Categories,
+                  allCategories: allCategories.response,
                 })
               }
               style={styles.functionalText}>
@@ -102,7 +108,7 @@ export default ({navigation}) => {
           </View>
           <View
             style={tailwind('flex-row flex-wrap items-center justify-between')}>
-            {Categories.slice(0, 6).map((category, index) => (
+            {allCategories.response.slice(0, 6).map((category, index) => (
               <Category key={index} category={category} />
             ))}
           </View>

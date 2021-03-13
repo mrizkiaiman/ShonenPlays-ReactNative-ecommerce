@@ -1,21 +1,19 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import {Text, View, ScrollView, TouchableOpacity} from 'react-native'
 //Styling
 import styles from './style'
 import {tailwind} from '../../style/tailwind'
 //Components
 import {SvgUri} from 'react-native-svg'
+//Others
+import {StaticContext} from '../../contexts'
 
-export default ({
-  route: {
-    params: {allCategories},
-  },
-  navigation,
-}) => {
+export default ({navigation}) => {
+  const {allCategories} = useContext(StaticContext)
   return (
     <ScrollView style={styles.mainContainer}>
       <View style={styles.categoryListContainer}>
-        {allCategories.map((category, index) => (
+        {allCategories.response.map((category, index) => (
           <View
             key={index}
             style={tailwind('justify-center items-center mb-4')}>

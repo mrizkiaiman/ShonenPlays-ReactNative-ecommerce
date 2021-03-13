@@ -27,6 +27,7 @@ import {
   submitCart_API,
 } from '../../services/cart'
 import {updateCart_redux, clearCart_redux} from '../../store/actions/cart'
+import {fetchOrders_redux} from '../../store/actions/orders'
 
 export default ({navigation, route: {params}}) => {
   useEffect(() => {
@@ -37,8 +38,9 @@ export default ({navigation, route: {params}}) => {
 
   const dispatch = useDispatch()
   const cartFromRedux = useSelector((state) => state.cart.data)
+  const addressFromRedux = useSelector((state) => state.address.data)
   const [selectedAddress, setSelectedAddress] = useState(
-    cartFromRedux.shipping_address,
+    cartFromRedux.shipping_address ? cartFromRedux.shipping_address : null,
   )
   const [selectedShippingMethod, setSelectedShippingMethod] = useState(
     cartFromRedux.shipping_method,
@@ -57,7 +59,7 @@ export default ({navigation, route: {params}}) => {
     modalAction('close', 'shippingMethod')
   }
 
-  const paymentOnSubmit = () => {
+  const paymentOnSubmit = async () => {
     if (!selectedAddress || !selectedShippingMethod)
       Toast({
         title: 'Warning',
@@ -65,13 +67,14 @@ export default ({navigation, route: {params}}) => {
         type: 'error',
       })
     else {
-      submitCart_API()
+      await submitCart_API()
+      dispatch(fetchOrders_redux())
       dispatch(clearCart_redux())
-      navigation.navigate('BottomTabs', {screen: 'Orders'})
       Toast({
         title: 'Success',
         text: 'Payment success!',
       })
+      navigation.navigate('BottomTabs', {screen: 'Orders'})
     }
   }
 
@@ -111,12 +114,19 @@ export default ({navigation, route: {params}}) => {
               <Text
                 onPress={() => modalAction('open', 'shippingAddress')}
                 style={styles.functionalText}>
-                Change Address
+                {selectedAddress ? 'Change address' : 'Choose address'}
               </Text>
             )}
           </View>
           {selectedAddress ? (
             <Address addressData={selectedAddress} />
+          ) : addressFromRedux.length > 0 ? (
+            <EmptyState
+              onSubmit={() => modalAction('open', 'shippingAddress')}
+              screen="Address"
+              buttonText="Choose address"
+              size="sm"
+            />
           ) : (
             <EmptyState
               onSubmit={() =>
@@ -184,7 +194,13 @@ export default ({navigation, route: {params}}) => {
                 cartFromRedux.shipping_method.cost
                   ? cartFromRedux.shipping_method.cost
                   : 0,
-              total: cartFromRedux && cartFromRedux.total,
+              total:
+                cartFromRedux.total -
+                (cartFromRedux &&
+                cartFromRedux.shipping_method &&
+                cartFromRedux.shipping_method.cost
+                  ? cartFromRedux.shipping_method.cost
+                  : 0),
               discount: cartFromRedux && cartFromRedux.discount,
             }}
           />
