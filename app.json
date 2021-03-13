@@ -1,6 +1,6 @@
 {
-  "name": "client",
-  "displayName": "client",
+  "name": "ShonenPlays",
+  "displayName": "ShonenPlays",
   "expo": {
     "splash": {
       "image": "./src/assets/splash.png",
@@ -23,8 +23,8 @@
         "svg"
       ]
     },
-    "name": "client",
-    "slug": "client",
+    "name": "ShonenPlays",
+    "slug": "ShonenPlays",
     "version": "1.0.0",
     "icon": "./src/assets/icon.png",
     "assetBundlePatterns": ["**/*"]
