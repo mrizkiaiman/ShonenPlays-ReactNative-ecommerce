@@ -1,15 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import {AppLoading} from 'expo'
 import {Provider} from 'react-redux'
-import {NavigationContainer} from '@react-navigation/native'
 import * as ScreenOrientation from 'expo-screen-orientation'
 import store from './src/store'
 //Components
-import {OfflineNotice} from './src/components'
 import AppIntroSlider from './app-intro-slider'
+import {OfflineNotice} from './src/components'
 import Toast from 'react-native-toast-message'
-import AuthNavigator from './src/navigation/AuthNavigator'
-import MainNavigator from './src/navigation/MainNavigator'
 import Navigation from './src/navigation'
 //Fonts
 import {
@@ -70,11 +67,7 @@ export default function App() {
     if (user) setUser(user)
   }
 
-  if (!isReady || !fontsLoaded)
-    return (
-      <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
-    )
-  else {
+  const MainNavigator = () => {
     return (
       <AuthContext.Provider value={{user, setUser}}>
         <StaticContext.Provider
@@ -92,6 +85,16 @@ export default function App() {
         </StaticContext.Provider>
       </AuthContext.Provider>
     )
+  }
+
+  if (!isReady || !fontsLoaded)
+    return (
+      <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
+    )
+  else if (user || openApp) {
+    return <MainNavigator />
+  } else {
+    return <AppIntroSlider openApp={() => setOpenApp(true)} />
   }
 
   // if (user) {

@@ -27,98 +27,97 @@ export default function Home({navigation}) {
     dispatch(fetchOrders_redux())
   }, [])
 
+  if (
+    bestSellerProducts.loading &&
+    popularCategories.loading &&
+    allCategories.loading
+  )
+    return (
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <ActivityIndicator size="large" color="#0389FF" />
+      </View>
+    )
+
   return (
     <ScrollView>
       <ScrollViewBounced color="#006266" />
-      {bestSellerProducts.loading &&
-      popularCategories.loading &&
-      allCategories.loading ? (
-        <View style={{flex: 1, justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color="#0389FF" />
-        </View>
-      ) : (
-        <View style={styles.mainContainer}>
-          <View style={styles.banner}>
-            <View style={styles.bannerContentContainer}>
-              <Text style={styles.bannerShonenText}>
-                Shonen<Text style={styles.bannerPlaysText}>Plays</Text>
-              </Text>
-              <Text style={styles.welcomeUserText}>
-                Welcome, M. Rizki Aiman
-              </Text>
-              <SearchBar />
-            </View>
-            <View style={styles.carouselContainer}>
-              <Carousel />
-            </View>
+      <View style={styles.mainContainer}>
+        <View style={styles.banner}>
+          <View style={styles.bannerContentContainer}>
+            <Text style={styles.bannerShonenText}>
+              Shonen<Text style={styles.bannerPlaysText}>Plays</Text>
+            </Text>
+            <Text style={styles.welcomeUserText}>Welcome, M. Rizki Aiman</Text>
+            <SearchBar />
           </View>
-          <View style={styles.sectionContainer}>
-            <View style={styles.sectionHeaderContainer}>
-              <Text style={styles.titleSectionText}>Popular</Text>
-              {/* <Text style={styles.functionalText}>See all</Text> */}
-            </View>
-            <ScrollView horizontal style={styles.sectionContentContainer}>
-              {popularCategories.response.map((category, index) => (
-                <PopularCategory key={index} category={category} />
-              ))}
-            </ScrollView>
+          <View style={styles.carouselContainer}>
+            <Carousel />
+          </View>
+        </View>
+        <View style={styles.sectionContainer}>
+          <View style={styles.sectionHeaderContainer}>
+            <Text style={styles.titleSectionText}>Popular</Text>
+            {/* <Text style={styles.functionalText}>See all</Text> */}
+          </View>
+          <ScrollView horizontal style={styles.sectionContentContainer}>
+            {popularCategories.response.map((category, index) => (
+              <PopularCategory key={index} category={category} />
+            ))}
+          </ScrollView>
+        </View>
+        <View
+          style={{
+            ...styles.sectionContainer,
+            marginTop: 40,
+          }}>
+          <View style={styles.sectionHeaderContainer}>
+            <Text style={styles.titleSectionText}>Best Seller</Text>
+            <Text
+              onPress={() =>
+                navigation.navigate('Products', {keyword: 'Best Seller'})
+              }
+              style={styles.functionalText}>
+              See all
+            </Text>
           </View>
           <View
             style={{
-              ...styles.sectionContainer,
-              marginTop: 40,
+              ...styles.sectionContentContainer,
+              ...tailwind('flex-wrap justify-between items-center'),
             }}>
-            <View style={styles.sectionHeaderContainer}>
-              <Text style={styles.titleSectionText}>Best Seller</Text>
-              <Text
-                onPress={() =>
-                  navigation.navigate('Products', {keyword: 'Best Seller'})
-                }
-                style={styles.functionalText}>
-                See all
-              </Text>
-            </View>
-            <View
-              style={{
-                ...styles.sectionContentContainer,
-                ...tailwind('flex-wrap justify-between items-center'),
-              }}>
-              {bestSellerProducts.response.slice(0, 4).map((product, index) => (
-                <Product
-                  customStyle={{
-                    width: width > 410 ? 175 : 155,
-                  }}
-                  key={product._id}
-                  product={product}
-                />
-              ))}
-            </View>
-          </View>
-          <View
-            style={{
-              ...styles.sectionContainer,
-              ...tailwind('mt-10 mb-7'),
-              width,
-            }}>
-            <View style={styles.sectionHeaderContainer}>
-              <Text style={styles.titleSectionText}>Categories</Text>
-              <Text
-                onPress={() => navigation.navigate('Categories')}
-                style={styles.functionalText}>
-                See all
-              </Text>
-            </View>
-            <View
-              style={tailwind(
-                'flex-row flex-wrap items-center justify-between',
-              )}>
-              {allCategories.response.slice(0, 9).map((category, index) => (
-                <Category key={index} category={category} />
-              ))}
-            </View>
+            {bestSellerProducts.response.slice(0, 4).map((product, index) => (
+              <Product
+                customStyle={{
+                  width: width > 410 ? 175 : 155,
+                }}
+                key={product._id}
+                product={product}
+              />
+            ))}
           </View>
         </View>
-      )}
+        <View
+          style={{
+            ...styles.sectionContainer,
+            ...tailwind('mt-10 mb-7'),
+            width,
+          }}>
+          <View style={styles.sectionHeaderContainer}>
+            <Text style={styles.titleSectionText}>Categories</Text>
+            <Text
+              onPress={() => navigation.navigate('Categories')}
+              style={styles.functionalText}>
+              See all
+            </Text>
+          </View>
+          <View
+            style={tailwind('flex-row flex-wrap items-center justify-between')}>
+            {allCategories.response.slice(0, 9).map((category, index) => (
+              <Category key={index} category={category} />
+            ))}
+          </View>
+        </View>
+      </View>
     </ScrollView>
   )
 }

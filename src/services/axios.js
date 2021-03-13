@@ -1,8 +1,10 @@
 import axios from 'axios'
-import {Cache} from '../utils'
+
+const local = 'http://192.168.0.107:3001'
+const deployed = 'https://shonenplaysmobile-api.herokuapp.com'
 
 const instance = axios.create({
-  baseURL: 'http://192.168.0.107:3000',
+  baseURL: deployed,
 })
 
 // const get = instance.get

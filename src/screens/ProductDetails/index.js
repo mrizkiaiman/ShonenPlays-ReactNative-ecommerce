@@ -19,7 +19,6 @@ import {getProductsByCategory_API} from '../../services/products'
 export default ({route: {params}, navigation}) => {
   const [qty, setQty] = useState(1)
   const {product} = params
-  console.log(product)
   const dispatch = useDispatch()
   const productsByCategory = useAPI(getProductsByCategory_API, product.category)
   const relatedProducts = productsByCategory.response.filter(
