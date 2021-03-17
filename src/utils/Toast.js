@@ -2,7 +2,7 @@ import Toast from 'react-native-toast-message'
 
 export default (options) => {
   const {title, text, type} = options
-  Toast.show({
+  return Toast.show({
     text1: title,
     text2: text,
     position: 'bottom',

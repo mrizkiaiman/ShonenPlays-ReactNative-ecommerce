@@ -12,6 +12,7 @@ export default async (email, password) => {
     })
     return {ok: true, data: response.data}
   } catch (error) {
+    console.log(error)
     return error
   }
 }

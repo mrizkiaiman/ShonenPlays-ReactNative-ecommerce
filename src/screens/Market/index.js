@@ -13,9 +13,7 @@ import {Search, Product, Category} from '../../components'
 import {StaticContext} from '../../contexts'
 
 export default ({navigation}) => {
-  const {allCategories, promoProducts, bestSellerProducts} = useContext(
-    StaticContext,
-  )
+  const {allCategories, promoProducts, bestSeller} = useContext(StaticContext)
   const [searchKeyword, setSearchKeyword] = useState('')
 
   return (
@@ -57,7 +55,7 @@ export default ({navigation}) => {
             </Text>
           </View>
           <View style={tailwind('flex-wrap flex-row justify-between')}>
-            {bestSellerProducts.response.slice(0, 4).map((product, index) => (
+            {bestSeller.response.slice(0, 4).map((product, index) => (
               <TouchableOpacity
                 key={index}
                 onPress={() =>

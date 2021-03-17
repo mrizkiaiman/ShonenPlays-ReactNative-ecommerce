@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack'
 import {NavigationContainer} from '@react-navigation/native'
 //Components
@@ -11,19 +11,14 @@ import Checkout from '../screens/Checkout'
 import OrderDetails from '../screens/OrderDetails'
 import Wishlist from '../screens/Wishlist'
 import ChangePassword from '../screens/ChangePassword'
-//Authenthication
 import SignIn from '../screens/Sign-In'
-import SignUp from '../screens/Sign-Up'
-//MoreMenu
+//More menu
 import ShippingAddress from '../screens/Address'
 import AddShippingAddress from '../screens/Address-add'
 import EditShippingAddress from '../screens/Address-edit'
 import Maps from '../screens/Address-maps'
-//Functions
-import AuthContext from '../auth/context'
-import authStorage from '../auth/storage'
 
-export default function navigation({user}) {
+const AppNavigator = () => {
   const Stack = createStackNavigator()
   return (
     <NavigationContainer>
@@ -31,7 +26,7 @@ export default function navigation({user}) {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName={user ? 'BottomTabs' : 'SignIn'}>
+        initialRouteName={'BottomTabs'}>
         <Stack.Screen
           options={{title: 'Home'}}
           name="BottomTabs"
@@ -131,10 +126,16 @@ export default function navigation({user}) {
             title: 'Change Password',
           })}
         />
-        {/* Authenthication */}
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={() => ({
+            headerShown: false,
+          })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
+
+export default AppNavigator

@@ -5,9 +5,10 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 import store from './src/store'
 //Components
 import AppIntroSlider from './app-intro-slider'
+import AuthNavigator from './src/navigation/AuthNavigator'
+import AppNavigator from './src/navigation/AppNavigator'
 import {OfflineNotice} from './src/components'
 import Toast from 'react-native-toast-message'
-import Navigation from './src/navigation'
 //Fonts
 import {
   useFonts,
@@ -29,21 +30,25 @@ import {
   getCategories_API,
   getPromo_API,
 } from './src/services/products'
-import {useAPI} from './src/hooks'
 
 export default function App() {
   const [openApp, setOpenApp] = useState(false)
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
   const [isReady, setIsReady] = useState(false)
-
-  const bestSellerProducts = useAPI(getBestSeller_API)
-  const promoProducts = useAPI(getPromo_API)
-  const popularCategories = useAPI(getPopularCategories_API)
-  const allCategories = useAPI(getCategories_API)
+  const [staticData, setStaticData] = useState({})
 
   useEffect(() => {
+    fetchStaticData()
     lockOrientation()
   }, [])
+
+  const fetchStaticData = async () => {
+    const bestSeller = await getBestSeller_API()
+    const promoProducts = await getPromo_API()
+    const popularCategories = await getPopularCategories_API()
+    const allCategories = await getCategories_API()
+    setStaticData({bestSeller, promoProducts, popularCategories, allCategories})
+  }
 
   const lockOrientation = async () => {
     const locked = await ScreenOrientation.lockAsync(
@@ -72,14 +77,13 @@ export default function App() {
       <AuthContext.Provider value={{user, setUser}}>
         <StaticContext.Provider
           value={{
-            bestSellerProducts,
-            popularCategories,
-            allCategories,
-            promoProducts,
+            ...staticData,
           }}>
           <Provider store={store}>
             <OfflineNotice />
-            <Navigation user={user} />
+
+            {user ? <AppNavigator /> : <AuthNavigator />}
+
             <Toast ref={(ref) => Toast.setRef(ref)} />
           </Provider>
         </StaticContext.Provider>
@@ -91,35 +95,50 @@ export default function App() {
     return (
       <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
     )
-  else if (user || openApp) {
-    return <MainNavigator />
-  } else {
-    return <AppIntroSlider openApp={() => setOpenApp(true)} />
-  }
-
-  // if (user) {
-  //   return (
-  //     <AuthContext.Provider value={{user, setUser}}>
-  //       <Provider store={store}>
-  //         <NavigationContainer>
-  //           {user ? <MainNavigator /> : <AuthNavigator />}
-  //         </NavigationContainer>
-  //         <Toast ref={(ref) => Toast.setRef(ref)} />
-  //       </Provider>
-  //     </AuthContext.Provider>
-  //   )
-  // } else if (openApp) {
-  //   return (
-  //     <AuthContext.Provider value={{user, setUser}}>
-  //       <Provider store={store}>
-  //         <NavigationContainer>
-  //           {user ? <MainNavigator /> : <AuthNavigator />}
-  //         </NavigationContainer>
-  //         <Toast ref={(ref) => Toast.setRef(ref)} />
-  //       </Provider>
-  //     </AuthContext.Provider>
-  //   )
-  // } else {
-  //   return <AppIntroSlider openApp={() => setOpenApp(true)} />
-  // }
+  else return <MainNavigator />
 }
+
+// const bestSeller = useAPI(getBestSeller_API)
+// const promoProducts = useAPI(getPromo_API)
+// const popularCategories = useAPI(getPopularCategories_API)
+// const allCategories = useAPI(getCategories_API)
+
+// useEffect(() => {
+//   lockOrientation()
+// }, [])
+
+// if (!isReady || !fontsLoaded)
+//   return (
+//     <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
+//   )
+// else if (user || openApp) {
+//   return <MainNavigator />
+// } else {
+//   return <AppIntroSlider openApp={() => setOpenApp(true)} />
+// }
+
+// if (user) {
+//   return (
+//     <AuthContext.Provider value={{user, setUser}}>
+//       <Provider store={store}>
+//         <NavigationContainer>
+//           {user ? <MainNavigator /> : <AuthNavigator />}
+//         </NavigationContainer>
+//         <Toast ref={(ref) => Toast.setRef(ref)} />
+//       </Provider>
+//     </AuthContext.Provider>
+//   )
+// } else if (openApp) {
+//   return (
+//     <AuthContext.Provider value={{user, setUser}}>
+//       <Provider store={store}>
+//         <NavigationContainer>
+//           {user ? <MainNavigator /> : <AuthNavigator />}
+//         </NavigationContainer>
+//         <Toast ref={(ref) => Toast.setRef(ref)} />
+//       </Provider>
+//     </AuthContext.Provider>
+//   )
+// } else {
+//   return <AppIntroSlider openApp={() => setOpenApp(true)} />
+// }

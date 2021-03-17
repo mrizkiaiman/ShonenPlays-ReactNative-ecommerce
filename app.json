@@ -27,6 +27,14 @@
     "slug": "ShonenPlays",
     "version": "1.0.0",
     "icon": "./src/assets/icon.png",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.mrizkiaiman.ShonenPlays"
+    },
+    "android": {
+      "package": "com.mrizkiaiman.ShonenPlays"
+    }
   }
 }

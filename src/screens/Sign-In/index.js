@@ -19,14 +19,9 @@ export default function SignInScreen({navigation}) {
   const signInOnSubmit = async (values) => {
     const {email, password} = values
     const result = await signIn_API(email, password)
-
-    if (result.ok) {
-      auth.logIn(result.data.token)
-      Toast({title: 'Success', text: 'Logged in'})
-      navigation.push('BottomTabs', {screen: 'Home'})
-    } else if (result.name.includes('Error')) {
+    if (result.ok) await auth.logIn(result.data.token)
+    else if (result.name.includes('Error'))
       Toast({title: 'Failed', text: 'Wrong email/password', type: 'error'})
-    }
   }
 
   const googleSignIn = async () => {

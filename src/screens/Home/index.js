@@ -18,7 +18,7 @@ import {fetchOrders_redux} from '../../store/actions/orders'
 
 export default function Home({navigation}) {
   const dispatch = useDispatch()
-  const {bestSellerProducts, popularCategories, allCategories} = useContext(
+  const {bestSeller, popularCategories, allCategories} = useContext(
     StaticContext,
   )
   useEffect(() => {
@@ -26,17 +26,6 @@ export default function Home({navigation}) {
     dispatch(fetchAddress_redux())
     dispatch(fetchOrders_redux())
   }, [])
-
-  if (
-    bestSellerProducts.loading &&
-    popularCategories.loading &&
-    allCategories.loading
-  )
-    return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <ActivityIndicator size="large" color="#0389FF" />
-      </View>
-    )
 
   return (
     <ScrollView>
@@ -60,9 +49,10 @@ export default function Home({navigation}) {
             {/* <Text style={styles.functionalText}>See all</Text> */}
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
-            {popularCategories.response.map((category, index) => (
-              <PopularCategory key={index} category={category} />
-            ))}
+            {popularCategories &&
+              popularCategories.map((category, index) => (
+                <PopularCategory key={index} category={category} />
+              ))}
           </ScrollView>
         </View>
         <View
@@ -85,15 +75,16 @@ export default function Home({navigation}) {
               ...styles.sectionContentContainer,
               ...tailwind('flex-wrap justify-between items-center'),
             }}>
-            {bestSellerProducts.response.slice(0, 4).map((product, index) => (
-              <Product
-                customStyle={{
-                  width: width > 410 ? 175 : 155,
-                }}
-                key={product._id}
-                product={product}
-              />
-            ))}
+            {bestSeller &&
+              bestSeller.slice(0, 4).map((product, index) => (
+                <Product
+                  customStyle={{
+                    width: width > 410 ? 175 : 155,
+                  }}
+                  key={product._id}
+                  product={product}
+                />
+              ))}
           </View>
         </View>
         <View
@@ -112,9 +103,12 @@ export default function Home({navigation}) {
           </View>
           <View
             style={tailwind('flex-row flex-wrap items-center justify-between')}>
-            {allCategories.response.slice(0, 9).map((category, index) => (
-              <Category key={index} category={category} />
-            ))}
+            {allCategories &&
+              allCategories
+                .slice(0, 9)
+                .map((category, index) => (
+                  <Category key={index} category={category} />
+                ))}
           </View>
         </View>
       </View>

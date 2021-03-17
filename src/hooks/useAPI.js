@@ -1,23 +1,28 @@
 import {useState, useEffect} from 'react'
-import AsyncStorage from '@react-native-community/async-storage'
 
 export default (apiFunction, args) => {
   const [response, setResponse] = useState([])
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
+  let isMounted = false
 
   useEffect(() => {
+    isMounted = true
     const callApi = async () => {
       try {
         const result = await apiFunction(args)
-        setLoading(false)
-        setResponse(result)
+        if (isMounted) {
+          setLoading(false)
+          setResponse(result)
+        }
       } catch (error) {
-        setError(true)
+        if (isMounted) setError(true)
       }
     }
-
     callApi()
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   return {response, loading, error}
