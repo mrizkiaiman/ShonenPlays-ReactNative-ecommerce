@@ -42,12 +42,13 @@ export default ({productData}) => {
     )
   }
 
+  const navigateToProductDetails = () => {
+    navigation.navigate('ProductDetails', {product: productData})
+  }
+
   return (
     <View style={styles.mainContainer}>
-      <TouchableOpacity
-        onPress={() =>
-          navigation.navigate('ProductDetails', {product: productData})
-        }>
+      <TouchableOpacity onPress={navigateToProductDetails}>
         <Image
           style={styles.productImage}
           uri={img}
@@ -80,7 +81,7 @@ export default ({productData}) => {
           />
         </View>
       </View>
-      <TouchableOpacity onPress={() => removeFromCart_APIOnSubmit()}>
+      <TouchableOpacity onPress={removeFromCart_APIOnSubmit}>
         <Ionicons
           style={{marginTop: -2}}
           name="ios-close"

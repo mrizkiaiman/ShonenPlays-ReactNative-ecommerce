@@ -11,7 +11,7 @@ import CheckedIcon from '../../assets/icons/circle-check.svg'
 
 export default ({onSubmit, customStyle, checkedValue, value}) => {
   return (
-    <TouchableOpacity style={customStyle} onPress={() => onSubmit()}>
+    <TouchableOpacity style={customStyle} onPress={onSubmit}>
       <Text style={styles.listText}>{value}</Text>
       {value === checkedValue ? (
         <CheckedIcon style={{marginRight: 16, marginBottom: 4}} />

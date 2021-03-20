@@ -17,6 +17,8 @@ export default () => {
     return Products.filter((product) => product.isPopular === true)
   }, [])
   const wishlistFromRedux = useSelector((state) => state.wishlist.data)
+
+  const navigateToMarket = () => navigation.navigate('Market')
   return (
     <>
       <ScrollView>
@@ -26,7 +28,7 @@ export default () => {
               <Search
                 searchKeyword={searchKeyword}
                 setSearchKeyword={setSearchKeyword}
-                onSubmit={() => console.log('Test')}
+                onSubmit={null}
               />
               <View style={tailwind('m-4')}>
                 {wishlistFromRedux.map((product, index) => (
@@ -52,7 +54,7 @@ export default () => {
         ) : (
           <View style={tailwind('mt-10')}>
             <EmptyState
-              onSubmit={() => navigation.navigate('Market')}
+              onSubmit={navigateToMarket}
               screen="Wishlist"
               buttonText="Browse items"
             />

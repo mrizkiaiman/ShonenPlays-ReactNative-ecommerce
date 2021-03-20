@@ -17,8 +17,10 @@ import {StaticContext} from '../../contexts'
 export default ({navigation}) => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const popularKeywords = ['AJ1 Chicago', 'Shonen JUMP!', 'One Piece']
-  const getPopularCategoriesAPI = useAPI(getPopularCategories_API)
   const {popularCategories} = useContext(StaticContext)
+
+  const navigateToProducts = () =>
+    navigation.navigate('Products', {keyword: searchKeyword})
 
   return (
     <ScrollView style={tailwind('bg-white')}>
@@ -29,9 +31,7 @@ export default ({navigation}) => {
           customStyles={{
             backgroundColor: '#F6F7F8',
           }}
-          onSubmit={() =>
-            navigation.navigate('Products', {keyword: searchKeyword})
-          }
+          onSubmit={navigateToProducts}
         />
         <View style={styles.sectionContainer}>
           <View style={styles.sectionHeaderContainer}>
@@ -52,7 +52,7 @@ export default ({navigation}) => {
             <Text style={styles.titleSectionText}>Top categories</Text>
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
-            {popularCategories.response.map((category, index) => (
+            {popularCategories.map((category, index) => (
               <PopularCategory key={index} category={category} />
             ))}
           </ScrollView>

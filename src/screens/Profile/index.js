@@ -64,6 +64,8 @@ export default ({navigation}) => {
     modalAction('close', 'editProfile')
   }
 
+  const tempSave = () => console.log('Test')
+
   const menuFirstRow = [
     {
       name: 'Edit Profile',
@@ -155,7 +157,7 @@ export default ({navigation}) => {
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'editProfile')}
-            saveMethod={() => saveProfile()}
+            saveMethod={saveProfile}
             title="Edit Profile"
           />
         }
@@ -172,7 +174,7 @@ export default ({navigation}) => {
           <ModalHeader
             cancelMethod={() => modalAction('close', 'changePassword')}
             title="Change Password"
-            saveMethod={() => console.log('Test')}
+            saveMethod={tempSave}
           />
         }
         modalHeight={height / 1.25}>

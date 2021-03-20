@@ -101,7 +101,7 @@ export default ({screen, onSubmit, buttonText, size}) => {
           buttonStyle: styles.button,
           textStyle: styles.buttonText,
         }}
-        onSubmit={() => onSubmit()}
+        onSubmit={onSubmit}
         title={buttonText}
       />
     </View>

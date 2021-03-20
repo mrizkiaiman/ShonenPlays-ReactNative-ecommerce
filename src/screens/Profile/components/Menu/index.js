@@ -11,11 +11,12 @@ import RightIcon from '../../../../assets/icons/rightDirection.svg'
 export default ({menu}) => {
   const {name, icon, screen, customOnSubmit} = menu
   const navigation = useNavigation()
+  const navigateToScreen = () => {
+    navigation.navigate(screen)
+  }
   return (
     <TouchableOpacity
-      onPress={() =>
-        customOnSubmit ? customOnSubmit() : navigation.navigate(screen)
-      }
+      onPress={customOnSubmit ? customOnSubmit : navigateToScreen}
       style={styles.mainContainer}>
       <View style={styles.nameAndIconContainer}>
         {icon}

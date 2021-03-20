@@ -15,6 +15,7 @@ export default ({navigation, route: {params}}) => {
   const {categoryId} = params
   const {bestSeller, promoProducts} = useContext(StaticContext)
   const productsByCategory = useAPI(getProductsByCategory_API, categoryId)
+  const navigateToMarket = () => navigation.navigate('Market')
 
   return (
     <>
@@ -31,7 +32,7 @@ export default ({navigation, route: {params}}) => {
         ) : (
           <View style={tailwind('mt-10')}>
             <EmptyState
-              onSubmit={() => navigation.navigate('Market')}
+              onSubmit={navigateToMarket}
               screen="Products"
               buttonText="Browse items"
             />
@@ -41,20 +42,28 @@ export default ({navigation, route: {params}}) => {
         <FlatList
           ListHeaderComponent={<Search />}
           numColumns={2}
-          data={bestSeller.response}
+          data={bestSeller}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item}) => <Product product={item} />}
+          columnWrapperStyle={tailwind('justify-between m-4 mx-6')}
+        />
+      ) : params && params.keyword == 'Promo Items' ? (
+        <FlatList
+          ListHeaderComponent={<Search />}
+          numColumns={2}
+          data={promoProducts}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => <Product product={item} />}
           columnWrapperStyle={tailwind('justify-between m-4 mx-6')}
         />
       ) : (
-        <FlatList
-          ListHeaderComponent={<Search />}
-          numColumns={2}
-          data={promoProducts.response}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => <Product product={item} />}
-          columnWrapperStyle={tailwind('justify-between m-4 mx-6')}
-        />
+        <View style={tailwind('mt-10')}>
+          <EmptyState
+            onSubmit={navigateToMarket}
+            screen="Products"
+            buttonText="Browse items"
+          />
+        </View>
       )}
     </>
   )

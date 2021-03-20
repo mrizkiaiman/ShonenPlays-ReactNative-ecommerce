@@ -78,6 +78,10 @@ export default ({navigation, route: {params}}) => {
     }
   }
 
+  const navigateToAddAddress = () =>
+    navigation.navigate('AddShippingAddress', {from: 'checkout'})
+  const tempSave = () => console.log('Test')
+
   //Modalize
   const changeShippingAddressModal = useRef(null)
   const changeShippingMethodModal = useRef(null)
@@ -129,9 +133,7 @@ export default ({navigation, route: {params}}) => {
             />
           ) : (
             <EmptyState
-              onSubmit={() =>
-                navigation.navigate('AddShippingAddress', {from: 'checkout'})
-              }
+              onSubmit={navigateToAddAddress}
               screen="Address"
               buttonText="Add new address"
               size="sm"
@@ -214,7 +216,7 @@ export default ({navigation, route: {params}}) => {
           },
           textStyle: tailwind('font-normal font-semibold text-white'),
         }}
-        onSubmit={() => paymentOnSubmit()}
+        onSubmit={paymentOnSubmit}
         title="Pay"
       />
       <Modalize
@@ -222,7 +224,7 @@ export default ({navigation, route: {params}}) => {
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'shippingAddress')}
-            saveMethod={() => console.log('Test')}
+            saveMethod={tempSave}
             title="Change Address"
           />
         }
@@ -234,7 +236,7 @@ export default ({navigation, route: {params}}) => {
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'shippingMethod')}
-            saveMethod={() => console.log('Test')}
+            saveMethod={tempSave}
             title="Change Shipping Method"
           />
         }

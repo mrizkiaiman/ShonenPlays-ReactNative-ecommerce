@@ -67,7 +67,7 @@ export default ({order}) => {
           <Text style={styles.costNumberText}>Rp{IDRFormat(order.total)}</Text>
         </View>
         <Button
-          onSubmit={() => console.log('Test')}
+          onSubmit={null}
           styling={{
             buttonStyle:
               order.status === 0

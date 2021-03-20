@@ -8,12 +8,11 @@ import {SvgUri} from 'react-native-svg'
 
 export default ({category}) => {
   const navigation = useNavigation()
+  const navigateToProducts = () => {
+    navigation.navigate('Products', {categoryId: category._id})
+  }
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('Products', {categoryId: category._id})
-      }
-      style={styles.mainContainer}>
+    <TouchableOpacity onPress={navigateToProducts} style={styles.mainContainer}>
       <View style={styles.iconContainer}>
         <SvgUri width={50} height={50} uri={category.icon} />
       </View>

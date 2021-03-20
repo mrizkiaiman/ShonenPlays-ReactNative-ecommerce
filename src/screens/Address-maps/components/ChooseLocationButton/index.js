@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 
 function ChooseLocationButton({name, navigate}) {
   return (
-    <TouchableOpacity style={styles.button} onPress={() => navigate()}>
+    <TouchableOpacity style={styles.button} onPress={navigate}>
       <Text style={styles.buttonText}>Choose this location</Text>
     </TouchableOpacity>
   )

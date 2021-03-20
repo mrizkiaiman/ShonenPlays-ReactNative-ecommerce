@@ -79,10 +79,14 @@ export default ({product, customStyle}) => {
     })
   }
 
+  const navigateToProductDetails = () => {
+    navigation.navigate('ProductDetails', {product})
+  }
+
   return (
     <View style={styles.mainContainer}>
       <TouchableOpacity
-        onPress={() => navigation.push('ProductDetails', {product})}
+        onPress={navigateToProductDetails}
         style={styles.contentContainer}>
         <Image
           style={styles.productImage}
@@ -105,10 +109,10 @@ export default ({product, customStyle}) => {
               buttonStyle: styles.addToCart_APIButton,
             }}
             title="Add to cart"
-            onSubmit={() => addToCart()}
+            onSubmit={addToCart}
           />
           <TouchableOpacity
-            onPress={() => addToWishlist()}
+            onPress={addToWishlist}
             style={styles.wishListButton}>
             <WishlistIcon />
           </TouchableOpacity>

@@ -58,7 +58,7 @@ export default ({navigation, route}) => {
           description="Chosen Location"
         />
       </MapView>
-      <ChooseLocationButton navigate={() => navigateScreen()} />
+      <ChooseLocationButton navigate={navigateScreen} />
     </View>
   )
 }

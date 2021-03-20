@@ -40,6 +40,9 @@ export default ({address}) => {
       {cancelable: false},
     )
   }
+  const navigateToEditAddress = () => {
+    navigation.navigate('EditShippingAddress', {addressData: address})
+  }
 
   return (
     <View style={styles.mainContainer}>
@@ -54,15 +57,13 @@ export default ({address}) => {
       <Text style={styles.phoneText}>{address.phone}</Text>
       <View style={styles.functionalButtonContainer}>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('EditShippingAddress', {addressData: address})
-          }
+          onPress={navigateToEditAddress}
           style={tailwind('flex-row items-center mr-2')}>
           <EditIcon style={tailwind('mr-1')} />
           <Text style={styles.functionalText}>Edit</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => removeAddress()}
+          onPress={removeAddress}
           style={tailwind('flex-row items-center')}>
           <DeleteIcon style={tailwind('mr-1')} />
           <Text style={styles.functionalText}>Delete</Text>

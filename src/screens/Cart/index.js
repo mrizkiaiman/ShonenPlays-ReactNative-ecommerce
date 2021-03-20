@@ -13,6 +13,8 @@ import {IDRFormat} from '../../utils'
 
 export default ({navigation}) => {
   const cartFromRedux = useSelector((state) => state.cart.data)
+  const navigateToMarket = () => navigation.navigate('Market')
+  const navigateToCheckout = () => navigation.navigate('Checkout')
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -32,7 +34,7 @@ export default ({navigation}) => {
           ) : (
             <View style={tailwind('mt-10')}>
               <EmptyState
-                onSubmit={() => navigation.navigate('Market')}
+                onSubmit={navigateToMarket}
                 screen="Cart"
                 buttonText="Browse items"
               />
@@ -56,7 +58,7 @@ export default ({navigation}) => {
                 buttonStyle: styles.checkoutButton,
                 textStyle: styles.checkoutButtonText,
               }}
-              onSubmit={() => navigation.navigate('Checkout')}
+              onSubmit={navigateToCheckout}
             />
           </View>
         )}

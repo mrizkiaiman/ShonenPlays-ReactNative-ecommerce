@@ -76,13 +76,11 @@ export default ({product}) => {
             Rp{IDRFormat(price)}
           </Text>
           <View style={tailwind('flex-row items-center mt-7')}>
-            <TouchableOpacity
-              onPress={() => removeItem()}
-              style={styles.deleteButton}>
+            <TouchableOpacity onPress={removeItem} style={styles.deleteButton}>
               <TrashIcon />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => addToCart()}
+              onPress={addToCart}
               style={styles.addToCart_APIButton}>
               <Text style={tailwind('font-normal font-semibold text-white')}>
                 Add to cart
@@ -112,8 +110,8 @@ const styles = StyleSheet.create({
   },
   productNameText:
     width > ip7.width
-      ? tailwind('font-normal font-semibold mb-2 w-11/12')
-      : tailwind('font-normal font-semibold mb-2 w-10/12'),
+      ? tailwind('font-normal font-semibold mb-2 w-10/12')
+      : tailwind('font-normal font-semibold mb-2 w-9/12'),
   deleteButton: {
     ...Buttons.whiteBorderedSubmitButton,
     height: 40,

@@ -15,6 +15,9 @@ import {StaticContext} from '../../contexts'
 export default ({navigation}) => {
   const {allCategories, promoProducts, bestSeller} = useContext(StaticContext)
   const [searchKeyword, setSearchKeyword] = useState('')
+  const navigateToProductDetails = () =>
+    navigation.navigate('Products', {keyword: 'Best Seller'})
+  const navigateToCategories = () => navigation.navigate('Categories')
 
   return (
     <ScrollView>
@@ -28,7 +31,7 @@ export default ({navigation}) => {
         <Search
           searchKeyword={searchKeyword}
           setSearchKeyword={setSearchKeyword}
-          onSubmit={() => console.log('Test')}
+          onSubmit={null}
         />
         <Image
           uri="https://storage.googleapis.com/shonenplays-mobile/promos/Screen%20Shot%202021-01-13%20at%2017.56.35.png"
@@ -55,21 +58,20 @@ export default ({navigation}) => {
             </Text>
           </View>
           <View style={tailwind('flex-wrap flex-row justify-between')}>
-            {bestSeller.response.slice(0, 4).map((product, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() =>
-                  navigation.navigate('ProductDetails', {product})
-                }>
-                <Product
-                  product={product}
-                  customStyle={{
-                    marginBottom: 25,
-                    width: width > 410 ? 170 : 155,
-                  }}
-                />
-              </TouchableOpacity>
-            ))}
+            {bestSeller &&
+              bestSeller.slice(0, 4).map((product, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={navigateToProductDetails}>
+                  <Product
+                    product={product}
+                    customStyle={{
+                      marginBottom: 25,
+                      width: width > 410 ? 170 : 155,
+                    }}
+                  />
+                </TouchableOpacity>
+              ))}
           </View>
         </View>
         <View style={styles.sectionContainer}>
@@ -84,15 +86,16 @@ export default ({navigation}) => {
             </Text>
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
-            {promoProducts.response.map((product, index) => (
-              <TouchableOpacity
-                key={index}
-                onPress={() =>
-                  navigation.navigate('ProductDetails', {product})
-                }>
-                <Product product={product} customStyle={{marginRight: 25}} />
-              </TouchableOpacity>
-            ))}
+            {promoProducts &&
+              promoProducts.map((product, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() =>
+                    navigation.navigate('ProductDetails', {product})
+                  }>
+                  <Product product={product} customStyle={{marginRight: 25}} />
+                </TouchableOpacity>
+              ))}
           </ScrollView>
         </View>
         <View
@@ -103,17 +106,18 @@ export default ({navigation}) => {
           }}>
           <View style={{...styles.sectionHeaderContainer, marginBottom: 0}}>
             <Text style={styles.titleSectionText}>Categories</Text>
-            <Text
-              onPress={() => navigation.navigate('Categories')}
-              style={styles.functionalText}>
+            <Text onPress={navigateToCategories} style={styles.functionalText}>
               See all
             </Text>
           </View>
           <View
             style={tailwind('flex-row flex-wrap items-center justify-between')}>
-            {allCategories.response.slice(0, 6).map((category, index) => (
-              <Category key={index} category={category} />
-            ))}
+            {allCategories &&
+              allCategories
+                .slice(0, 6)
+                .map((category, index) => (
+                  <Category key={index} category={category} />
+                ))}
           </View>
         </View>
       </View>

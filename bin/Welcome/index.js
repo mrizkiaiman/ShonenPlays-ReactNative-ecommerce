@@ -8,6 +8,9 @@ import Button from '../../src/components/Button'
 
 export default Welcome = ({navigation}) => {
   const {width, height} = Dimensions.get('window')
+  const navigateToSignIn = () => {
+    navigation.navigate('SignIn')
+  }
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
@@ -25,7 +28,7 @@ export default Welcome = ({navigation}) => {
             buttonStyle: styles.getStartedButton,
             textStyle: styles.getStartedButtonText,
           }}
-          onSubmit={() => navigation.navigate('SignIn')}
+          onSubmit={navigateToSignIn}
           title="Get Started"
         />
       </View>

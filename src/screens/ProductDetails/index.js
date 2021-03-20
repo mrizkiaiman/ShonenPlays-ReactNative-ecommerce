@@ -70,7 +70,7 @@ export default ({route: {params}, navigation}) => {
       </ScrollView>
       <View>
         <FooterButton
-          onSubmit={() => addToCart_APIOnSubmit()}
+          onSubmit={addToCart_APIOnSubmit}
           styling={{
             buttonStyle: styles.addToCart_APIButton,
             textStyle: styles.addToCart_APIButtonText,

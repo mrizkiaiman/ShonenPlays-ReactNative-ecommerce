@@ -6,12 +6,11 @@ import {tailwind} from '../../../../style/tailwind'
 
 export default ({category}) => {
   const navigation = useNavigation()
+  const navigateToProducts = () => {
+    navigation.navigate('Products', {categoryId: category._id})
+  }
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('Products', {categoryId: category._id})
-      }
-      style={styles.mainContainer}>
+    <TouchableOpacity onPress={navigateToProducts} style={styles.mainContainer}>
       <Image style={styles.image} source={{uri: category.popularIcon}} />
       <Text style={styles.nameText}>{category.name}</Text>
     </TouchableOpacity>

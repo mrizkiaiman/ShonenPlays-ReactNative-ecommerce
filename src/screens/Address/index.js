@@ -15,13 +15,16 @@ import {AddressCard} from './components'
 
 export default ({navigation}) => {
   const addressFromRedux = useSelector((state) => state.address.data)
+  const navigateToAddAddress = () => {
+    navigation.navigate('AddShippingAddress')
+  }
   return (
     <ScrollView>
       <View style={styles.mainContainer}>
         {addressFromRedux.length > 0 ? (
           <View>
             <Button
-              onSubmit={() => navigation.navigate('AddShippingAddress')}
+              onSubmit={navigateToAddAddress}
               styling={{
                 buttonStyle: styles.addNewAddressButton,
                 textStyle: styles.addNewAddressButtonText,
@@ -41,7 +44,7 @@ export default ({navigation}) => {
         ) : (
           <View style={tailwind('mt-20')}>
             <EmptyState
-              onSubmit={() => navigation.navigate('AddShippingAddress')}
+              onSubmit={navigateToAddAddress}
               screen="Address"
               buttonText="Add new address"
             />

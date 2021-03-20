@@ -188,6 +188,23 @@ export default ({navigation, route: {params}}) => {
     },
   ]
 
+  const tempSave = () => console.log('Test')
+  const navigateToMaps = () => {
+    navigation.navigate('Maps', {from: 'add'})
+  }
+
+  const chooseProvince = () => {
+    setProvince(item)
+    setCity('')
+    setCities(Provinces[item])
+    modalAction('close', 'province')
+  }
+
+  const chooseCity = () => {
+    setCity(item)
+    modalAction('close', 'city')
+  }
+
   return (
     <>
       <ScrollView>
@@ -199,7 +216,7 @@ export default ({navigation, route: {params}}) => {
             ))}
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Maps', {from: 'add'})}
+            onPress={navigateToMaps}
             style={styles.pinLocationContainer}>
             <View style={tailwind('flex-row items-center')}>
               <PinLocationIcon style={{marginRight: 10}} />
@@ -226,7 +243,7 @@ export default ({navigation, route: {params}}) => {
           textStyle: styles.saveButtonText,
         }}
         title="Save"
-        onSubmit={() => saveAddress()}
+        onSubmit={saveAddress}
       />
       {/* Modals */}
       <Modalize
@@ -234,7 +251,7 @@ export default ({navigation, route: {params}}) => {
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'province')}
-            saveMethod={() => console.log('Test')}
+            saveMethod={tempSave}
             title="Province"
           />
         }
@@ -247,12 +264,7 @@ export default ({navigation, route: {params}}) => {
               value={item}
               checkedValue={province}
               customStyle={styles.provinceCityListContainer}
-              onSubmit={() => {
-                setProvince(item)
-                setCity('')
-                setCities(Provinces[item])
-                modalAction('close', 'province')
-              }}
+              onSubmit={chooseProvince}
             />
           ),
         }}></Modalize>
@@ -261,7 +273,7 @@ export default ({navigation, route: {params}}) => {
         HeaderComponent={
           <ModalHeader
             cancelMethod={() => modalAction('close', 'city')}
-            saveMethod={() => console.log('Test')}
+            saveMethod={tempSave}
             title="City"
           />
         }
@@ -274,10 +286,7 @@ export default ({navigation, route: {params}}) => {
               value={item}
               checkedValue={city}
               customStyle={styles.provinceCityListContainer}
-              onSubmit={() => {
-                setCity(item)
-                modalAction('close', 'city')
-              }}
+              onSubmit={chooseCity}
             />
           ),
         }}></Modalize>

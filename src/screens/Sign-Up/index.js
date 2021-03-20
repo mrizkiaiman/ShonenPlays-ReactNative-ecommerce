@@ -106,7 +106,7 @@ export default function SignUpScreen({navigation}) {
           />
         </Form>
         <Button
-          onSubmit={() => googleSignIn()}
+          onSubmit={googleSignIn}
           styling={{
             buttonStyle: styles.connectWithGoogleButton,
             textStyle: styles.connectWithGoogleButtonText,
@@ -116,9 +116,7 @@ export default function SignUpScreen({navigation}) {
         />
         <Text style={styles.navigateToSignUpText}>
           Already have an account?{' '}
-          <Text
-            onPress={() => navigation.goBack()}
-            style={styles.functionalText}>
+          <Text onPress={navigation.goBack} style={styles.functionalText}>
             Sign in
           </Text>
         </Text>

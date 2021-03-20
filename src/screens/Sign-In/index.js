@@ -25,9 +25,10 @@ export default function SignInScreen({navigation}) {
   }
 
   const googleSignIn = async () => {
-    Toast({title: 'Success', text: 'Logged in'})
-    navigation.push('BottomTabs', {screen: 'Home'})
+    console.log('Removed temporary for repository safety')
   }
+
+  const navigateToSignUp = () => navigation.navigate('SignUp')
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
@@ -78,7 +79,7 @@ export default function SignInScreen({navigation}) {
           />
         </Form>
         <Button
-          onSubmit={() => googleSignIn()}
+          onSubmit={googleSignIn}
           styling={{
             buttonStyle: styles.connectWithGoogleButton,
             textStyle: styles.connectWithGoogleButtonText,
@@ -88,9 +89,7 @@ export default function SignInScreen({navigation}) {
         />
         <Text style={styles.navigateToSignUpText}>
           Don't have an account?{' '}
-          <Text
-            onPress={() => navigation.navigate('SignUp')}
-            style={styles.functionalText}>
+          <Text onPress={navigateToSignUp} style={styles.functionalText}>
             Sign up
           </Text>
         </Text>

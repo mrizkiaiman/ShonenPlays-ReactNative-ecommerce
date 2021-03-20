@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react'
+import React, {useEffect, useContext, useState} from 'react'
 import {ScrollView, View, Text, ActivityIndicator} from 'react-native'
 import {useDispatch} from 'react-redux'
 //Styling
@@ -21,11 +21,28 @@ export default function Home({navigation}) {
   const {bestSeller, popularCategories, allCategories} = useContext(
     StaticContext,
   )
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    dispatch(fetchCart_redux())
-    dispatch(fetchAddress_redux())
-    dispatch(fetchOrders_redux())
+    const fetchHome = () => {
+      dispatch(fetchCart_redux())
+      dispatch(fetchAddress_redux())
+      dispatch(fetchOrders_redux())
+      if (bestSeller && popularCategories && allCategories) setIsLoading(false)
+    }
+
+    fetchHome()
   }, [])
+
+  const navigateToCategories = () => navigation.navigate('Categories')
+  const navigateToProducts = () =>
+    navigation.navigate('Products', {keyword: 'Best Seller'})
+
+  if (isLoading)
+    return (
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <ActivityIndicator size="large" color="#0389FF" />
+      </View>
+    )
 
   return (
     <ScrollView>
@@ -62,11 +79,7 @@ export default function Home({navigation}) {
           }}>
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Best Seller</Text>
-            <Text
-              onPress={() =>
-                navigation.navigate('Products', {keyword: 'Best Seller'})
-              }
-              style={styles.functionalText}>
+            <Text onPress={navigateToProducts} style={styles.functionalText}>
               See all
             </Text>
           </View>
@@ -95,9 +108,7 @@ export default function Home({navigation}) {
           }}>
           <View style={styles.sectionHeaderContainer}>
             <Text style={styles.titleSectionText}>Categories</Text>
-            <Text
-              onPress={() => navigation.navigate('Categories')}
-              style={styles.functionalText}>
+            <Text onPress={navigateToCategories} style={styles.functionalText}>
               See all
             </Text>
           </View>

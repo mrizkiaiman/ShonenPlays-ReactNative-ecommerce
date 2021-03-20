@@ -41,6 +41,11 @@ export default function Input({
     },
   })
 
+  const displayPassword = () => {
+    if (passwordConfig && passwordConfig.setShowPassword)
+      passwordConfig.setShowPassword(!passwordConfig.showPassword)
+  }
+
   return type === 'box' ? (
     passwordConfig ? (
       <View
@@ -62,17 +67,13 @@ export default function Input({
         />
         {passwordConfig.showPassword ? (
           <TouchableOpacity
-            onPress={() =>
-              passwordConfig.setShowPassword(!passwordConfig.showPassword)
-            }
+            onPress={displayPassword}
             style={styles.passwordToggle}>
             <HidePasswordIcon />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            onPress={() =>
-              passwordConfig.setShowPassword(!passwordConfig.showPassword)
-            }
+            onPress={displayPassword}
             style={styles.passwordToggle}>
             <ShowPasswordIcon />
           </TouchableOpacity>
@@ -95,7 +96,7 @@ export default function Input({
     type === 'form' && (
       <View style={{...styles.formContainer, ...customContainerStyle}}>
         <Text
-          onPress={onSubmit ? () => onSubmit() : null}
+          onPress={onSubmit ? onSubmit : null}
           style={
             value
               ? {...styles.input, ...tailwind('text-black')}

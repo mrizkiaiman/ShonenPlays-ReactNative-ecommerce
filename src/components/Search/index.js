@@ -24,11 +24,13 @@ export default ({
     },
   })
 
+  const navigateToSearch = () => {
+    navigation.navigate('Search')
+  }
+
   const navigation = useNavigation()
   return disabled ? (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Search')}
-      style={styles.mainContainer}>
+    <TouchableOpacity onPress={navigateToSearch} style={styles.mainContainer}>
       <SearchIcon style={{marginHorizontal: 15}} />
       <Text style={{color: '#B4B4B4'}}>Search</Text>
     </TouchableOpacity>

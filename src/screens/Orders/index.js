@@ -11,6 +11,10 @@ import {OrderCard} from './components'
 
 export default ({navigation}) => {
   const ordersFromRedux = useSelector((state) => state.orders.data)
+  const navigateToOrderDetails = () => {
+    navigation.navigate('OrderDetails', {order})
+  }
+  const navigateToMarket = () => navigation.navigate('Market')
   return (
     <>
       <ScrollView>
@@ -24,9 +28,7 @@ export default ({navigation}) => {
           {ordersFromRedux.length > 0 ? (
             <View style={tailwind('mt-4')}>
               {ordersFromRedux.map((order, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => navigation.navigate('OrderDetails', {order})}>
+                <TouchableOpacity key={index} onPress={navigateToOrderDetails}>
                   <OrderCard order={order} />
                 </TouchableOpacity>
               ))}
@@ -34,7 +36,7 @@ export default ({navigation}) => {
           ) : (
             <View style={tailwind('mt-10')}>
               <EmptyState
-                onSubmit={() => navigation.navigate('Market')}
+                onSubmit={navigateToMarket}
                 screen="Orders"
                 buttonText="Browse items"
               />

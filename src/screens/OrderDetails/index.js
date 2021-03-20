@@ -132,7 +132,7 @@ export default ({navigation, route}) => {
           textStyle: styles.reorderButtonText,
         }}
         title={status === 0 ? 'Pay now' : 'Re-Order'}
-        onSubmit={() => reOrderOnSubmit()}
+        onSubmit={reOrderOnSubmit}
       />
     </>
   )

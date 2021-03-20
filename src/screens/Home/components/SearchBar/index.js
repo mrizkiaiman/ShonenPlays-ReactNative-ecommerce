@@ -20,11 +20,12 @@ export default function SearchBar() {
   })
 
   const navigation = useNavigation()
+  const navigateToSearch = () => {
+    navigation.navigate('Search')
+  }
 
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('Search')}
-      style={styles.mainContainer}>
+    <TouchableOpacity onPress={navigateToSearch} style={styles.mainContainer}>
       <Text style={{color: 'white', marginLeft: 10}}>Search</Text>
     </TouchableOpacity>
   )

@@ -12,7 +12,7 @@ import Button from '../../components/Button'
 export default ({styling, title, onSubmit}) => {
   return (
     <View style={styles.mainContainer}>
-      <Button onSubmit={() => onSubmit()} styling={styling} title={title} />
+      <Button onSubmit={onSubmit} styling={styling} title={title} />
     </View>
   )
 }
