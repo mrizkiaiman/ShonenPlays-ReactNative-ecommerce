@@ -93,7 +93,7 @@ export default ({profileData, profileImage, setProfileImage}) => {
           Contact Person
         </Text>
         {userInfo.map((info, index) => (
-          <Input key={index} {...info} />
+          <Input key={info.placeholder} {...info} />
         ))}
       </View>
       <View style={styles.informationContainer}>

@@ -138,17 +138,17 @@ export default ({navigation}) => {
         </View>
         <View style={styles.menuListContainer}>
           {menuFirstRow.map((menu, index) => (
-            <Menu key={index} menu={menu} />
+            <Menu key={menu.name} menu={menu} />
           ))}
         </View>
         <View style={styles.menuListContainer}>
           {menuSecondRow.map((menu, index) => (
-            <Menu key={index} menu={menu} />
+            <Menu key={menu.name} menu={menu} />
           ))}
         </View>
         <View style={{...styles.menuListContainer, marginBottom: 8}}>
           {menuThirdRow.map((menu, index) => (
-            <Menu key={index} menu={menu} />
+            <Menu key={menu.name} menu={menu} />
           ))}
         </View>
       </ScrollView>

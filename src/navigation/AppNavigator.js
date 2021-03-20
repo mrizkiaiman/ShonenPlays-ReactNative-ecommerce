@@ -10,7 +10,6 @@ import Search from '../screens/Search'
 import Checkout from '../screens/Checkout'
 import OrderDetails from '../screens/OrderDetails'
 import Wishlist from '../screens/Wishlist'
-import ChangePassword from '../screens/ChangePassword'
 import SignIn from '../screens/Sign-In'
 //More menu
 import ShippingAddress from '../screens/Address'
@@ -116,14 +115,6 @@ const AppNavigator = () => {
           options={() => ({
             headerShown: true,
             title: 'Wishlist',
-          })}
-        />
-        <Stack.Screen
-          name="ChangePassword"
-          component={ChangePassword}
-          options={() => ({
-            headerShown: true,
-            title: 'Change Password',
           })}
         />
         <Stack.Screen

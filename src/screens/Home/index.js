@@ -68,7 +68,7 @@ export default function Home({navigation}) {
           <ScrollView horizontal style={styles.sectionContentContainer}>
             {popularCategories &&
               popularCategories.map((category, index) => (
-                <PopularCategory key={index} category={category} />
+                <PopularCategory key={category._id} category={category} />
               ))}
           </ScrollView>
         </View>
@@ -118,7 +118,7 @@ export default function Home({navigation}) {
               allCategories
                 .slice(0, 9)
                 .map((category, index) => (
-                  <Category key={index} category={category} />
+                  <Category key={category._id} category={category} />
                 ))}
           </View>
         </View>

@@ -19,7 +19,7 @@ export default ({setAddress}) => {
         <TouchableOpacity
           onPress={() => setAddress(address)}
           style={styles.addressContainer}
-          key={index}>
+          key={address._id}>
           <Address addressData={address} />
         </TouchableOpacity>
       ))}

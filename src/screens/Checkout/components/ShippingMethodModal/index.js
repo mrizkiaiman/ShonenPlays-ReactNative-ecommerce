@@ -17,7 +17,7 @@ export default ({setShippingMethod}) => {
         <TouchableOpacity
           onPress={() => setShippingMethod(shipping)}
           style={styles.shippingMethodContainer}
-          key={index}>
+          key={shipping.name}>
           <Text
             style={tailwind(
               'font-normal font-semibold text-dgray text-lg mb-2',

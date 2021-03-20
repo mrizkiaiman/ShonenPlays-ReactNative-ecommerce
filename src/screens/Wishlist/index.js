@@ -32,7 +32,7 @@ export default () => {
               />
               <View style={tailwind('m-4')}>
                 {wishlistFromRedux.map((product, index) => (
-                  <WishlistProduct key={index} product={product} />
+                  <WishlistProduct key={product._id} product={product} />
                 ))}
               </View>
             </View>
@@ -44,7 +44,7 @@ export default () => {
             <ScrollView style={tailwind('ml-2')} horizontal>
               {recommendedItems.map((product, index) => (
                 <Product
-                  key={index}
+                  key={product._id}
                   customStyle={tailwind('mx-2')}
                   product={product}
                 />

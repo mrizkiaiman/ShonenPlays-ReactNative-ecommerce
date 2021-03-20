@@ -65,7 +65,7 @@ export default ({Hardcode}) => {
     <View style={styles.mainContainer}>
       <View style={styles.informationContainer}>
         {userInfo.map((info, index) => (
-          <Input key={index} {...info} />
+          <Input key={info.placeholder} {...info} />
         ))}
       </View>
     </View>

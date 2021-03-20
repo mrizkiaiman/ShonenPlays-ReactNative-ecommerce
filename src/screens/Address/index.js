@@ -37,7 +37,7 @@ export default ({navigation}) => {
             />
             <View style={tailwind('mt-4')}>
               {addressFromRedux.map((address, index) => (
-                <AddressCard key={index} address={address} />
+                <AddressCard key={address._id} address={address} />
               ))}
             </View>
           </View>

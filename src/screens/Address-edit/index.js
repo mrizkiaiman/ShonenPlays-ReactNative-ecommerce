@@ -197,7 +197,7 @@ export default ({navigation, route: {params}}) => {
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitleText}>Shipping Address</Text>
             {addressInfo.map((info, index) => (
-              <Input key={index} {...info} />
+              <Input key={info.placeholder} {...info} />
             ))}
           </View>
           <TouchableOpacity
@@ -209,7 +209,7 @@ export default ({navigation, route: {params}}) => {
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitleText}>Contact Person</Text>
             {userInfo.map((info, index) => (
-              <Input key={index} {...info} />
+              <Input key={info.placeholder} {...info} />
             ))}
           </View>
         </View>

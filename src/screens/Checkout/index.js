@@ -148,7 +148,7 @@ export default ({navigation, route: {params}}) => {
           {cartFromRedux &&
             cartFromRedux.products &&
             cartFromRedux.products.map((product, index) => (
-              <Product key={index} productData={product} />
+              <Product key={product._id} productData={product} />
             ))}
         </View>
         {/* Shipping Method */}

@@ -83,7 +83,7 @@ export default ({navigation, route}) => {
         <View style={styles.mainContainer}>
           <View style={tailwind('mt-2')}>
             {headerInformationList.map((info, index) => (
-              <HeaderInformation key={index} {...info} />
+              <HeaderInformation key={info.title} {...info} />
             ))}
           </View>
           <View style={tailwind('mt-2 p-4 bg-white')}>
@@ -91,7 +91,7 @@ export default ({navigation, route}) => {
               Products
             </Text>
             {products.map((product, index) => (
-              <Product key={index} productData={product} />
+              <Product key={product._id} productData={product} />
             ))}
           </View>
           <View style={tailwind('mt-2 p-4 bg-white')}>

@@ -11,9 +11,6 @@ import {OrderCard} from './components'
 
 export default ({navigation}) => {
   const ordersFromRedux = useSelector((state) => state.orders.data)
-  const navigateToOrderDetails = () => {
-    navigation.navigate('OrderDetails', {order})
-  }
   const navigateToMarket = () => navigation.navigate('Market')
   return (
     <>
@@ -28,7 +25,9 @@ export default ({navigation}) => {
           {ordersFromRedux.length > 0 ? (
             <View style={tailwind('mt-4')}>
               {ordersFromRedux.map((order, index) => (
-                <TouchableOpacity key={index} onPress={navigateToOrderDetails}>
+                <TouchableOpacity
+                  key={order._id}
+                  onPress={() => navigation.navigate('OrderDetails', {order})}>
                   <OrderCard order={order} />
                 </TouchableOpacity>
               ))}

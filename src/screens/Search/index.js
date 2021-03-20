@@ -42,7 +42,7 @@ export default ({navigation}) => {
             <Text
               onPress={() => setSearchKeyword(keyword)}
               style={styles.popularKeywordText}
-              key={index}>
+              key={keyword}>
               {keyword}
             </Text>
           ))}
@@ -53,7 +53,7 @@ export default ({navigation}) => {
           </View>
           <ScrollView horizontal style={styles.sectionContentContainer}>
             {popularCategories.map((category, index) => (
-              <PopularCategory key={index} category={category} />
+              <PopularCategory key={category._id} category={category} />
             ))}
           </ScrollView>
         </View>

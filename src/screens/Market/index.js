@@ -61,7 +61,7 @@ export default ({navigation}) => {
             {bestSeller &&
               bestSeller.slice(0, 4).map((product, index) => (
                 <TouchableOpacity
-                  key={index}
+                  key={product._id}
                   onPress={navigateToProductDetails}>
                   <Product
                     product={product}
@@ -89,7 +89,7 @@ export default ({navigation}) => {
             {promoProducts &&
               promoProducts.map((product, index) => (
                 <TouchableOpacity
-                  key={index}
+                  key={product._id}
                   onPress={() =>
                     navigation.navigate('ProductDetails', {product})
                   }>
@@ -116,7 +116,7 @@ export default ({navigation}) => {
               allCategories
                 .slice(0, 6)
                 .map((category, index) => (
-                  <Category key={index} category={category} />
+                  <Category key={category._id} category={category} />
                 ))}
           </View>
         </View>

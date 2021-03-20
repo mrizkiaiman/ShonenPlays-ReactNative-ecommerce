@@ -60,7 +60,7 @@ export default ({route: {params}, navigation}) => {
           <ScrollView style={{marginStart: -10}} horizontal>
             {relatedProducts.map((product, index) => (
               <Product
-                key={index}
+                key={product._id}
                 customStyle={tailwind('mr-3')}
                 product={product}
               />

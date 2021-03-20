@@ -10,15 +10,15 @@ import {StaticContext} from '../../contexts'
 
 export default ({navigation}) => {
   const {allCategories} = useContext(StaticContext)
-  const navigateToProducts = () => {
+  const navigateToProducts = () =>
     navigation.navigate('Products', {categoryId: category._id})
-  }
+
   return (
     <ScrollView style={styles.mainContainer}>
       <View style={styles.categoryListContainer}>
         {allCategories.response.map((category, index) => (
           <View
-            key={index}
+            key={category._id}
             style={tailwind('justify-center items-center mb-4')}>
             <TouchableOpacity
               onPress={navigateToProducts}

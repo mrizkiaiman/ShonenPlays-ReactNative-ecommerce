@@ -15,6 +15,7 @@ export default ({navigation}) => {
   const cartFromRedux = useSelector((state) => state.cart.data)
   const navigateToMarket = () => navigation.navigate('Market')
   const navigateToCheckout = () => navigation.navigate('Checkout')
+
   return (
     <>
       <ScrollView style={styles.mainContainer}>
@@ -29,7 +30,7 @@ export default ({navigation}) => {
           cartFromRedux.products &&
           cartFromRedux.products.length > 0 ? (
             cartFromRedux.products.map((item, index) => (
-              <Product key={index} productData={item} />
+              <Product key={item._id} productData={item} />
             ))
           ) : (
             <View style={tailwind('mt-10')}>

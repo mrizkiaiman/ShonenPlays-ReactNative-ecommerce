@@ -37,7 +37,7 @@ export default ({costData: {shipping, total, discount}}) => {
   return (
     <View style={styles.mainContainer}>
       {costList.map((cost, index) => (
-        <CostData key={index} {...cost} />
+        <CostData key={cost.title} {...cost} />
       ))}
       <View style={tailwind('flex-row justify-between mt-2')}>
         <Text style={tailwind('font-normal font-semibold text-xl')}>Total</Text>
