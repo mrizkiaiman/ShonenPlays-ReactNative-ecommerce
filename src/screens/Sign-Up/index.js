@@ -60,7 +60,7 @@ export default function SignUpScreen({navigation}) {
         </View>
         <Form
           initialValues={{email: '', password: '', firstName: '', lastName: ''}}
-          onSubmit={(email, password) =>
+          onSubmit={(email, password, firstName, lastName) =>
             signUpOnSubmit(email, password, firstName, lastName)
           }
           validationSchema={FormValidation.SignUp}>

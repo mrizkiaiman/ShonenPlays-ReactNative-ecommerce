@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {AppLoading} from 'expo'
+import AppLoading from 'expo-app-loading'
 import {Provider} from 'react-redux'
 import {NavigationContainer} from '@react-navigation/native'
 import * as ScreenOrientation from 'expo-screen-orientation'
@@ -66,13 +66,17 @@ export default function App() {
   })
 
   const restoreUser = async () => {
-    const user = await authStorage.getUser()
-    if (user) setUser(user)
+    // const user = await authStorage.getUser()
+    // if (user) setUser(user)
   }
 
   if (!isReady || !fontsLoaded)
     return (
-      <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
+      <AppLoading
+        startAsync={restoreUser}
+        onFinish={() => setIsReady(true)}
+        onError={console.warn}
+      />
     )
   else {
     return (
