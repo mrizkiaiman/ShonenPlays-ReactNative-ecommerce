@@ -2,7 +2,7 @@ import React from 'react'
 import {SafeAreaView, View, Text, Dimensions} from 'react-native'
 import styles from './style'
 //Assets
-import WelcomeBanner from '../../assets/Illustrations/Welcome-game.svg'
+import WelcomeBanner from '../../assets/illustrations/Welcome-game.svg'
 //Components
 import Button from '../../src/components/Button'
 

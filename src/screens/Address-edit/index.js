@@ -8,7 +8,7 @@ import {Size} from '../../style'
 const {width, height} = Size
 import {tailwind} from '../../style/tailwind'
 //Assets
-import PinLocationIcon from '../../assets/Icons/map.svg'
+import PinLocationIcon from '../../assets/icons/map.svg'
 //Components
 import {Modalize} from 'react-native-modalize'
 import {Input, ItemList} from '../../components'

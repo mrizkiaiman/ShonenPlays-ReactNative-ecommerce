@@ -8,7 +8,7 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Components
-import {Carousel, PopularCategory, SearchBar} from './components'
+import {carousel, PopularCategory, SearchBar} from './components'
 import {Category, Product} from '../../components'
 import {ScrollViewBounced} from '../../parts'
 
@@ -45,7 +45,7 @@ export default function Home({navigation}) {
               />
             </View>
             <View style={styles.carouselContainer}>
-              <Carousel />
+              <carousel />
             </View>
           </View>
           <View style={styles.sectionContainer}>

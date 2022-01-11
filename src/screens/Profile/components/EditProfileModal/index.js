@@ -6,7 +6,7 @@ import {Size} from '../../../../style'
 const {width, height} = Size
 import {tailwind} from '../../../../style/tailwind'
 //Assets
-import UploadIcon from '../../../../assets/Icons/upload.svg'
+import UploadIcon from '../../../../assets/icons/upload.svg'
 //Components
 import {Input, Address} from '../../../../components'
 //Functions

@@ -6,7 +6,7 @@ import {Size} from '../../../../style'
 import {tailwind} from '../../../../style/tailwind'
 const {width, height} = Size
 //Assets
-import DotsIcon from '../../../../assets/Icons/dots-vertical.svg'
+import DotsIcon from '../../../../assets/icons/dots-vertical.svg'
 //Components
 import {Button} from '../../../../components'
 //Functions

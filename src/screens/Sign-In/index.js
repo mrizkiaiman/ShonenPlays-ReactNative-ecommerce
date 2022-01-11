@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import * as Google from 'expo-google-app-auth'
 import styles from './style'
 //Assets
-import GoogleIcon from '../../assets/Icons/google.svg'
+import GoogleIcon from '../../assets/icons/google.svg'
 //Components
 import {Button, FormField, FormButton, Form} from '../../components'
 //Functions

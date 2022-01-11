@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {StyleSheet, View, Image, ActivityIndicator} from 'react-native'
-import Carousel, {Pagination} from 'react-native-snap-carousel'
+import carousel, {Pagination} from 'react-native-snap-carousel'
 //Styling
 import {tailwind} from '../../../../style/tailwind'
 import {Size, Colors} from '../../../../style'
@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
 export default () => {
   const [activeSlide, setActiveSlide] = useState(0)
   const images = [
-    // require('../../../../assets/Carousel/carousel-1.png'),
-    require('../../../../assets/Carousel/carousel-3.jpg'),
-    require('../../../../assets/Carousel/carousel-4.jpg'),
-    require('../../../../assets/Carousel/carousel-2.jpg'),
+    // require('../../../../assets/carousel/carousel-1.png'),
+    require('../../../../assets/carousel/carousel-3.jpg'),
+    require('../../../../assets/carousel/carousel-4.jpg'),
+    require('../../../../assets/carousel/carousel-2.jpg'),
   ]
 
   const _renderItem = ({item, index}) => {
@@ -41,7 +41,7 @@ export default () => {
 
   return (
     <View style={styles.mainContainer}>
-      <Carousel
+      <carousel
         data={images}
         renderItem={_renderItem}
         sliderWidth={width * 1.2}

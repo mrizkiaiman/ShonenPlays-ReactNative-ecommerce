@@ -14,7 +14,7 @@ import {
   ShippingAddressIcon,
   HelpIcon,
   LogoutIcon,
-} from '../../assets/Icons/MoreMenu'
+} from '../../assets/icons/MoreMenu'
 //Components
 import {Modalize} from 'react-native-modalize'
 import {TabScreenHeader, ModalHeader} from '../../parts'

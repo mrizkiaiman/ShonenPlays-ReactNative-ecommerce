@@ -7,7 +7,7 @@ import {Size, Buttons} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import WishlistIcon from '../../assets/Icons/wishlist.svg'
+import WishlistIcon from '../../assets/icons/wishlist.svg'
 //Components
 import Button from '../Button'
 //Functions

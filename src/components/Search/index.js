@@ -6,7 +6,7 @@ import {Size} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import SearchIcon from '../../assets/Icons/search-gray.svg'
+import SearchIcon from '../../assets/icons/search-gray.svg'
 //Components
 //Functions
 

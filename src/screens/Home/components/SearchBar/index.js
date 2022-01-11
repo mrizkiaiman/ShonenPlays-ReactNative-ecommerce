@@ -2,7 +2,7 @@ import React from 'react'
 import {TouchableOpacity, StyleSheet, TextInput} from 'react-native'
 import {useNavigation} from '@react-navigation/native'
 //Assets
-import SearchIcon from '../../../../assets/Icons/search.svg'
+import SearchIcon from '../../../../assets/icons/search.svg'
 //Styling
 import {tailwind} from '../../../../style/tailwind'
 import {Size} from '../../../../style'

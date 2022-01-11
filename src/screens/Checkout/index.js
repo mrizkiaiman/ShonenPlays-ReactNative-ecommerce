@@ -8,7 +8,7 @@ import {Size, Buttons} from '../../style'
 import {tailwind} from '../../style/tailwind'
 const {width, height} = Size
 //Assets
-import RightIcon from '../../assets/Icons/rightDirection-dgreen.svg'
+import RightIcon from '../../assets/icons/rightDirection-dgreen.svg'
 //Components
 import {Modalize} from 'react-native-modalize'
 import {
